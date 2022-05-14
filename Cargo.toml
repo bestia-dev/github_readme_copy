@@ -1,6 +1,6 @@
 [package]
 name = "github_readme_copy"
-version = "1.0.18"
+version = "1.0.30"
 description = "Copy my public README.md files from Github in HTML format"
 authors = ["bestia.dev"]
 homepage = "https://bestia.dev"
@@ -20,4 +20,5 @@ anyhow="1.0.56"
 octocrab="0.16.0"
 unwrap="1.2.1"
 futures = "0.3.21"
-tokio = { version = "1.18.2", features = ["full"] }
+tokio = { version = "1.18.2", features = ["rt", "rt-multi-thread" ]}
+reqwest={version="0.11.10", features=["blocking"]}

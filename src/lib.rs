@@ -236,6 +236,7 @@
 
 // access to modules
 mod github_mod;
+mod utils_mod;
 
 // `pub use` allows the caller of the lib to access modules functions, structs or all(*)
 pub use github_mod::format_upper_hello_phrase;

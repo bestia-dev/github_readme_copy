@@ -37,6 +37,10 @@ You need to have a [github PAT (personal access token)](https://docs.github.com/
 export GITHUB_TOKEN=ghp_111111111111111111111
 ```
 
+## TODO
+
+rayon to get html in parallel.
+upload to web server
 
 
 ## cargo crev reviews and advisory

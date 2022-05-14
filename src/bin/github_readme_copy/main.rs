@@ -16,7 +16,7 @@ fn main() {
 
     // read from env variable
     let token = std::env::var("GITHUB_TOKEN").expect("GITHUB_TOKEN env variable is required");
-    dbg!(&token);
+    // dbg!(&token);
     list_repos(&token);
 }
 
