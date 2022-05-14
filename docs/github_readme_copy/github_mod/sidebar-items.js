@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["format_upper_hello_phrase","format the hello phrase with uppercase name if it is already uppercase, return error with thiserror"],["list_my_public_repos","list_my_public_repos"],["make_uppercase","return uppercase"]]});

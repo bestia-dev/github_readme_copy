@@ -71,7 +71,7 @@ pub fn list_my_public_repos(token: &str) {
             if let Ok(entry) = entry {
                 if entry.file_name().to_string_lossy().ends_with(".html") {
                     let mut repo_exists = false;
-                    for repo in &vec_of_repo {                       
+                    for repo in &vec_of_repo {
                         if format!("{}.html", &repo.name) == entry.file_name().to_string_lossy() {
                             repo_exists = true;
                             break;

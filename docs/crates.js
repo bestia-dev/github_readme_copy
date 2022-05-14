@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["github_readme_copy"];
