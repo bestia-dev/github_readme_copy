@@ -1,0 +1,23 @@
+[package]
+name = "github_readme_copy"
+version = "1.0.18"
+description = "Copy my public README.md files from Github in HTML format"
+authors = ["bestia.dev"]
+homepage = "https://bestia.dev"
+edition = "2021"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/bestia-dev/github_readme_copy"
+categories = ["rust-patterns"]
+keywords = ["Rust cli and library project template"]
+publish = false
+
+[dependencies]
+log = "0.4"
+pretty_env_logger="0.4.0"
+thiserror = "1.0.30"
+anyhow="1.0.56"
+octocrab="0.16.0"
+unwrap="1.2.1"
+futures = "0.3.21"
+tokio = { version = "1.18.2", features = ["full"] }
