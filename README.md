@@ -18,7 +18,7 @@
 
 [comment]: # (auto_lines_of_code end)
 
-[![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/github_readme_copy/blob/main/LICENSE) [![Rust](https://github.com/bestia-dev/github_readme_copy/workflows/RustAction/badge.svg)](https://github.com/bestia-dev/github_readme_copy/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/github_readme_copy/blob/main/LICENSE) [![Rust](https://github.com/bestia-dev/github_readme_copy/workflows/RustAction/badge.svg)](https://github.com/bestia-dev/github_readme_copy/)
 
 ## Motivation
 
@@ -41,7 +41,6 @@ export GITHUB_TOKEN=ghp_111111111111111111111
 
 rayon to get html in parallel.
 upload to web server
-
 
 ## cargo crev reviews and advisory
 
