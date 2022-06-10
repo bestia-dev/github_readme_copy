@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-rust-regex-explanations-in-pwa" class="anchor" aria-hidden="true" href="#rust-regex-explanations-in-pwa"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Rust regex explanations in PWA</h1>
+<p dir="auto"><em><strong>version: 2020.810.640  date: 2020-08-10 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/rust_regex_explanation_pwa">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/rust_regex_explanation_pwa/"><img src="https://camo.githubusercontent.com/22f7bec90585e18a820655bac4f2a50ab3631dafc6ddaf3402de8d21819945e4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f527573742d313437342d677265656e2e737667" alt="Lines in Rust code" data-canonical-src="https://img.shields.io/badge/Lines_in_Rust-1474-green.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_regex_explanation_pwa/"><img src="https://camo.githubusercontent.com/42811032356224ef86870f4ebcd65a799f5c036a3e8706954f8e38d5a5ad7606/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f446f635f636f6d6d656e74732d3135362d626c75652e737667" alt="Lines in Doc comments" data-canonical-src="https://img.shields.io/badge/Lines_in_Doc_comments-156-blue.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_regex_explanation_pwa/"><img src="https://camo.githubusercontent.com/99e7a8d765afc0f462d35fbf651d2b252decfa32c1d7dc718af885562101b59d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f636f6d6d656e74732d3134392d707572706c652e737667" alt="Lines in Comments" data-canonical-src="https://img.shields.io/badge/Lines_in_comments-149-purple.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_regex_explanation_pwa/"><img src="https://camo.githubusercontent.com/ca23628eb99142a21cb1c4d2691f8eb74e53f9731e50ebd3dab96f4ea3baa96b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f6578616d706c65732d302d79656c6c6f772e737667" alt="Lines in examples" data-canonical-src="https://img.shields.io/badge/Lines_in_examples-0-yellow.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_regex_explanation_pwa/"><img src="https://camo.githubusercontent.com/1b1b893bf6a344f5b57d01d3bd940441cb82ea48c2fc81a76d87bfcf5a5cf50e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f74657374732d302d6f72616e67652e737667" alt="Lines in tests" data-canonical-src="https://img.shields.io/badge/Lines_in_tests-0-orange.svg" style="max-width: 100%;"></a></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/rust_regex_explanation_pwa/blob/master/LICENSE"><img src="https://camo.githubusercontent.com/83d3746e5881c1867665223424263d8e604df233d0a11aae0813e0414d433943/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667" alt="License" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_regex_explanation_pwa/"><img src="https://github.com/bestia-dev/rust_regex_explanation_pwa/workflows/RustAction/badge.svg" alt="Rust" style="max-width: 100%;"></a>
+<a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/85c4d7950bf88a3642b8b8298e7855024a6b5b16cb0b3276d6ee8c293e2db0c6/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246727573745f72656765785f6578706c616e6174696f6e5f70776126636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Frust_regex_explanation_pwa&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #tutorial #regex #pwa</p>
+<h2 dir="auto"><a id="user-content-try-it" class="anchor" aria-hidden="true" href="#try-it"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Try it</h2>
+<p dir="auto"><a href="https://bestia.dev/rust_regex_explanation_pwa/" rel="nofollow">https://bestia.dev/rust_regex_explanation_pwa/</a></p>
+<h2 dir="auto"><a id="user-content-regex-explanation-and-testing" class="anchor" aria-hidden="true" href="#regex-explanation-and-testing"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Regex explanation and testing</h2>
+<p dir="auto">Regex is great. But it is much easier to write and understand with a little help of explanations.<br>
+Regex has many flavors with subtle differences. This PWA uses Rust Regex crate.<br>
+It generates Rust code and shows that code results for the 6 important Regex methods.<br>
+Useful as learning tool and as development tool to edit/test/debug your regex first.</p>
+<h2 dir="auto"><a id="user-content-minimal-example-of-wasmwebassembly-with-vanilla-html-css-and-javascript" class="anchor" aria-hidden="true" href="#minimal-example-of-wasmwebassembly-with-vanilla-html-css-and-javascript"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Minimal example of Wasm/Webassembly with vanilla Html, Css and Javascript</h2>
+<p dir="auto">First decision - no frameworks. Just vanilla. Then no javascript.<br>
+Some basic html. Some basic css.<br>
+<code>contenteditable</code> - Every day something new. Modern browsers have a wysiwyg editor.<br>
+Just add the attribute contenteditable to a <code>div</code> or <code>code</code>.<br>
+All the rest is in Rust with web-sys/wasm-bindgen for all the programming needs.<br>
+No other special requirements.<br>
+Ok, I had to use the javascript library <code>highlightjs</code> to bring some colors to the code.<br>
+It is more like a coding tutorial for creating PWA in Rust.</p>
+<h2 dir="auto"><a id="user-content-pwa" class="anchor" aria-hidden="true" href="#pwa"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>PWA</h2>
+<p dir="auto">I added the manifest, the worker and a bunch of icons.<br>
+Now it :</p>
+<ul dir="auto">
+<li>can work offline,</li>
+<li>can install as an "app"</li>
+<li>execution is sand-boxed in the browser</li>
+<li>no way to bring some malware (if the browser in not compromised)</li>
+<li>stores text and section visibility in LocalStorage of the browser</li>
+</ul>
+<h2 dir="auto"><a id="user-content-change-colors" class="anchor" aria-hidden="true" href="#change-colors"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Change colors</h2>
+<p dir="auto">Users can change the colors with the use of the Chrome extension <code>User CSS</code>:<br>
+<a href="https://chrome.google.com/webstore/detail/user-css/okpjlejfhacmgjkmknjhadmkdbcldfcb" rel="nofollow">https://chrome.google.com/webstore/detail/user-css/okpjlejfhacmgjkmknjhadmkdbcldfcb</a><br>
+Copy/paste and then edit the colors and watch changes alive:</p>
+<div class="highlight highlight-source-css notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content=":root {
+    /* color palette */
+    /* background color */
+    --b_color_body: #24292E;
+    --b_color_code: #1B1D23;
+    --b_color_grid_header: #181A1F;
+    --b_color_container: #333842;
+    --b_color_button: dodgerblue;
+    /* front color */
+    --f_color_body: #dce0e9;
+    --f_color_code: #78C379;
+    --f_color_link: white;
+    --f_color_05: yellow;
+    --f_color_06: dark-white;
+    --f_color_07: black;
+    /* border color*/
+    --brd_color_01: #000;
+    --brd_color_02: #eaecef;
+}"><pre><span class="pl-kos">:</span><span class="pl-c1">root</span> {
+    <span class="pl-c">/* color palette */</span>
+    <span class="pl-c">/* background color */</span>
+    <span class="pl-c1">--b_color_body</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>24292E</span>;
+    <span class="pl-c1">--b_color_code</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>1B1D23</span>;
+    <span class="pl-c1">--b_color_grid_header</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>181A1F</span>;
+    <span class="pl-c1">--b_color_container</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>333842</span>;
+    <span class="pl-c1">--b_color_button</span><span class="pl-kos">:</span> dodgerblue;
+    <span class="pl-c">/* front color */</span>
+    <span class="pl-c1">--f_color_body</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>dce0e9</span>;
+    <span class="pl-c1">--f_color_code</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>78C379</span>;
+    <span class="pl-c1">--f_color_link</span><span class="pl-kos">:</span> white;
+    <span class="pl-c1">--f_color_05</span><span class="pl-kos">:</span> yellow;
+    <span class="pl-c1">--f_color_06</span><span class="pl-kos">:</span> dark-white;
+    <span class="pl-c1">--f_color_07</span><span class="pl-kos">:</span> black;
+    <span class="pl-c">/* border color*/</span>
+    <span class="pl-c1">--brd_color_01</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>000</span>;
+    <span class="pl-c1">--brd_color_02</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>eaecef</span>;
+}</pre></div>
+<h2 dir="auto"><a id="user-content-development" class="anchor" aria-hidden="true" href="#development"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Development</h2>
+<p dir="auto">We will need a web file server because security does not allow loading modules from local file.<br>
+Install this basic one:
+<code>cargo install basic-http-server</code><br>
+Run the server in a separate terminal so it can stay running all the time:<br>
+Go to the content folder:<br>
+<code>cd rustprojects/rust_regex_explanation_pwa/web_server_folder/web_content_folder</code><br>
+<code>basic-http-server</code><br>
+Open the browser on:<br>
+<code>http://127.0.0.1:4000</code></p>
+</article>
+</body>
+
+</html>

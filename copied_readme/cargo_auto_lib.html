@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-cargo_auto_lib" class="anchor" aria-hidden="true" href="#cargo_auto_lib"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>cargo_auto_lib</h1>
+<p dir="auto"><strong>Library crate for common tasks when building rust projects. Intended for use with cargo-auto: automation tasks written in Rust language.</strong><br>
+<em><strong>version: 0.7.42 date: 2022-05-12 author: <a href="https://bestia.dev" rel="nofollow">Bestia.dev</a> repository: <a href="https://github.com/bestia-dev/cargo_auto_lib">Github</a></strong></em></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/cargo_auto_lib/"><img src="https://camo.githubusercontent.com/d84d32c5f7ab94ea18287c8d3f5f78da706f90dbd689d568f5bd9a4815d39170/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f527573742d313432332d677265656e2e737667" alt="Lines in Rust code" data-canonical-src="https://img.shields.io/badge/Lines_in_Rust-1423-green.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/cargo_auto_lib/"><img src="https://camo.githubusercontent.com/3831404fd32424c31a7ad7b1d8649a7050956ae5f8a5612ac8a1f715f4467cb0/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f446f635f636f6d6d656e74732d3339332d626c75652e737667" alt="Lines in Doc comments" data-canonical-src="https://img.shields.io/badge/Lines_in_Doc_comments-393-blue.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/cargo_auto_lib/"><img src="https://camo.githubusercontent.com/3ac7052473294003044781fa86404fe086cc8973b76a37f3617377ce9d2ce711/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f636f6d6d656e74732d3137392d707572706c652e737667" alt="Lines in Comments" data-canonical-src="https://img.shields.io/badge/Lines_in_comments-179-purple.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/cargo_auto_lib/"><img src="https://camo.githubusercontent.com/f850cbea09ada79c6e2650dd6d1d7ec39b6bbae5e6bef538e8fedbe6afc6593c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f6578616d706c65732d33302d79656c6c6f772e737667" alt="Lines in examples" data-canonical-src="https://img.shields.io/badge/Lines_in_examples-30-yellow.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/cargo_auto_lib/"><img src="https://camo.githubusercontent.com/8cc15602ccc8addabf202b85a0a424c465a2d4223a43d04333dddae743159819/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f74657374732d39342d6f72616e67652e737667" alt="Lines in tests" data-canonical-src="https://img.shields.io/badge/Lines_in_tests-94-orange.svg" style="max-width: 100%;"></a></p>
+<p dir="auto"><a href="https://crates.io/crates/cargo_auto_lib" rel="nofollow"><img src="https://camo.githubusercontent.com/47d3a2ef596fa5b5c276221ff1459159b0b76ba7ab786267f8552bf4220d434e/68747470733a2f2f696d672e736869656c64732e696f2f6372617465732f762f636172676f5f6175746f5f6c69622e737667" alt="crates.io" data-canonical-src="https://img.shields.io/crates/v/cargo_auto_lib.svg" style="max-width: 100%;"></a> <a href="https://docs.rs/cargo_auto_lib/" rel="nofollow"><img src="https://camo.githubusercontent.com/ceac4c56d9ee1d25f27d312f592d11947247ea4354a41ba19c00a4d47102d727/68747470733a2f2f646f63732e72732f636172676f5f6175746f5f6c69622f62616467652e737667" alt="Documentation" data-canonical-src="https://docs.rs/cargo_auto_lib/badge.svg" style="max-width: 100%;"></a> <a href="https://web.crev.dev/rust-reviews/crate/cargo_auto_lib/" rel="nofollow"><img src="https://camo.githubusercontent.com/c0bd51f011e56d0dac7fa9029d160a27f195171bd8b7d3fb9aa8ac025205374b/68747470733a2f2f7765622e637265762e6465762f727573742d726576696577732f62616467652f637265765f636f756e742f636172676f5f6175746f5f6c69622e737667" alt="crev reviews" data-canonical-src="https://web.crev.dev/rust-reviews/badge/crev_count/cargo_auto_lib.svg" style="max-width: 100%;"></a> <a href="https://lib.rs/crates/cargo_auto_lib/" rel="nofollow"><img src="https://camo.githubusercontent.com/9164bfcebc9eb586a3b2e00e2d0d9a768b5c32960d5a66b68db582b15168f5b9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c69622e72732d727573742d6f72616e67652e737667" alt="Lib.rs" data-canonical-src="https://img.shields.io/badge/Lib.rs-rust-orange.svg" style="max-width: 100%;"></a> <a href="https://github.com/bestia-dev/cargo_auto_lib/blob/master/LICENSE"><img src="https://camo.githubusercontent.com/83d3746e5881c1867665223424263d8e604df233d0a11aae0813e0414d433943/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667" alt="License" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width: 100%;"></a> <a href="https://github.com/bestia-dev/cargo_auto_lib/"><img src="https://github.com/bestia-dev/cargo_auto_lib/workflows/RustAction/badge.svg" alt="Rust" style="max-width: 100%;"></a> <a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/db0a159afff3feae1fd52e9133f5afba29536fd5cb06fd82c8c13ef517533f1a/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246636172676f5f6175746f5f6c696226636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Fcargo_auto_lib&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #buildtool #developmenttool</p>
+<h2 dir="auto"><a id="user-content-try-it" class="anchor" aria-hidden="true" href="#try-it"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Try it</h2>
+<p dir="auto">In your rust project root directory (where the Cargo.toml is)<br>
+first install <a href="https://crates.io/crates/cargo-auto" rel="nofollow">cargo-auto</a> and generate a new helper project:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo install cargo-auto
+cargo auto new"><pre>cargo install cargo-auto
+cargo auto new</pre></div>
+<p dir="auto">In a new editor open the generated directory <code>automation_tasks_rs</code> as an independent rust project. There is already this dependency in <code>Cargo.toml</code>:</p>
+<div class="highlight highlight-source-toml notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo_auto_lib=&quot;0.7.27&quot;"><pre><span class="pl-smi">cargo_auto_lib</span>=<span class="pl-s"><span class="pl-pds">"</span>0.7.27<span class="pl-pds">"</span></span></pre></div>
+<p dir="auto">Preview the code and observe all the <code>auto_*</code> functions from <code>cargo_auto_lib</code>.<br>
+Example:</p>
+<p dir="auto">fn task_release() {<br>
+auto_semver_increment_patch();<br>
+auto_cargo_toml_to_md();<br>
+auto_lines_of_code("");<br>
+auto_build();<br>
+}</p>
+<p dir="auto">Go back to your main rust project.<br>
+Add markers to the beginning of README.md (don't copy the numbers 1 and 2):</p>
+<div class="highlight highlight-source-lisp notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="1 [comment]: # (auto_cargo_toml_to_md start)
+2 [comment]: # (auto_cargo_toml_to_md end)"><pre><span class="pl-c1">1</span> [comment]: # (auto_cargo_toml_to_md start)
+<span class="pl-c1">2</span> [comment]: # (auto_cargo_toml_to_md end)</pre></div>
+<p dir="auto">Run (in your main rust project):</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo auto release"><pre>cargo auto release</pre></div>
+<p dir="auto">With a little luck, it included the data of Cargo.toml into the <code>README.md</code> inside the markers:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/bestia-dev/cargo_auto_lib/raw/main/images/auto_cargo_toml_to_md.png"><img src="https://github.com/bestia-dev/cargo_auto_lib/raw/main/images/auto_cargo_toml_to_md.png" alt="auto_cargo_toml_to_md" title="auto_cargo_toml_to_md" style="max-width: 100%;"></a></p>
+<h2 dir="auto"><a id="user-content-based-on-simple-functions" class="anchor" aria-hidden="true" href="#based-on-simple-functions"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>based on simple functions</h2>
+<p dir="auto">All the functions have extensive help/docs to describe how they work.<br>
+It is nice when you use a code editor with IntelliSense like VSCode.</p>
+<h2 dir="auto"><a id="user-content-caveats" class="anchor" aria-hidden="true" href="#caveats"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Caveats</h2>
+<p dir="auto">This crate will attempt to edit Cargo.toml. Unfortunately there's no great robust way right now to edit TOML file preserving formatting and comments and such, so right now I use just regex to do this.
+If you find that the heuristics don't work for you though please let me know and I'll try to check in a fix!</p>
+<h2 dir="auto"><a id="user-content-learn-something-new-every-day" class="anchor" aria-hidden="true" href="#learn-something-new-every-day"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>learn something new every day</h2>
+<p dir="auto">I needed to copy large text into doc comments.<br>
+It means every line must get a prefix like <code>///</code>.<br>
+In VSCode I selected the text, press<br>
+<code>alt+shift+i</code>
+Now I have <code>multiple cursors</code> on the end of every selected lines.<br>
+I press the key
+<code>home</code>
+And now I have multiple cursors on the beginning of every line.<br>
+I type (insert):
+<code>///</code><br>
+and it's done ! Great !</p>
+<h2 dir="auto"><a id="user-content-todo" class="anchor" aria-hidden="true" href="#todo"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>TODO</h2>
+<p dir="auto">Automate badges for crates.io, doc.rs, lib.rs, license, crev review. Check if they exist and create badges.</p>
+<h2 dir="auto"><a id="user-content-cargo-crev-reviews-and-advisory" class="anchor" aria-hidden="true" href="#cargo-crev-reviews-and-advisory"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>cargo crev reviews and advisory</h2>
+<p dir="auto">We live in times of danger with <a href="https://en.wikipedia.org/wiki/Supply_chain_attack" rel="nofollow">supply chain attacks</a>.<br>
+It is recommended to always use <a href="https://github.com/crev-dev/cargo-crev">cargo-crev</a><br>
+to verify the trustworthiness of each of your dependencies.<br>
+Please, spread this info.<br>
+You can also read reviews quickly on the web:<br>
+<a href="https://web.crev.dev/rust-reviews/crates/" rel="nofollow">https://web.crev.dev/rust-reviews/crates/</a></p>
+<h2 dir="auto"><a id="user-content-open-source-free-and-free-as-a-beer" class="anchor" aria-hidden="true" href="#open-source-free-and-free-as-a-beer"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>open-source free and free as a beer</h2>
+<p dir="auto">My open-source projects are free as a beer (MIT license).<br>
+I just love programming.<br>
+But I need also to drink. If you find my projects and tutorials helpful,<br>
+please buy me a beer donating on my <a href="https://paypal.me/LucianoBestia" rel="nofollow">paypal</a>.<br>
+You know the price of a beer in your local bar ;-)<br>
+So I can drink a free beer for your health :-)<br>
+<a href="https://translate.google.com/?hl=en&amp;sl=sl&amp;tl=en&amp;text=Na%20zdravje&amp;op=translate" rel="nofollow">Na zdravje!</a> <a href="https://dictionary.cambridge.org/dictionary/italian-english/alla-salute" rel="nofollow">Alla salute!</a> <a href="https://dictionary.cambridge.org/dictionary/german-english/prost" rel="nofollow">Prost!</a> <a href="https://matadornetwork.com/nights/how-to-say-cheers-in-50-languages/" rel="nofollow">Nazdravlje!</a> <g-emoji class="g-emoji" alias="beers" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f37b.png">🍻</g-emoji></p>
+</article>
+</body>
+
+</html>

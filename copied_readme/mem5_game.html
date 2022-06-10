@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-mem5_game" class="anchor" aria-hidden="true" href="#mem5_game"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>mem5_game</h1>
+<p dir="auto"><strong>Learning Rust Wasm/WebAssembly, Virtual Dom Dodrio, WebSocket communication and PWA (Progressive Web Apps) - part five</strong><br>
+<em><strong>version: 5.0  date: 2019-12-31 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/mem5_game">GitHub</a></strong></em></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/2f876871848ace71acc0883271463a90919047114f1d6a15e21358c440650f33/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c696e65735f6f665f527573745f636f64652d343539312d73756363657373"><img src="https://camo.githubusercontent.com/2f876871848ace71acc0883271463a90919047114f1d6a15e21358c440650f33/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c696e65735f6f665f527573745f636f64652d343539312d73756363657373" alt="loc" data-canonical-src="https://img.shields.io/badge/lines_of_Rust_code-4591-success" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/d1f8ca600d963d7d3af03488206d67288ec6c79366d4ddd743271daf73be4a9e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c696e65735f6f665f646f63732f636f6d6d656e74732d313233312d696e666f726d6174696f6e616c"><img src="https://camo.githubusercontent.com/d1f8ca600d963d7d3af03488206d67288ec6c79366d4ddd743271daf73be4a9e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c696e65735f6f665f646f63732f636f6d6d656e74732d313233312d696e666f726d6174696f6e616c" alt="loc" data-canonical-src="https://img.shields.io/badge/lines_of_docs/comments-1231-informational" style="max-width: 100%;"></a>
+<a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/a46addea9fdbaf3f9ad824dcf9e7f9fb8d7d98d78da7ae1e540b6b2c83bd3575/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d6465762532466d656d355f67616d6526636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Fmem5_game&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #game #tutorial</p>
+<h2 dir="auto"><a id="user-content-documentation" class="anchor" aria-hidden="true" href="#documentation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Documentation</h2>
+<p dir="auto">Documentation generated from source code:<br>
+<a href="https://bestia-dev.github.io/mem5_game/mem5/index.html" rel="nofollow">https://bestia-dev.github.io/mem5_game/mem5/index.html</a><br>
+The workspace mem5_game is made of projects:</p>
+<ol dir="auto">
+<li>Wasm/WebAssembly (for browsers) frontend - mem5</li>
+<li>web server Warp backend - mem5_server</li>
+<li>common structures - mem5_common</li>
+</ol>
+<p dir="auto">Every project has its own readme.md.</p>
+<ul dir="auto">
+<li><a href="https://github.com/bestia-dev/mem5_game/blob/master/mem5/README.md">mem5/README.md</a></li>
+<li><a href="https://github.com/bestia-dev/mem5_game/blob/master/mem5_common/README.md">mem5_common/README.md</a></li>
+<li><a href="https://github.com/bestia-dev/mem5_game/blob/master/mem5_server/README.md">mem5_server/README.md</a></li>
+</ul>
+<p dir="auto">Read also my <code>Previous projects</code> on Github:<br>
+<a href="https://github.com/bestia-dev/mem4_game">https://github.com/bestia-dev/mem4_game</a></p>
+<h2 dir="auto"><a id="user-content-working-game-server" class="anchor" aria-hidden="true" href="#working-game-server"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Working game server</h2>
+<p dir="auto">You can play the game (mobile only) hosted on google cloud platform:<br>
+<a href="https://bestia.dev/mem5" rel="nofollow">https://bestia.dev/mem5</a></p>
+<h2 dir="auto"><a id="user-content-cargo-make" class="anchor" aria-hidden="true" href="#cargo-make"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Cargo make</h2>
+<p dir="auto">I prepared some flows and tasks for Cargo make for the workspace.<br>
+<code>cargo make</code> - lists the possible available/public flows/tasks<br>
+<code>cargo make dev</code> - builds the development version and runs the server and the browser<br>
+<code>cargo make release</code> - builds the release version and runs the server and the browser<br>
+<code>cargo make audit</code> - cargo audit warnings about dependencies<br>
+<code>cargo make fmt</code> - format source code<br>
+<code>cargo make doc</code> - build the <code>/target/docs</code> folder and copy to the <code>/docs</code> folder<br>
+<code>cargo make sshadd</code> - adds identity to ssh-agent for git and publish operations<br>
+<code>cargo make gitpush</code> - push the commits to github, uses ssh agent<br>
+<code>cargo make publish</code> - publish the webfolder to google vm<br>
+<code>cargo make udeps</code> - lists unused dependencies<br>
+<code>cargo make loc</code> - Lines Of Rust Code with tokei<br>
+<code>cargo make depver</code> - list of not latest dependencies</p>
+<h2 dir="auto"><a id="user-content-cargo-crev-reviews-and-advisory" class="anchor" aria-hidden="true" href="#cargo-crev-reviews-and-advisory"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>cargo crev reviews and advisory</h2>
+<p dir="auto">It is recommended to always use <a href="https://github.com/crev-dev/cargo-crev">cargo-crev</a><br>
+to verify the trustworthiness of each of your dependencies.<br>
+Please, spread this info.<br>
+On the web use this url to read crate reviews. Example:<br>
+<a href="https://web.crev.dev/rust-reviews/crate/num-traits/" rel="nofollow">https://web.crev.dev/rust-reviews/crate/num-traits/</a></p>
+<h2 dir="auto"><a id="user-content-todo-and-changelog" class="anchor" aria-hidden="true" href="#todo-and-changelog"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>TODO and CHANGELOG</h2>
+<p dir="auto">Read files <a href="https://github.com/bestia-dev/mem5_game/blob/master/TODO.md">TODO.md</a> and <a href="https://github.com/bestia-dev/mem5_game/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
+</article>
+</body>
+
+</html>

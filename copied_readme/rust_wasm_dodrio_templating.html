@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-rust_wasm_dodrio_templating" class="anchor" aria-hidden="true" href="#rust_wasm_dodrio_templating"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>rust_wasm_dodrio_templating</h1>
+<p dir="auto"><strong>html templating for dodrio</strong><br>
+<em><strong>version: 1.0.3  date: 2021-01-13 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/rust_wasm_dodrio_templating">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://crates.io/crates/rust_wasm_dodrio_templating" rel="nofollow"><img src="https://camo.githubusercontent.com/82fa2d47b8b70a4c1fe19bf3d654f7d4e052e2ec9972fae00106ad9fbb7e3d75/68747470733a2f2f696d672e736869656c64732e696f2f6372617465732f762f727573745f7761736d5f646f6472696f5f74656d706c6174696e672e737667" alt="crates.io" data-canonical-src="https://img.shields.io/crates/v/rust_wasm_dodrio_templating.svg" style="max-width: 100%;"></a>
+<a href="https://docs.rs/rust_wasm_dodrio_templating/" rel="nofollow"><img src="https://camo.githubusercontent.com/68fa8ea05ed8b1d69ffd43373df1c47e02b8dcca4b0b663f2e62cc8068a68099/68747470733a2f2f646f63732e72732f727573745f7761736d5f646f6472696f5f74656d706c6174696e672f62616467652e737667" alt="Documentation" data-canonical-src="https://docs.rs/rust_wasm_dodrio_templating/badge.svg" style="max-width: 100%;"></a>
+<a href="https://web.crev.dev/rust-reviews/crate/rust_wasm_dodrio_templating/" rel="nofollow"><img src="https://camo.githubusercontent.com/a62f1caec00a8c2d4794b792a2b6c4474daac9fc5e7e9562d468d18866928cfa/68747470733a2f2f7765622e637265762e6465762f727573742d726576696577732f62616467652f637265765f636f756e742f727573745f7761736d5f646f6472696f5f74656d706c6174696e672e737667" alt="crev reviews" data-canonical-src="https://web.crev.dev/rust-reviews/badge/crev_count/rust_wasm_dodrio_templating.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_dodrio_templating/"><img src="https://github.com/bestia-dev/rust_wasm_dodrio_templating/workflows/rust/badge.svg" alt="RustActions" style="max-width: 100%;"></a>
+<a href="https://bestia-dev.github.io/rust_wasm_dodrio_templating/rust_wasm_dodrio_templating/index.html" rel="nofollow"><img src="https://camo.githubusercontent.com/26a8d8b8c6d28b8009f69deb2101a68726a618f5b8026cef6c72933d6273ca52/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c61746573745f646f63732d4769744875622d6f72616e67652e737667" alt="latest doc" data-canonical-src="https://img.shields.io/badge/latest_docs-GitHub-orange.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_dodrio_templating/blob/master/LICENSE"><img src="https://camo.githubusercontent.com/83d3746e5881c1867665223424263d8e604df233d0a11aae0813e0414d433943/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667" alt="License" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width: 100%;"></a>
+<a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/5924cbaa876e5fc3831fddd26d4f6a5b4c967c55bc433713341497ee54fe0cbc/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246727573745f7761736d5f646f6472696f5f74656d706c6174696e6726636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Frust_wasm_dodrio_templating&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/rust_wasm_dodrio_templating/"><img src="https://camo.githubusercontent.com/f3fc3418653d31e124b521320c0d19c64a959856b25901de8d2d9aaef6476f61/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f527573742d3236312d677265656e2e737667" alt="Lines in Rust code" data-canonical-src="https://img.shields.io/badge/Lines_in_Rust-261-green.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_dodrio_templating/"><img src="https://camo.githubusercontent.com/ca2fecb665e5a2b3f4369e8dd5c8ea8ca097b7d586fa358a2c4d41464e591856/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f446f635f636f6d6d656e74732d3134352d626c75652e737667" alt="Lines in Doc comments" data-canonical-src="https://img.shields.io/badge/Lines_in_Doc_comments-145-blue.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_dodrio_templating/"><img src="https://camo.githubusercontent.com/11e6d9083e4e7459dde48f65808ce25a99e253f0f4298b35fabe732e3b753f7f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f636f6d6d656e74732d35312d707572706c652e737667" alt="Lines in Comments" data-canonical-src="https://img.shields.io/badge/Lines_in_comments-51-purple.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_dodrio_templating/"><img src="https://camo.githubusercontent.com/ca23628eb99142a21cb1c4d2691f8eb74e53f9731e50ebd3dab96f4ea3baa96b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f6578616d706c65732d302d79656c6c6f772e737667" alt="Lines in examples" data-canonical-src="https://img.shields.io/badge/Lines_in_examples-0-yellow.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_dodrio_templating/"><img src="https://camo.githubusercontent.com/1b1b893bf6a344f5b57d01d3bd940441cb82ea48c2fc81a76d87bfcf5a5cf50e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f74657374732d302d6f72616e67652e737667" alt="Lines in tests" data-canonical-src="https://img.shields.io/badge/Lines_in_tests-0-orange.svg" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #tutorial #template</p>
+<h2 dir="auto"><a id="user-content-html-templating" class="anchor" aria-hidden="true" href="#html-templating"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Html templating</h2>
+<p dir="auto">In the past I wrote html inside Rust code with the macro <code>html!</code> from the <code>crate typed-html</code><br>
+<a href="https://github.com/bodil/typed-html">https://github.com/bodil/typed-html</a><br>
+It has also a macro <code>dodrio !</code> created exclusively for the dodrio vdom.<br>
+I had two main problems with this approach:</p>
+<ol dir="auto">
+<li>Any change to the html required a recompiling. And that is very slow in Rust.</li>
+<li>I could not add new html elements, that the macro don't recognize. I wanted to use SVG. There was not support for that.</li>
+</ol>
+<p dir="auto">I reinvented the wheel - "html templating".<br>
+First a graphical designer makes a html/css page that looks nice. No javascript, nothing is dynamic. It is just a graphical template.<br>
+Then I insert in it html comments and "data-" attributes that I can later replace in my code.<br>
+The html is not changed graphically because of it. So both the graphical designer and the programmer are still happy.<br>
+In my code I parse the html template as a microXml file. Basically they are the same with small effort. When I find a comment or "data-" attribute then the value of the next node is replaced.<br>
+I can replace attributes, strings and entire nodes. And I can insert event for behavior with "data-wt".<br>
+When developing, the html template is loaded and parsed and a dodrio node is created. That is not very fast. But I can change the html in real time and see it rendered without compiling the Rust code. This is super efficient for development.<br>
+I have in plans to add a Rust code generator, that creates the Rust code for the dodrio node before compile time. In that case nothing is parsed in runtime and I expect great speeds. But the flexibility of easily changing the html template is gone. For every change I must recompile the Rust code.</p>
+<h2 dir="auto"><a id="user-content-used-in-projects" class="anchor" aria-hidden="true" href="#used-in-projects"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Used in projects</h2>
+<p dir="auto"><a href="https://github.com/bestia-dev/unforgettable7_game/">https://github.com/bestia-dev/unforgettable7_game/</a></p>
+<h2 dir="auto"><a id="user-content-how-to-use-it" class="anchor" aria-hidden="true" href="#how-to-use-it"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>How to use it</h2>
+<p dir="auto">Inside a perfectly working static html insert special comments and attributes to replace the next node or attribute.</p>
+<h3 dir="auto"><a id="user-content-replace-the-next-text-node" class="anchor" aria-hidden="true" href="#replace-the-next-text-node"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Replace the next text node</h3>
+<p dir="auto">Insert a comment that starts with "wt_" (webbrowser text).<br>
+After that is the name of the enum to replace in the fn replace_with_string().</p>
+<div class="highlight highlight-text-html-basic notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="&lt;p&gt;&lt;!--wt_new_text&gt;old_text&lt;/p&gt;"><pre><span class="pl-kos">&lt;</span><span class="pl-ent">p</span><span class="pl-kos">&gt;</span>&lt;!--wt_new_text<span class="pl-kos">&gt;</span>old_text<span class="pl-kos">&lt;/</span><span class="pl-ent">p</span><span class="pl-kos">&gt;</span></pre></div>
+<h3 dir="auto"><a id="user-content-replace-the-next-node-with-nodes" class="anchor" aria-hidden="true" href="#replace-the-next-node-with-nodes"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Replace the next node with nodes</h3>
+<p dir="auto">Insert a comment that starts with "wn_" (webbrowser nodes).<br>
+After that is the name of the enum to replace in the fn replace_with_nodes().<br>
+The computed nodes can be complicated with a lot of html. If needed, this fragments of html are saved inside the html template as sub_templates.</p>
+<div class="highlight highlight-text-html-basic notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="&lt;p&gt;&lt;!--wn_new_nodes&gt;&lt;div id=&quot;old_node&quot;&gt;...&lt;/div&gt;&lt;/p&gt;"><pre><span class="pl-kos">&lt;</span><span class="pl-ent">p</span><span class="pl-kos">&gt;</span>&lt;!--wn_new_nodes<span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">div</span> <span class="pl-c1">id</span>="<span class="pl-s">old_node</span>"<span class="pl-kos">&gt;</span>...<span class="pl-kos">&lt;/</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span>p<span class="pl-kos">&gt;</span></pre></div>
+<h3 dir="auto"><a id="user-content-replace-the-next-attribute-text-value" class="anchor" aria-hidden="true" href="#replace-the-next-attribute-text-value"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Replace the next attribute text value</h3>
+<p dir="auto">Insert an attribute that starts with "data-wt-" (webbrowser text).<br>
+The attribute name finishes in the name of the next attribute.<br>
+The attribute value is the enum to use in the fn replace_with_string().</p>
+<div class="highlight highlight-text-html-basic notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="&lt;input data-wt-value=&quot;wt_new_text&quot; value=&quot;old text&quot; /&gt;"><pre><span class="pl-kos">&lt;</span><span class="pl-ent">input</span> <span class="pl-c1">data-wt-value</span>="<span class="pl-s">wt_new_text</span>" <span class="pl-c1">value</span>="<span class="pl-s">old text</span>" /&gt;</pre></div>
+<h3 dir="auto"><a id="user-content-set-the-event-handler" class="anchor" aria-hidden="true" href="#set-the-event-handler"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Set the event handler</h3>
+<p dir="auto">Insert an attribute that starts with "data-on-".<br>
+The attribute name finishes in the name of the event to handle.<br>
+The attribute value is the enum to use in the fn set_event_listener().<br>
+The enum name must start with "wl_" (Webbrowser listener).</p>
+<div class="highlight highlight-text-html-basic notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="&lt;input data-on-keyup=&quot;wl_nickname_on_keyup&quot; /&gt;"><pre><span class="pl-kos">&lt;</span><span class="pl-ent">input</span> <span class="pl-c1">data-on-keyup</span>="<span class="pl-s">wl_nickname_on_keyup</span>" /&gt;</pre></div>
+<h3 dir="auto"><a id="user-content-sub_templates" class="anchor" aria-hidden="true" href="#sub_templates"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Sub_templates</h3>
+<p dir="auto">When a part of the html template needs to be repeated, we use sub_templates.
+A sub_template is inside the html template in the node <code>&lt;template&gt;</code>.</p>
+<div class="highlight highlight-text-html-basic notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="&lt;template name=&quot;sub_template_name&quot;&gt;
+        &lt;div&gt;some html&lt;/div&gt;
+&lt;/template&gt;"><pre><span class="pl-kos">&lt;</span><span class="pl-ent">template</span> <span class="pl-c1">name</span>="<span class="pl-s">sub_template_name</span>"<span class="pl-kos">&gt;</span>
+        <span class="pl-kos">&lt;</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span>some html<span class="pl-kos">&lt;/</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">template</span><span class="pl-kos">&gt;</span></pre></div>
+<p dir="auto">The sub_template has a name attribute that is used for replacement in Rust code to return a vector of nodes for replace the "wn_" special comment.</p>
+<div class="highlight highlight-source-gitignore notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="pub fn div_grid_all_items&lt;'a&gt;(
+    rrc: &amp;RootRenderingComponent,
+    cx: &amp;mut RenderContext&lt;'a&gt;,
+) -&gt; Vec&lt;Node&lt;'a&gt;&gt; {
+    let mut vec_grid_items: Vec&lt;Node&lt;'a&gt;&gt; = Vec::new();
+    for x in 1..=10 {
+        let html_template = rrc.web_data.get_sub_template(&quot;sub_template_name&quot;);
+
+        let grid_item = rrc.render_template(
+            cx,
+            &amp;html_template,
+            rust_wasm_dodrio_templating::html_template_mod::HtmlOrSvg::Html
+        ).unwrap();
+        vec_grid_items.push(grid_item_bump);
+    }
+
+    // return
+    vec_grid_items
+}"><pre><span class="pl-e">pub</span> <span class="pl-e">fn</span> <span class="pl-e">div_grid_all_items&lt;'a&gt;(</span>
+    <span class="pl-e">rrc:</span> <span class="pl-e">&amp;RootRenderingComponent,</span>
+    <span class="pl-e">cx:</span> <span class="pl-e">&amp;mut</span> <span class="pl-e">RenderContext&lt;'a&gt;,</span>
+<span class="pl-e">)</span> <span class="pl-e">-&gt;</span> <span class="pl-e">Vec&lt;Node&lt;'a&gt;&gt;</span> <span class="pl-e">{</span>
+    <span class="pl-e">let</span> <span class="pl-e">mut</span> <span class="pl-e">vec_grid_items:</span> <span class="pl-e">Vec&lt;Node&lt;'a&gt;&gt;</span> <span class="pl-e">=</span> <span class="pl-e">Vec::new();</span>
+    <span class="pl-e">for</span> <span class="pl-e">x</span> <span class="pl-e">in</span> <span class="pl-e">1..=10</span> <span class="pl-e">{</span>
+        <span class="pl-e">let</span> <span class="pl-e">html_template</span> <span class="pl-e">=</span> <span class="pl-e">rrc.web_data.get_sub_template("sub_template_name");</span>
+
+        <span class="pl-e">let</span> <span class="pl-e">grid_item</span> <span class="pl-e">=</span> <span class="pl-e">rrc.render_template(</span>
+            <span class="pl-e">cx,</span>
+            <span class="pl-e">&amp;html_template,</span>
+            <span class="pl-e">rust_wasm_dodrio_templating::html_template_mod::HtmlOrSvg::Html</span>
+        <span class="pl-e">).unwrap();</span>
+        <span class="pl-e">vec_grid_items.push(grid_item_bump);</span>
+    <span class="pl-e">}</span>
+
+    // <span class="pl-e">return</span>
+    <span class="pl-e">vec_grid_items</span>
+<span class="pl-e">}</span></pre></div>
+<h2 dir="auto"><a id="user-content-cargo-crev-reviews-and-advisory" class="anchor" aria-hidden="true" href="#cargo-crev-reviews-and-advisory"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>cargo crev reviews and advisory</h2>
+<p dir="auto">It is recommended to always use <a href="https://github.com/crev-dev/cargo-crev">cargo-crev</a><br>
+to verify the trustworthiness of each of your dependencies.<br>
+Please, spread this info.<br>
+On the web use this url to read crate reviews. Example:<br>
+<a href="https://web.crev.dev/rust-reviews/crate/num-traits/" rel="nofollow">https://web.crev.dev/rust-reviews/crate/num-traits/</a></p>
+</article>
+</body>
+
+</html>

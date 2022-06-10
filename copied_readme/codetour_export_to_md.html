@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-codetour_export_to_md" class="anchor" aria-hidden="true" href="#codetour_export_to_md"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>codetour_export_to_md</h1>
+<p dir="auto"><strong>Export CodeTour files to md</strong><br>
+<em><strong>version: 2020.605.1303 date: 2020-06-05 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/codetour_export_to_md">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/6913c095fab21f261fc8e4fa66bd89372f1f3b52b25b6224effc8bf554e64b41/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246636f6465746f75725f6578706f72745f746f5f6d6426636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Fcodetour_export_to_md&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #developmenttool</p>
+<p dir="auto">CodeTour is a fantastic extension for VSCode. Kudos to the authors.<br>
+<a href="https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour" rel="nofollow">https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour</a><br>
+Every CodeTour contains steps.<br>
+Each step has a description and a link to the file and line number in the source code.<br>
+No more out of sync examples in the documentation.<br>
+This type of documentation is meant to be used for code flow explanation.<br>
+To show other programmers the important information step by step in a logical order for humans.<br>
+This extension for now works only inside VSCode. That is a problem for coders with other editors.</p>
+<h2 dir="auto"><a id="user-content-markdown" class="anchor" aria-hidden="true" href="#markdown"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>markdown</h2>
+<p dir="auto">In the present version (2020-04-27) the extension has no functionality to export to a markdown file.<br>
+I don't have enough knowledge in vs code extensions and Typescript to make a PR contribution.<br>
+So I make a rust tiny small CLI program.<br>
+I prepared this project as a proof of concept how the "export to md" could look like.<br>
+The resulting md is very nice. It is a file and therefore it can be committed to Github.<br>
+In the md there are links to the source code on Github.<br>
+This way all coders can follow the code flow on the actual code.</p>
+<h2 dir="auto"><a id="user-content-example" class="anchor" aria-hidden="true" href="#example"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>example</h2>
+<p dir="auto">I copied to the folder example/ a few files from my other project where I use CodeTour.<br>
+There are 2 similar *.tour files. The CLI will export all tours files in that folder.<br>
+Without any arguments the CLI will look at the standard <code>.tour/</code> folder.<br>
+If the files are in another folder, like for my example, the argument is like this:<br>
+<code>codetour_export_to_md folder=example/.tours</code></p>
+<h2 dir="auto"><a id="user-content-github-and-working-example" class="anchor" aria-hidden="true" href="#github-and-working-example"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>GitHub and working example</h2>
+<p dir="auto">In my other project I tried to write some documentation about the code flow.<br>
+It was horrific.<br>
+I avoided copy/paste the source code because in no time it is obsolete and misleading.<br>
+<a href="https://github.com/bestia-dev/mem6_game/blob/master/CodeFlow.md">https://github.com/bestia-dev/mem6_game/blob/master/CodeFlow.md</a><br>
+Now I exported the md from CodeTour and it is amazing:<br>
+<a href="https://github.com/bestia-dev/mem6_game/blob/master/codetour_start_route_template_render.md">https://github.com/bestia-dev/mem6_game/blob/master/codetour_start_route_template_render.md</a><br>
+The step by step approach jumping from module to module is great.<br>
+It just hides all the other non-important code for basic human understanding of the code flow.<br>
+And the links are "alive", they go to the actual code in Github.</p>
+<h2 dir="auto"><a id="user-content-makefiletoml" class="anchor" aria-hidden="true" href="#makefiletoml"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>makefile.toml</h2>
+<p dir="auto">I use it inside <code>makefile.toml</code> when creating docs like this:\</p>
+<div class="highlight highlight-source-toml notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[tasks.doc]
+    description = &quot;cargo doc - create docs from doc comments&quot;
+    clear = true
+    script= [
+        &quot;echo $ lmake_readme&quot;,
+        # copy data from cargo.toml to readme.md, then include text from readme.md into *.rs doc comments
+        &quot;lmake_readme&quot;,
+        &quot;echo $ cargo doc --no-deps --document-private-items&quot;,
+        # create doc from doc comments
+        &quot;cargo doc --no-deps --document-private-items&quot;,
+        &quot;echo $ codetour_export_to_md&quot;,
+        # export code tour to md
+        &quot;codetour_export_to_md&quot;,
+        # copy to /docs/ because it is github standard
+        &quot;echo $ rsync -a --info=progress2 --delete-after target/doc docs&quot;,
+        &quot;rsync -a --info=progress2 --delete-after target/doc docs&quot;,
+        # message to help user with next move
+        &quot;echo after successful doc, run cargo make fmt msg_for_commit&quot;,
+        ]"><pre>[<span class="pl-en">tasks</span>.<span class="pl-en">doc</span>]
+    <span class="pl-smi">description</span> = <span class="pl-s"><span class="pl-pds">"</span>cargo doc - create docs from doc comments<span class="pl-pds">"</span></span>
+    <span class="pl-smi">clear</span> = <span class="pl-c1">true</span>
+    <span class="pl-smi">script</span>= [
+        <span class="pl-s"><span class="pl-pds">"</span>echo $ lmake_readme<span class="pl-pds">"</span></span>,
+        <span class="pl-c"><span class="pl-c">#</span> copy data from cargo.toml to readme.md, then include text from readme.md into *.rs doc comments</span>
+        <span class="pl-s"><span class="pl-pds">"</span>lmake_readme<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>echo $ cargo doc --no-deps --document-private-items<span class="pl-pds">"</span></span>,
+        <span class="pl-c"><span class="pl-c">#</span> create doc from doc comments</span>
+        <span class="pl-s"><span class="pl-pds">"</span>cargo doc --no-deps --document-private-items<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>echo $ codetour_export_to_md<span class="pl-pds">"</span></span>,
+        <span class="pl-c"><span class="pl-c">#</span> export code tour to md</span>
+        <span class="pl-s"><span class="pl-pds">"</span>codetour_export_to_md<span class="pl-pds">"</span></span>,
+        <span class="pl-c"><span class="pl-c">#</span> copy to /docs/ because it is github standard</span>
+        <span class="pl-s"><span class="pl-pds">"</span>echo $ rsync -a --info=progress2 --delete-after target/doc docs<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>rsync -a --info=progress2 --delete-after target/doc docs<span class="pl-pds">"</span></span>,
+        <span class="pl-c"><span class="pl-c">#</span> message to help user with next move</span>
+        <span class="pl-s"><span class="pl-pds">"</span>echo after successful doc, run cargo make fmt msg_for_commit<span class="pl-pds">"</span></span>,
+        ]</pre></div>
+<h2 dir="auto"><a id="user-content-install" class="anchor" aria-hidden="true" href="#install"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>install</h2>
+<p dir="auto">Install from crates.io:<br>
+<code>cargo install codetour_export_to_md</code><br>
+run with no parameters. Best together with <code>cargo doc</code>.</p>
+<h2 dir="auto"><a id="user-content-development" class="anchor" aria-hidden="true" href="#development"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>development</h2>
+<p dir="auto">Clone the repo<br>
+<code>git clone git@github.com:bestia-dev/codetour_export_to_md.git</code><br>
+Use prepared cargo make scripts:<br>
+<code>clear; cargo make release</code><br>
+<code>clear; cargo make run_rel2</code><br>
+The result is :<br>
+<code>example/codetour_start_route_template_render.md</code></p>
+</article>
+</body>
+
+</html>

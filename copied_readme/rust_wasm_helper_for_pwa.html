@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-rust_wasm_helper_for_pwa" class="anchor" aria-hidden="true" href="#rust_wasm_helper_for_pwa"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>rust_wasm_helper_for_pwa</h1>
+<p dir="auto"><strong>creates a minimal PWA you can copy to your project</strong><br>
+<em><strong>version: 2021.704.1429  date: 2021-07-04 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/">GitHub</a>rust_wasm_helper_for_pwa_game</strong></em></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/"><img src="https://camo.githubusercontent.com/260e94813277767b9158565b0d40d6c1f572ab6957bc14ce8534f09daf00302f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f527573742d3734322d677265656e2e737667" alt="Lines in Rust code" data-canonical-src="https://img.shields.io/badge/Lines_in_Rust-742-green.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/"><img src="https://camo.githubusercontent.com/33968b821ab41d2facf32b1444a2a2733b8e76769a5d48e8ec1a1a259fff4a6d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f446f635f636f6d6d656e74732d34312d626c75652e737667" alt="Lines in Doc comments" data-canonical-src="https://img.shields.io/badge/Lines_in_Doc_comments-41-blue.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/"><img src="https://camo.githubusercontent.com/812de700d0eda8c872a5164b811252d47ef0b39acef4a59675623728845094c7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f636f6d6d656e74732d37312d707572706c652e737667" alt="Lines in Comments" data-canonical-src="https://img.shields.io/badge/Lines_in_comments-71-purple.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/"><img src="https://camo.githubusercontent.com/ca23628eb99142a21cb1c4d2691f8eb74e53f9731e50ebd3dab96f4ea3baa96b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f6578616d706c65732d302d79656c6c6f772e737667" alt="Lines in examples" data-canonical-src="https://img.shields.io/badge/Lines_in_examples-0-yellow.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/"><img src="https://camo.githubusercontent.com/1b1b893bf6a344f5b57d01d3bd940441cb82ea48c2fc81a76d87bfcf5a5cf50e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f74657374732d302d6f72616e67652e737667" alt="Lines in tests" data-canonical-src="https://img.shields.io/badge/Lines_in_tests-0-orange.svg" style="max-width: 100%;"></a></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/blob/master/LICENSE"><img src="https://camo.githubusercontent.com/83d3746e5881c1867665223424263d8e604df233d0a11aae0813e0414d433943/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667" alt="License" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/"><img src="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/workflows/RustAction/badge.svg" alt="Rust" style="max-width: 100%;"></a>
+<a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/9f0d2cd3bcd4c616af88f5f60d1d857f49bddc4f7c58ec11d041524f487ff1df/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246727573745f7761736d5f68656c7065725f666f725f70776126636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Frust_wasm_helper_for_pwa&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #tutorial #pwa</p>
+<h2 dir="auto"><a id="user-content-try-it" class="anchor" aria-hidden="true" href="#try-it"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Try it</h2>
+<p dir="auto"><a href="https://bestia.dev/rust_wasm_helper_for_pwa/" rel="nofollow">https://bestia.dev/rust_wasm_helper_for_pwa/</a><br>
+The result of this helper (a minimal PWA) looks like this:<br>
+<a href="https://bestia.dev/pwa_test/" rel="nofollow">https://bestia.dev/pwa_test/</a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/blob/main/images/helper_for_pwa.jpg?raw=true"><img src="https://github.com/bestia-dev/rust_wasm_helper_for_pwa/raw/main/images/helper_for_pwa.jpg?raw=true" alt="screenshot" style="max-width: 100%;"></a></p>
+<h2 dir="auto"><a id="user-content-minimal-pwa" class="anchor" aria-hidden="true" href="#minimal-pwa"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>minimal PWA</h2>
+<p dir="auto">There are just a few steps to convert a standard web page into a <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps" rel="nofollow">PWA (progressive web application)</a>.<br>
+A few lines inside index.html, a few files and a bunch of icons.<br>
+This helper creates a zip with all this files.<br>
+If you publish this files on a web server with https, it will work as a complete, but minimal PWA.</p>
+<h2 dir="auto"><a id="user-content-how-many-icons" class="anchor" aria-hidden="true" href="#how-many-icons"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>how many icons?</h2>
+<p dir="auto">PWA icons are totally confusing. There is no hard rule what to do and how many icons to have. Apple invented their system, google invented something different. Who is microsoft?<br>
+And there are much too much resizing of the same image to do it manually.<br>
+I think this is a nice candidate for an automation utility.</p>
+<p dir="auto">I will start with one png file at least 512x512 px. This helper will then make all other pngs with different sizes.<br>
+I will use the info I found as of today. Even so there are different names and implementations. This will probably change in the future. I will try to update it later.<br>
+Android: 72, 96, 128, 144, 152, 192, 384, 512
+iOs: 120, 180
+and maskable 192</p>
+<h2 dir="auto"><a id="user-content-not-a-cli-let-it-be-pwa" class="anchor" aria-hidden="true" href="#not-a-cli-let-it-be-pwa"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>not a CLI, let it be PWA</h2>
+<p dir="auto">But I don't want to make it a CLI, because it must be installed (be afraid of unknown programs), has complete access to all my system and it works only on one OS.<br>
+I want to make a PWA utility: trustworthy, no-problem installation, cross-platform. But the downside is that it must be run manually. I think it is not possible to call it from a shell script. This is not a problem because changing the app icon image is important and should be done in edit-time when the programmer is still conscious.<br>
+All the processing is done locally inside the browser. No server involved at all. No data is transferred to the server. Zero. Zilch. Nada.<br>
+Let see where it takes us.</p>
+<h2 dir="auto"><a id="user-content-select-a-file" class="anchor" aria-hidden="true" href="#select-a-file"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Select a file</h2>
+<p dir="auto">PWA does not have access to local files.<br>
+After typing in some basic info, the next step is to <code>select</code> the original big png file manually.</p>
+<h2 dir="auto"><a id="user-content-resize-the-png-zip" class="anchor" aria-hidden="true" href="#resize-the-png-zip"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>resize the png, zip</h2>
+<p dir="auto">The crate <a href="https://crates.io/crates/image" rel="nofollow">image</a> decodes, resizes and encodes the png file.<br>
+The crate <a href="https://crates.io/crates/zip" rel="nofollow">zip</a> adds all files in one single zip file for easy downloading</p>
+<h2 dir="auto"><a id="user-content-faviconico" class="anchor" aria-hidden="true" href="#faviconico"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>favicon.ico</h2>
+<p dir="auto">Favicon.ico is a dinosaur format, but still used on the web. I added the creation of the favicon.ico, just in case. <a href="https://www.emergeinteractive.com/insights/detail/The-Essentials-of-FavIcons/" rel="nofollow">https://www.emergeinteractive.com/insights/detail/The-Essentials-of-FavIcons/</a><br>
+Inside the favicon.ico, there must be a 16x16 and 32x32 png.<br>
+Then for other needs 7 pngs for favicons: 32, 128, 152, 167, 180, 192, 196.
+Place in the &lt;head&gt;:</p>
+<div class="highlight highlight-text-html-basic notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="&lt;!-- generics --&gt;
+&lt;link rel=&quot;icon&quot; href=&quot;icons/icon-032.png&quot; sizes=&quot;32x32&quot;&gt;
+&lt;link rel=&quot;icon&quot; href=&quot;icons/icon-128.png&quot; sizes=&quot;128x128&quot;&gt;
+&lt;link rel=&quot;icon&quot; href=&quot;icons/icon-192.png&quot; sizes=&quot;192x192&quot;&gt;
+
+&lt;!-- Android --&gt;
+&lt;link rel=&quot;shortcut icon&quot; href=&quot;icons/icon-196.png&quot; sizes=&quot;196x196&quot;&gt;
+
+&lt;!-- iOS --&gt;
+&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;icons/icon-152.png&quot; sizes=&quot;152x152&quot;&gt;
+&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;icons/icon-152.png&quot; sizes=&quot;167x167&quot;&gt;
+&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;icons/icon-180.png&quot; sizes=&quot;180x180&quot;&gt;
+"><pre><span class="pl-c">&lt;!-- generics --&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">link</span> <span class="pl-c1">rel</span>="<span class="pl-s">icon</span>" <span class="pl-c1">href</span>="<span class="pl-s">icons/icon-032.png</span>" <span class="pl-c1">sizes</span>="<span class="pl-s">32x32</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">link</span> <span class="pl-c1">rel</span>="<span class="pl-s">icon</span>" <span class="pl-c1">href</span>="<span class="pl-s">icons/icon-128.png</span>" <span class="pl-c1">sizes</span>="<span class="pl-s">128x128</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">link</span> <span class="pl-c1">rel</span>="<span class="pl-s">icon</span>" <span class="pl-c1">href</span>="<span class="pl-s">icons/icon-192.png</span>" <span class="pl-c1">sizes</span>="<span class="pl-s">192x192</span>"<span class="pl-kos">&gt;</span>
+
+<span class="pl-c">&lt;!-- Android --&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">link</span> <span class="pl-c1">rel</span>="<span class="pl-s">shortcut icon</span>" <span class="pl-c1">href</span>="<span class="pl-s">icons/icon-196.png</span>" <span class="pl-c1">sizes</span>="<span class="pl-s">196x196</span>"<span class="pl-kos">&gt;</span>
+
+<span class="pl-c">&lt;!-- iOS --&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">link</span> <span class="pl-c1">rel</span>="<span class="pl-s">apple-touch-icon</span>" <span class="pl-c1">href</span>="<span class="pl-s">icons/icon-152.png</span>" <span class="pl-c1">sizes</span>="<span class="pl-s">152x152</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">link</span> <span class="pl-c1">rel</span>="<span class="pl-s">apple-touch-icon</span>" <span class="pl-c1">href</span>="<span class="pl-s">icons/icon-152.png</span>" <span class="pl-c1">sizes</span>="<span class="pl-s">167x167</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">link</span> <span class="pl-c1">rel</span>="<span class="pl-s">apple-touch-icon</span>" <span class="pl-c1">href</span>="<span class="pl-s">icons/icon-180.png</span>" <span class="pl-c1">sizes</span>="<span class="pl-s">180x180</span>"<span class="pl-kos">&gt;</span></pre></div>
+<h2 dir="auto"><a id="user-content-altogether" class="anchor" aria-hidden="true" href="#altogether"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>altogether</h2>
+<p dir="auto">favicon.ico: 16, 32
+favicon png: 32, 128, 152, 167, 180, 192, 196
+pwa Android: 72, 96, 128, 144, 152, 192, 512
+pwa iOs: 120, 180
+pwa maskable 192</p>
+<p dir="auto">together png ordered:
+32, 72, 96, 120, 128, 144, 152, 167, 180, 192, 196, 512</p>
+<h2 dir="auto"><a id="user-content-download" class="anchor" aria-hidden="true" href="#download"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>download</h2>
+<p dir="auto">The newly created zip is then available to download from the browse. All data is still only inside the browser.<br>
+After unzipping, copy the files to the web server folder.</p>
+<h2 dir="auto"><a id="user-content-conclusion" class="anchor" aria-hidden="true" href="#conclusion"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Conclusion</h2>
+<p dir="auto">The wasm file is 1,1Mb. I mean it is not bad if you think that it includes the image and zip libraries. Maybe this 2 libraries could be smaller? Or maybe more selective what to include? I use a very small part of them. I don't know. For now it is good enough.<br>
+Doing things in wasm is complicated because of the conversion between javascript objects and rust objects. There is so much to learn about all this conversions: js_sys::Uint8Array, web_sys::Element, HtmlElement, HtmlInputElement, HtmlAnchorElement, Blob, File, FileList, FileReader,... It is better to isolate/hide this non-Rust code into a dedicated module.</p>
+<p dir="auto">In cargo.toml is important to add features to [dependencies.web-sys] whenever we need some new types from web_sys. That is not comfortable. Could be better with some special extension for VSCode?</p>
+<p dir="auto">Another difficulty was how to reserve a big memory space for the zip.
+First I tried with an array [0u8; 65_536]. It was too small. But the maximum size I could use was 524_288. I suppose arrays are on the stack and it is limited.
+So I then used vec![0u8; 2_097_152]; with no errors. I suppose it goes into the heap memory, that is bigger. Just one single big allocation.</p>
+</article>
+</body>
+
+</html>

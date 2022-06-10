@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-qvs20---modern-replacement-for-csv-for-the-year-2020" class="anchor" aria-hidden="true" href="#qvs20---modern-replacement-for-csv-for-the-year-2020"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>QVS20 - Modern replacement for csv for the year 2020</h1>
+<p dir="auto"><strong>sQuare brackets Separated Values 2020</strong></p>
+<p dir="auto"><strong>Modern replacement for csv for the year 2020</strong><br>
+<em><strong>version: 0.0.8  date: 2020-07-16 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/qvs20">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/QVS20/"><img src="https://camo.githubusercontent.com/12c8621583e163fe0c9606fde82e22981312c799aeeecd2a1451a900cbfb46ea/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f527573742d313537342d677265656e2e737667" alt="Lines in Rust code" data-canonical-src="https://img.shields.io/badge/Lines_in_Rust-1574-green.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/QVS20/"><img src="https://camo.githubusercontent.com/5be7928dfe61409034b65842ba6d671258209a85027daca032e97d2b0602d900/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f446f635f636f6d6d656e74732d3631322d626c75652e737667" alt="Lines in Doc comments" data-canonical-src="https://img.shields.io/badge/Lines_in_Doc_comments-612-blue.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/QVS20/"><img src="https://camo.githubusercontent.com/1a9543778e3924f792012feae1b676aadb4a2348c180790281244587bde9a4f8/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f636f6d6d656e74732d3231312d707572706c652e737667" alt="Lines in Comments" data-canonical-src="https://img.shields.io/badge/Lines_in_comments-211-purple.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/QVS20/"><img src="https://camo.githubusercontent.com/a552d7946451621805ac073f08fe1f6444d027090287cb723900fb6e85fdcda4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f6578616d706c65732d3935342d79656c6c6f772e737667" alt="Lines in examples" data-canonical-src="https://img.shields.io/badge/Lines_in_examples-954-yellow.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/QVS20/"><img src="https://camo.githubusercontent.com/064245960953c92317b2a4744d7b6d13e7a714a9ed79d384fd22a1579fe22142/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f74657374732d3831322d6f72616e67652e737667" alt="Lines in tests" data-canonical-src="https://img.shields.io/badge/Lines_in_tests-812-orange.svg" style="max-width: 100%;"></a></p>
+<p dir="auto"><a href="https://crates.io/crates/qvs20" rel="nofollow"><img src="https://camo.githubusercontent.com/a49422ed468b8df9afd8badd738a2f339faffdbfe62010acc2d55219bc0c4a17/68747470733a2f2f696d672e736869656c64732e696f2f6372617465732f762f71767332302e737667" alt="crates.io" data-canonical-src="https://img.shields.io/crates/v/qvs20.svg" style="max-width: 100%;"></a>
+<a href="https://docs.rs/qvs20/" rel="nofollow"><img src="https://camo.githubusercontent.com/12f3ba3013d1286bd14fb3c13a900978303eea451512f86905b4047628803e85/68747470733a2f2f646f63732e72732f71767332302f62616467652e737667" alt="Documentation" data-canonical-src="https://docs.rs/qvs20/badge.svg" style="max-width: 100%;"></a>
+<a href="https://web.crev.dev/rust-reviews/crate/qvs20/" rel="nofollow"><img src="https://camo.githubusercontent.com/f8355fcdf5a47d5e85159a74ca6c932b98ea958b341d7758fadcbfe99f504607/68747470733a2f2f7765622e637265762e6465762f727573742d726576696577732f62616467652f637265765f636f756e742f71767332302e737667" alt="crev reviews" data-canonical-src="https://web.crev.dev/rust-reviews/badge/crev_count/qvs20.svg" style="max-width: 100%;"></a><a href="https://lib.rs/crates/qvs20/" rel="nofollow"><img src="https://camo.githubusercontent.com/9164bfcebc9eb586a3b2e00e2d0d9a768b5c32960d5a66b68db582b15168f5b9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c69622e72732d727573742d6f72616e67652e737667" alt="Lib.rs" data-canonical-src="https://img.shields.io/badge/Lib.rs-rust-orange.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/LucianoBestia/qvs20/blob/master/LICENSE"><img src="https://camo.githubusercontent.com/83d3746e5881c1867665223424263d8e604df233d0a11aae0813e0414d433943/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667" alt="License" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width: 100%;"></a>
+<a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/5bab6a5ed27bd26355332a8875ea79823131132c82868f335bb08b22ad428fb0/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246515653323026636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2FQVS20&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang</p>
+<p dir="auto">My proposed format for import/export of 2 dimensional database tables.</p>
+<h2 dir="auto"><a id="user-content-the-name-qvs20" class="anchor" aria-hidden="true" href="#the-name-qvs20"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>The name QVS20</h2>
+<p dir="auto"><code>QVS</code> stands for "sQuare brackets Separated Values".<br>
+The number <code>20</code> is the year of the first version: 2020.<br>
+Read phonetically as:</p>
+<ul dir="auto">
+<li>International Phonetic Alphabet (IPA) [kʊs twɛnti]</li>
+<li>Americanist Phonetic Notation [koos twen-tee]</li>
+</ul>
+<p dir="auto">Read pronunciation like <code>couscous</code> the North African dish or <code>Kuss</code> the German or Dutch words for Kiss.<br>
+<a href="https://en.wiktionary.org/wiki/kus" rel="nofollow">https://en.wiktionary.org/wiki/kus</a><br>
+A minor annoyance is that in Crimean Tatar kuş means bird or penis and in Kurdish kuş means fart.<br>
+But stay positive I say :-)</p>
+<h2 dir="auto"><a id="user-content-check-the-development-of-the-library-source-code" class="anchor" aria-hidden="true" href="#check-the-development-of-the-library-source-code"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Check the development of the library source code</h2>
+<p dir="auto">Clone and try the examples.<br>
+The description is in the code and in &lt;DEVELOPMENTS.md&gt;.</p>
+<h2 dir="auto"><a id="user-content-text-format-for-tabular-data" class="anchor" aria-hidden="true" href="#text-format-for-tabular-data"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Text format for tabular data</h2>
+<p dir="auto">Most databases are used to store information in tables - the tabular form of 2 dimensional data structure.<br>
+The structure is very simple to understand and visualize.<br>
+This data quite often need to be exported, transferred and imported between very different systems.<br>
+Binary transfer is hard to implement in heterogeneous systems.<br>
+Text transfer is slower and larger, but is universal for all computer systems and even human readable. The internet has good experience of that.<br>
+The text format is probably very good to compress/zip if needed.</p>
+<h2 dir="auto"><a id="user-content-machines-first---humans-second" class="anchor" aria-hidden="true" href="#machines-first---humans-second"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Machines first - Humans second</h2>
+<p dir="auto"><code>QVS20</code> is primarily intended to be write and read by computer code.<br>
+It is still possible to read and edit it manually.<br>
+All in all it is just a simple text.<br>
+But that is not very comfortable and it is absolutely not the primary goal.<br>
+So this is not a good format for config files.<br>
+Just for your info, no comments are allowed in the standard.<br>
+Only data.</p>
+<h2 dir="auto"><a id="user-content-database-table" class="anchor" aria-hidden="true" href="#database-table"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Database table</h2>
+<p dir="auto">A database table is a structure that organizes data into rows and columns - forming a grid.<br>
+The rows run horizontally and represent each record.<br>
+The columns run vertically and represent a specific field.<br>
+A table has a specified number of columns.<br>
+Every column has a description what kind of data it represents.<br>
+The <code>QVS20</code> format can be used also for hierarchical data structures, but it does not shine there.<br>
+We already have <code>xml</code> and <code>json</code> for that type of data.<br>
+Today we need a format for (mostly) tabular data.</p>
+<h2 dir="auto"><a id="user-content-a-modern-replacement-for-csv" class="anchor" aria-hidden="true" href="#a-modern-replacement-for-csv"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>A modern replacement for csv</h2>
+<p dir="auto"><code>csv</code> is the most used format to export/import tables.<br>
+But it is not even a official standard. Even the name is deceiving: CSV comma separated values. Sometimes the delimiter is not "comma", but tab, semicolon,...<br>
+Every programmer has a different implementation.<br>
+There are a million small problems that makes its use problematic for different systems.<br>
+Though it works fine for import/export in the same system where the programmers made the same decisions.<br>
+Csv has the smallest footprint for a text format, but :</p>
+<ul dir="auto">
+<li>what is the field delimiter: comma, semi-colon, colon, tab, ?</li>
+<li>what is the row delimiter: newline, CRLF, CR, LF?</li>
+<li>how to escape the delimiters inside the content?</li>
+<li>if we use the quotes as delimiters, how to escape the quotes?</li>
+<li>do we use the quotes everywhere or only on selected fields?</li>
+<li>what encoding is used for the file?</li>
+<li>how the decimal number are represented?</li>
+<li>how the date/time is represented?</li>
+<li>there is no standard for field definition.</li>
+<li>The data could come without column names.</li>
+</ul>
+<p dir="auto">example of csv:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="Date Received,Product Name,Sub Product,Issue,Sub Issue,Consumer Complaint Narrative,Company Public Response,Company,State Name,Zip Code,Tags,Consumer Consent Provided,Submitted via,Date Sent to Company,Company Response to Consumer,Timely Response,Consumer Disputed,Complaint ID
+2013-07-29,Consumer Loan,Vehicle loan,Managing the loan or lease,,,,Wells Fargo &amp; Company,VA,24540,,N/A,Phone,2013-07-30,Closed with explanation,Yes,No,468882
+2013-07-29,Bank \ account or service,Checking account,Using a debit or ATM card,,,,Wells Fargo &amp; Company,CA,95992,Older American,N/A,Web,2013-07-31,Closed with explanation,Yes,No,468889"><pre lang="txt" class="notranslate"><code>Date Received,Product Name,Sub Product,Issue,Sub Issue,Consumer Complaint Narrative,Company Public Response,Company,State Name,Zip Code,Tags,Consumer Consent Provided,Submitted via,Date Sent to Company,Company Response to Consumer,Timely Response,Consumer Disputed,Complaint ID
+2013-07-29,Consumer Loan,Vehicle loan,Managing the loan or lease,,,,Wells Fargo &amp; Company,VA,24540,,N/A,Phone,2013-07-30,Closed with explanation,Yes,No,468882
+2013-07-29,Bank \ account or service,Checking account,Using a debit or ATM card,,,,Wells Fargo &amp; Company,CA,95992,Older American,N/A,Web,2013-07-31,Closed with explanation,Yes,No,468889
+</code></pre></div>
+<p dir="auto"><code>xml</code> and <code>json</code> are great inter-system formats for hierarchically structured data, but not for tabular data.<br>
+They are terribly verbose for tables, because they repeat all the names for every row of data.<br>
+Imagine a table with a million rows. Most of this data is field names. Horror!</p>
+<p dir="auto">example of json:</p>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[{
+        &quot;country&quot;: &quot;Afghanistan&quot;,
+        &quot;population&quot;: &quot;37172386&quot;
+    },
+    {
+        &quot;country&quot;: &quot;Albania&quot;,
+        &quot;population&quot;: &quot;2866376&quot;
+    },
+    {..."><pre>[{
+        <span class="pl-ent">"country"</span>: <span class="pl-s"><span class="pl-pds">"</span>Afghanistan<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"population"</span>: <span class="pl-s"><span class="pl-pds">"</span>37172386<span class="pl-pds">"</span></span>
+    },
+    {
+        <span class="pl-ent">"country"</span>: <span class="pl-s"><span class="pl-pds">"</span>Albania<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"population"</span>: <span class="pl-s"><span class="pl-pds">"</span>2866376<span class="pl-pds">"</span></span>
+    },
+    {<span class="pl-ii">...</span></pre></div>
+<p dir="auto">example of xml with elements:</p>
+<div class="highlight highlight-text-xml notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="    &lt;row&gt;
+        &lt;country&gt;Afghanistan&lt;/country&gt;
+        &lt;population&gt;37172386&lt;/population&gt;
+    &lt;/row&gt;
+    &lt;row&gt;
+    &lt;country&gt;Albania&lt;/country&gt;
+        &lt;population&gt;2866376&lt;/population&gt;
+    &lt;/row&gt;
+    &lt;row&gt;..."><pre>    &lt;<span class="pl-ent">row</span>&gt;
+        &lt;<span class="pl-ent">country</span>&gt;Afghanistan&lt;/<span class="pl-ent">country</span>&gt;
+        &lt;<span class="pl-ent">population</span>&gt;37172386&lt;/<span class="pl-ent">population</span>&gt;
+    &lt;/<span class="pl-ent">row</span>&gt;
+    &lt;<span class="pl-ent">row</span>&gt;
+    &lt;<span class="pl-ent">country</span>&gt;Albania&lt;/<span class="pl-ent">country</span>&gt;
+        &lt;<span class="pl-ent">population</span>&gt;2866376&lt;/<span class="pl-ent">population</span>&gt;
+    &lt;/<span class="pl-ent">row</span>&gt;
+    &lt;<span class="pl-ent">row</span>&gt;...</pre></div>
+<p dir="auto">example of xml with attributes:</p>
+<div class="highlight highlight-text-xml notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="    &lt;row country=&quot;Afghanistan&quot; population=&quot;37172386&quot; /&gt;
+    &lt;row country=&quot;Albania&quot; population=&quot;2866376&quot; /&gt;
+    &lt;row ..."><pre>    &lt;<span class="pl-ent">row</span> <span class="pl-e">country</span>=<span class="pl-s"><span class="pl-pds">"</span>Afghanistan<span class="pl-pds">"</span></span> <span class="pl-e">population</span>=<span class="pl-s"><span class="pl-pds">"</span>37172386<span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-ent">row</span> <span class="pl-e">country</span>=<span class="pl-s"><span class="pl-pds">"</span>Albania<span class="pl-pds">"</span></span> <span class="pl-e">population</span>=<span class="pl-s"><span class="pl-pds">"</span>2866376<span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-ent">row</span> ...</pre></div>
+<p dir="auto">There is probably a lot more formats out there, but I cannot know them all.</p>
+<h2 dir="auto"><a id="user-content-why-square-brackets" class="anchor" aria-hidden="true" href="#why-square-brackets"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Why sQuare brackets</h2>
+<p dir="auto">I think parsing is much easier and error resistent if the delimiters are different for start and for end.<br>
+It is the simplest rule that all the delimiters must always exist. No exceptions.<br>
+If we compare to <code>csv</code> it adds one additional delimiter, but that solves a lot of problems.<br>
+Why not quotes or apostrophes : they are the same delimiter for start and end.<br>
+Why not &lt;&gt; like xml? : If we have a lot of xml data, then all of these delimiters must be escaped.<br>
+Why not {}? : if we have a lot of json or code, there is a lot of characters to be escaped.<br>
+<code>sQuare brackets</code> [] are used in many places, but less then other symbols.<br>
+They are ascii7, just one byte in UTF8 and easy/fast to parse.<br>
+example of QVS20:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[City][Country][UN2018][CityPopulation][Area][MetropolitanPopulation]  
+[Tokyo][Japan][37400068][13515271][2191][37274000]  
+[Delhi][India][28514000][16753235][1484][29000000]  "><pre lang="QVS20" class="notranslate"><code>[City][Country][UN2018][CityPopulation][Area][MetropolitanPopulation]  
+[Tokyo][Japan][37400068][13515271][2191][37274000]  
+[Delhi][India][28514000][16753235][1484][29000000]  
+</code></pre></div>
+<h2 dir="auto"><a id="user-content-only-utf-8-encoding" class="anchor" aria-hidden="true" href="#only-utf-8-encoding"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Only utf-8 Encoding</h2>
+<p dir="auto">There is a few different text encodings today. All come with good and bad properties.<br>
+In 2020 the choice to simplify most of the cases is <code>utf-8</code>.<br>
+It is much easier to maintain the source code for <code>QVS20</code> import/export for only that one encoding.<br>
+The utf-8 encoding is very efficient most of the times.<br>
+The Rust programming language uses utf-8 internally for the String type.<br>
+Utf-8 is quite complex.<br>
+There can be characters with 1, 2, 3, 4, 5, 6 bytes.<br>
+But the mastery of the encoding is that it <code>guarantees</code> that the same byte (number) for an ascii7 characters can never never be found anywhere else in any other character. It does not matter how much complicated is the 6 byte character. No one of that bytes can have a number less than 127.<br>
+It is a guarantee! Genius !<br>
+That means that we can approach an utf-8 file as a vector of bytes. Super simple, fast and easy. We can just ignore all the peculiarities of millions of unicode characters. Because we care only about our delimiters.<br>
+And they are all 100% ascii7.</p>
+<h2 dir="auto"><a id="user-content-visualization" class="anchor" aria-hidden="true" href="#visualization"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Visualization</h2>
+<p dir="auto">This format is mostly made for machines. There is not superfluous data for visualization like spaces or tabs or newlines or comments.<br>
+It is still human readable, but not very comfortable without special visualizers/editors.<br>
+If your editor is clever and knows how to add a few spaces here and there, this format can become easy human readable.<br>
+This could be easily processed by all new editor/visualizer with extensions.<br>
+But remember, this is not the truth in the file.<br>
+We want small file sizes and there are no spaces in the file.<br>
+One problem of visualizations are long strings. They are hard to place on the screen in a tabular format to be nicely readable.<br>
+One idea to solve this "problem" is to add in the schema an optional field property <code>MaxVisualizeLength</code>. The visualizer should truncate the long string to achieve great readability. In most of the cases, we don't want to see the whole long long strings every time. Mostly the info in long long string is not really important.</p>
+<p dir="auto">Example of visualization:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[City]  [Country] [UN2018]   [CityPopulation] [Area] [MetropolitanPopulation]  
+[Tokyo] [Japan]   [37400068] [13515271]       [2191] [37274000]  
+[Delhi] [India]   [28514000] [16753235]       [1484] [29000000]  "><pre lang="QVS20" class="notranslate"><code>[City]  [Country] [UN2018]   [CityPopulation] [Area] [MetropolitanPopulation]  
+[Tokyo] [Japan]   [37400068] [13515271]       [2191] [37274000]  
+[Delhi] [India]   [28514000] [16753235]       [1484] [29000000]  
+</code></pre></div>
+<h2 dir="auto"><a id="user-content-common-data-types" class="anchor" aria-hidden="true" href="#common-data-types"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Common data types</h2>
+<p dir="auto">A standard must be prepared for common data types and not leave them to different interpretations, because that can cause incompatibilities.<br>
+This data is mostly used in database tables, so the datatypes must be understandable in the database world. But the import/export utilities are write in languages that have different data types.<br>
+Here we need something in between that is understandable to both.<br>
+Here are the most used data types.<br>
+For exotic datatypes there is no need to define them in this standard.<br>
+Maybe in some next standard if that data type becomes really important.</p>
+<h2 dir="auto"><a id="user-content-data-type-string" class="anchor" aria-hidden="true" href="#data-type-string"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data type String</h2>
+<p dir="auto">Utf-8 enables to represent any unicode character.<br>
+We just need to be aware of this 4 special ascii7 characters:</p>
+<ul dir="auto">
+<li>[ left square brackets</li>
+<li>] right square brackets</li>
+<li>LF new line</li>
+<li>\  Backslash character</li>
+</ul>
+<p dir="auto">We can use the backslash character to escape the special characters:</p>
+<ul dir="auto">
+<li>\\  Backslash character</li>
+<li>\[  Left Square Bracket</li>
+<li>\]  Right Square Bracket</li>
+<li>\n  New line</li>
+</ul>
+<p dir="auto">We want to avoid undesirable editing characters in long strings, so we escape also these 2:</p>
+<ul dir="auto">
+<li>\r  Carriage return</li>
+<li>\t  Tab</li>
+</ul>
+<p dir="auto">So all together there are 6 ascii7 characters of interest to the parser and serializer.</p>
+<h2 dir="auto"><a id="user-content-data-type-integer" class="anchor" aria-hidden="true" href="#data-type-integer"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data type Integer</h2>
+<p dir="auto">Allowed characters: numbers and eventually a minus/plus before them.<br>
+[5]<br>
+[+5]<br>
+[-6]</p>
+<h2 dir="auto"><a id="user-content-data-type-decimal" class="anchor" aria-hidden="true" href="#data-type-decimal"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data type Decimal</h2>
+<p dir="auto">The decimal type is very important in databases and needs to be explicit.<br>
+The decimal is NOT the same as the float, because the float cannot contain an exact value ! Float makes it super problematic for any financial calculation or number comparison.  Use the Decimal type instead.<br>
+Allowed characters: numbers and decimal point and the minus/plus characters.<br>
+No space, no commas, no thousand delimiters, no currency symbols.<br>
+No binary, hexadecimal or other numbers are allowed here.</p>
+<p dir="auto">[3]<br>
+[+3]<br>
+[-2]<br>
+[4.1]<br>
+[+4.1]<br>
+[-5.0]<br>
+[9.23872000]</p>
+<h2 dir="auto"><a id="user-content-data-type-float" class="anchor" aria-hidden="true" href="#data-type-float"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data type Float</h2>
+<p dir="auto">Avoid floats in "real life" scenarios. Use them only for scientific calculations. A classic problem with floats (inaccurate): <code>1.2 - 1.0 = 0.199999999999999996</code> ?!? This comparison <code>0.2 == (1.2 - 1.0)</code> returns <code>false</code> !?!<br>
+Allowed characters: numbers and decimal point and the minus/plus characters and the <code>e</code> exponent.<br>
+[2.99792458e8]<br>
+[+2.99792458e8]<br>
+[-2.99792458e8]<br>
+[2.99792458e-8]</p>
+<h2 dir="auto"><a id="user-content-type-bool" class="anchor" aria-hidden="true" href="#type-bool"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Type Bool</h2>
+<p dir="auto"><code>F</code> for false<br>
+<code>T</code> for true<br>
+It is case sensitive, uppercase only.<br>
+This characters are ascii7 and in utf-8 they use one byte only.</p>
+<p dir="auto">[T]<br>
+[F]</p>
+<h2 dir="auto"><a id="user-content-data-type-date" class="anchor" aria-hidden="true" href="#data-type-date"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data type Date</h2>
+<p dir="auto">Only one format: <code>YYYY-MM-DD</code><br>
+All the parts are required.<br>
+No TimeZone or Fixed Offset.<br>
+[2002-09-24]</p>
+<h2 dir="auto"><a id="user-content-data-type-time" class="anchor" aria-hidden="true" href="#data-type-time"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data type Time</h2>
+<p dir="auto">Only one format: <code>hh:mm:ss.dddd</code><br>
+<code>.dddd</code> is optional. All the rest is required.<br>
+No TimeZone or Fixed Offset.<br>
+[23-59-59]<br>
+[23-59-59.12345]</p>
+<h2 dir="auto"><a id="user-content-data-type-datetime-with-fixedoffset" class="anchor" aria-hidden="true" href="#data-type-datetime-with-fixedoffset"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data type DateTime with FixedOffset</h2>
+<p dir="auto">Only one format: <code>YYYY-MM-DDThh:mm:ss.dddd+hh:mm</code><br>
+The FixedOffset is mandatory.<br>
+<code>.dddd</code> is optional. All the rest is required.<br>
+[2002-05-30T09:30:10.5]</p>
+<h2 dir="auto"><a id="user-content-data-type-binary" class="anchor" aria-hidden="true" href="#data-type-binary"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data type binary</h2>
+<p dir="auto">Binary data should be converted into Base64 and used as very long string.<br>
+This is not the best way to transfer big binary data.<br>
+The Base64 does not include any of the 4 special characters.<br>
+So the parser cannot be confused.</p>
+<h2 dir="auto"><a id="user-content-null" class="anchor" aria-hidden="true" href="#null"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Null</h2>
+<p dir="auto">Null in database language means <code>absence of data</code> and is very important.<br>
+Empty brackets [] represent Null in <code>QVS20</code>.<br>
+For strings there is no difference between Null and EmptyString in <code>QVS20</code>.</p>
+<h2 dir="auto"><a id="user-content-schema" class="anchor" aria-hidden="true" href="#schema"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Schema</h2>
+<p dir="auto">The Schema is write always in 5 mandatory rows:</p>
+<ul dir="auto">
+<li>1st row - file type, table name and description</li>
+<li>2st row - data types</li>
+<li>3nd row - for future use</li>
+<li>4nd row - additional data</li>
+<li>5rd row - column names</li>
+</ul>
+<p dir="auto">The Schema is mandatory.<br>
+It can be included in the same <code>QVS20</code> file or can exist in an external <code>QVS20</code> file.<br>
+That way is possible to have files with only data. Great for small packets of data.<br>
+There is no other configuration needed to operate with qvs20.</p>
+<h3 dir="auto"><a id="user-content-schema-1st-row---file-type-table-name-and-description" class="anchor" aria-hidden="true" href="#schema-1st-row---file-type-table-name-and-description"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Schema 1st row - file type, table name and description</h3>
+<p dir="auto">It is great to recognize the data from inside the data itself.<br>
+The file name can change for various reasons and is not always coherent.<br>
+There are 3 possible file types for qvs20:</p>
+<ol dir="auto">
+<li>only schema - is marked with [S]</li>
+<li>only rows - is marked with [R]</li>
+<li>full (schema+rows) - is marked with [T]</li>
+</ol>
+<p dir="auto">The marker helps the parser to early recognize the file and its content.<br>
+The table name is short and is used to assert that the separate TableRows file and the TableSchema file are really from the same Table.<br>
+The description can be long if is needed. It is a string, therefore it is escaped.</p>
+<h3 dir="auto"><a id="user-content-schema-2nd-row---data-types" class="anchor" aria-hidden="true" href="#schema-2nd-row---data-types"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Schema 2nd row - Data types</h3>
+<p dir="auto">The most important information for the parser is the data type of the column.
+For example the strings must be unescaped, but the integers don't need it.
+Example of the 2nd row with data type:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[String][Integer][Decimal][Float][Date][Time][DateTime][Bool]  "><pre lang="QVS20" class="notranslate"><code>[String][Integer][Decimal][Float][Date][Time][DateTime][Bool]  
+</code></pre></div>
+<h3 dir="auto"><a id="user-content-schema-3rd-row---for-future-use" class="anchor" aria-hidden="true" href="#schema-3rd-row---for-future-use"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Schema 3rd row - for future use</h3>
+<p dir="auto">For all column, the field is empty [].</p>
+<h3 dir="auto"><a id="user-content-schema-4th-row---additional-data" class="anchor" aria-hidden="true" href="#schema-4th-row---additional-data"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Schema 4th row - Additional data</h3>
+<p dir="auto">Often programmers need to provide some additional info about the fields.<br>
+Every use-case will need different data here.<br>
+So this cannot be standardized.<br>
+This data is optional, but the row is mandatory. So the parsing is clear!<br>
+This additional data must be strings. And they must be correctly escaped in QVS20.<br>
+Like any other String.</p>
+<h3 dir="auto"><a id="user-content-schema-5th-row---column-names" class="anchor" aria-hidden="true" href="#schema-5th-row---column-names"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Schema 5th row - Column names</h3>
+<p dir="auto">The 5th row of the schema contains the column names.<br>
+Example of 5th row with column names:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[City][Country][UN2018][CityPopulation][Area][MetropolitanPopulation][SomeDecimalNumber][SomeDate[SomeTime][SomeDateTime][SomeBool]  "><pre lang="QVS20" class="notranslate"><code>[City][Country][UN2018][CityPopulation][Area][MetropolitanPopulation][SomeDecimalNumber][SomeDate[SomeTime][SomeDateTime][SomeBool]  
+</code></pre></div>
+<h2 dir="auto"><a id="user-content-tablerows" class="anchor" aria-hidden="true" href="#tablerows"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>TableRows</h2>
+<p dir="auto">The actual data is write in TableRows. This can be in a separate file or in the same file after the schema.</p>
+<h3 dir="auto"><a id="user-content-tablerows-1st-row---file-type-table-name" class="anchor" aria-hidden="true" href="#tablerows-1st-row---file-type-table-name"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>TableRows 1st row - file type, table name</h3>
+<p dir="auto">There are 3 possible file types for qvs20:</p>
+<ol dir="auto">
+<li>only schema - is marked with [S]</li>
+<li>only rows - is marked with [R]</li>
+<li>full (schema+rows) - is marked with [T]</li>
+</ol>
+<p dir="auto">The marker helps the parser to early recognize the file and its content.<br>
+When TableRows are in separate file, the first row contains only file type and table name. No need for description here, because is already in the schema.<br>
+With the table name we can check if the Schema and the Rows are from the same table when they are in separate files.<br>
+When the schema and table are together in the same file, this row is not needed.</p>
+<h2 dir="auto"><a id="user-content-versions" class="anchor" aria-hidden="true" href="#versions"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Versions</h2>
+<p dir="auto">Versions are named by the year. <code>QVS20</code> is the version from year 2020.<br>
+If one day we make a new version we use the year of that version.<br>
+For example in 2042 we will have the standard version and file extension<br>
+<code>QVS42</code>.</p>
+<h2 dir="auto"><a id="user-content-file-extension" class="anchor" aria-hidden="true" href="#file-extension"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>File extension</h2>
+<p dir="auto">I want the file extension to be specific for the version of the standard.<br>
+File extension and standard name are the same: <code>*.QVS20</code><br>
+It also looks unique and I hope nobody else will use it for something else.</p>
+<h2 dir="auto"><a id="user-content-implementation-in-rust" class="anchor" aria-hidden="true" href="#implementation-in-rust"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Implementation in Rust</h2>
+<p dir="auto">A proposed standard without implementations is boring.<br>
+In this project I also built rust libraries for QVS20 and published them on GitHub and crates.io.<br>
+For rust developers they will have native libraries with source code.<br>
+Rust is the best language to compile to WebAssembly/Wasm. So I will do that too.<br>
+I will enjoy to have a <code>QVS20</code> parser inside the browser, to efficiently consume tabular data received from the server.<br>
+I expect that authors of existent <code>csv parsers</code> will make an effort and create a similar library for <code>QVS20</code> in different languages. I am sure they can make it very very performant.</p>
+<h2 dir="auto"><a id="user-content-popularity" class="anchor" aria-hidden="true" href="#popularity"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Popularity</h2>
+<p dir="auto">Sure the biggest problem for a standard is the popularization !<br>
+If nobody uses it, than it is unusable. More people use it and more usable it becomes.<br>
+Popularity is a vicious cycle. With time it accelerates - in either directions: up or down.
+Integration in database tools, spreadsheet apps and client-server frameworks would boost the usability.<br>
+It is really important for the standard to be popular.<br>
+I hope the standard will be interesting to many and they will organically spread the word.</p>
+<h2 dir="auto"><a id="user-content-read-also-the-separate-xxxmd-files" class="anchor" aria-hidden="true" href="#read-also-the-separate-xxxmd-files"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Read also the separate XXX.md files</h2>
+<p dir="auto">I use the same README.md file for GitHub, Crates.io and docs.rs.<br>
+So I cannot include the specific information that are not common to all 3 purposes. For that reason I have separate XXX.md files:</p>
+<ul dir="auto">
+<li>DEVELOPMENT.md - information and instruction for development</li>
+<li>CHANGELOG.md - what changed between versions</li>
+<li>TODO.md - reminder of what is in plan to do</li>
+</ul>
+<h1 dir="auto"><a id="user-content-wsl_open_vscode" class="anchor" aria-hidden="true" href="#wsl_open_vscode"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>wsl_open_vscode</h1>
+</article>
+</body>
+
+</html>

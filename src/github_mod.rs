@@ -35,7 +35,7 @@ pub fn list_my_public_repos(token: &str) {
         for repo in &vec_of_repo {
             let repo_name = &repo.name;
             let repo_url = repo.html_url.as_ref().unwrap();
-            println!("{}", &repo_url);
+            dbg!(&repo_url);
             // open the html and extract the `article` element
             let body = reqwest::get(repo_url.clone())
                 .await

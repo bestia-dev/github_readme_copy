@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-arduino_turns_on_laptop" class="anchor" aria-hidden="true" href="#arduino_turns_on_laptop"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>arduino_turns_on_laptop</h1>
+<p dir="auto"><strong>Arduino and servo motor to press the On button on a laptop when the TV is turned on</strong><br>
+<em><strong>version: 1.0  date: 2020-10-01 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/arduino_turns_on_laptop">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/fd1945fa5f1636fc0060dcf0c4dcfcd3909468928fc43d268f11cf68df46e51b/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d64657625324661726475696e6f5f7475726e735f6f6e5f6c6170746f7026636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Farduino_turns_on_laptop&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<h2 dir="auto"><a id="user-content-problem-description" class="anchor" aria-hidden="true" href="#problem-description"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Problem description</h2>
+<p dir="auto">My TV setup is like this:</p>
+<ol dir="auto">
+<li>TV Panasonic</li>
+<li>Mixer Yamaha</li>
+<li>Active Speakers Samson</li>
+<li>Old Lenovo ThinkPad</li>
+</ol>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/LucianoBestia/arduino_turns_on_laptop/raw/main/images/TV_setup.jpg"><img src="https://github.com/LucianoBestia/arduino_turns_on_laptop/raw/main/images/TV_setup.jpg" alt="TV_setup" style="max-width: 100%;"></a><br>
+My wife likes to press only one button to make things work. She does not want to press the "On" button on 5 devices. Neither do I. I can understand that.<br>
+Incredibly enough the first 3 devices can be turned on and off just with the power socket.
+I have a "smart" power socket with remote control over 433MHz similar to <a href="https://www.amazon.it/deleyCON-prese-radio-Bianco-230-00V/dp/B074VV3T91/ref=pd_day0_79_1/258-7752702-2003723?_encoding=UTF8&amp;pd_rd_i=B074VV3T91&amp;pd_rd_r=bfca3e6c-c195-4fac-bd37-163603320a3d&amp;pd_rd_w=jjQo3&amp;pd_rd_wg=xFWr9&amp;pf_rd_p=7d5a19b1-29b8-4833-bb91-8b454e183d9f&amp;pf_rd_r=HN8XDY11J2Y5AQQVX8ZQ&amp;psc=1&amp;refRID=HN8XDY11J2Y5AQQVX8ZQ" rel="nofollow">this</a>.</p>
+<p dir="auto">ok. I am hoarding them. Don't judge.<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/LucianoBestia/arduino_turns_on_laptop/raw/main/images/remote_433MHz.jpg"><img src="https://github.com/LucianoBestia/arduino_turns_on_laptop/raw/main/images/remote_433MHz.jpg" alt="remote_433MHz" style="max-width: 100%;"></a></p>
+<p dir="auto">Great! I can use the remote with only one button on/off.<br>
+But the laptop is the exception. I need to press the "On" button manually. Some laptop have the option in BIOS to "turn on when plugged", but not this model.<br>
+That was too much for my wife. Two buttons. No go...</p>
+<h2 dir="auto"><a id="user-content-arduino" class="anchor" aria-hidden="true" href="#arduino"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Arduino</h2>
+<p dir="auto">I am not very good in electronics, I am a programmer. I will not work with transistors, relays, resistors and capacitors. I prefer a microcontroller like Arduino or a mini PC like RaspberryPi. I feel lucky it is all very affordable.<br>
+There are cheaper clones of Arduino and I bought the Smraza kit for 30€ with the microcontroller, servo motor and a bunch of other components. Great.<br>
+I connected the arduino uno clone to my TV USB port. So when the TV starts the port starts the microcontroller. A small program controls the servo motor to press the "On" button of the laptop. Easy.
+Everything together is connected the "balkan way" with a lot of duct tape, wires hanging around and a lead weight to achieve the force of pressure needed. Balkan people will understand.<br>
+Watch it in action on youtube: <a href="https://www.youtube.com/watch?v=VJjaTkirXVo" rel="nofollow">LF2020-10-02 Arduino turns on laptop</a></p>
+<h2 dir="auto"><a id="user-content-why-oh-why" class="anchor" aria-hidden="true" href="#why-oh-why"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Why oh why</h2>
+<p dir="auto">It all sounds so perfect in my fantasy. But oh reality is a mess. The servo motor involuntary moves when it is attached (turned on) before any voluntary commands of mine are sent to him. You can see that first movement clearly in the youtube video. Try and error to achieve a not-so-perfect solution that looks completely unreliable and it could break at any time. I didn't find a solution yet. But I found a lot of people fighting the same problem. Why is that so hard to achieve? Just don't move until I command you so. What part is not understandable here?</p>
+<h2 dir="auto"><a id="user-content-and-thats-it" class="anchor" aria-hidden="true" href="#and-thats-it"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>And that's it</h2>
+<p dir="auto">One button on the remote control to turn on 5 devices. The sound of the servo id funny, but not too much noisy.<br>
+The near button on the remote to turn everything off.<br>
+Unfortunately sometimes the Win 10 does not like to be unplugged so unpolitely and the next time it asks to check the disk or other recovery methods. But it is an SSD disk, so I don't expect any real problems. I just choose "restart the PC". And it all works. It happens very rare thought.</p>
+<h2 dir="auto"><a id="user-content-development" class="anchor" aria-hidden="true" href="#development"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Development</h2>
+<p dir="auto">Install the arduino IDE 1.8.13 (Win,Mac,Linux): <a href="https://www.arduino.cc/en/Main/Software" rel="nofollow">arduino software</a>.<br>
+In <code>Tools-Board</code> I choose the "Arduino Uno".<br>
+There are a great collection of simple examples to start learning with ease.<br>
+The word "sketch" is used for arduino programmes. It uses a C like language with libraries for interaction with components. The microcontroller is usually programmed in an infinite loop. The 2 classic sections of any "sketch" is the setup() and the loop() functions. The sketch file extension is ".ino".<br>
+My sketch is executed only once, after that I put the microcontroller to sleep. That is pretty unusual, though.
+The servo motor needs time to rotate and the sketch needs to use delay() to wait for the movement in the real world.<br>
+Use the "Upload" button to compile and transfer the sketch to the microcontroller. It starts the execution immediately. It will store the sketch and start it every time the microcontroller is plugged in. Or it will restart the sketch after pressing the "Reset" button on the Arduino board.</p>
+<h2 dir="auto"><a id="user-content-rust" class="anchor" aria-hidden="true" href="#rust"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Rust</h2>
+<p dir="auto">I plan to do the same programme in Rust. Some knowledge is here: <a href="https://dev.to/creativcoder/how-to-run-rust-on-arduino-uno-40c0" rel="nofollow">https://dev.to/creativcoder/how-to-run-rust-on-arduino-uno-40c0</a><br>
+I don't want to change my existing programming environment for Rust. I will try to use a docker image exclusively for Arduino programming.<br>
+<a href="https://github.com/Rahix/avr-hal">https://github.com/Rahix/avr-hal</a></p>
+</article>
+</body>
+
+</html>

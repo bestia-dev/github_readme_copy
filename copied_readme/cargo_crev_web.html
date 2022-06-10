@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-rust-reviews-working-title-cargo_crev_web" class="anchor" aria-hidden="true" href="#rust-reviews-working-title-cargo_crev_web"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Rust-reviews (working title cargo_crev_web)</h1>
+<p dir="auto"><strong>web server to query reviews from cargo-crev</strong><br>
+<em><strong>version: 2020.822.1757 date: 2020-08-22 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/cargo_crev_web">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/cargo_crev_web/"><img src="https://camo.githubusercontent.com/e2ef2d0cdf398a64a8f7437551dfd5a24433ae8a89c1613527ca2c877f551d6f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f527573742d343237302d677265656e2e737667" alt="Lines in Rust code" data-canonical-src="https://img.shields.io/badge/Lines_in_Rust-4270-green.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/cargo_crev_web/"><img src="https://camo.githubusercontent.com/a70b257283681719b306319d3a028396d5660da7fe3be3d7ceabf5efc26d2c90/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f446f635f636f6d6d656e74732d3530382d626c75652e737667" alt="Lines in Doc comments" data-canonical-src="https://img.shields.io/badge/Lines_in_Doc_comments-508-blue.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/cargo_crev_web/"><img src="https://camo.githubusercontent.com/b1f309fee087266a4eedd42f0af8806c3849c677b4f6e566a89c030668563806/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f636f6d6d656e74732d3538382d707572706c652e737667" alt="Lines in Comments" data-canonical-src="https://img.shields.io/badge/Lines_in_comments-588-purple.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/cargo_crev_web/"><img src="https://camo.githubusercontent.com/ca23628eb99142a21cb1c4d2691f8eb74e53f9731e50ebd3dab96f4ea3baa96b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f6578616d706c65732d302d79656c6c6f772e737667" alt="Lines in examples" data-canonical-src="https://img.shields.io/badge/Lines_in_examples-0-yellow.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/cargo_crev_web/"><img src="https://camo.githubusercontent.com/88413559838ab29d3b1584a33332b61fa305462a9d7c058b0d77a2c810534b0d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f74657374732d35372d6f72616e67652e737667" alt="Lines in tests" data-canonical-src="https://img.shields.io/badge/Lines_in_tests-57-orange.svg" style="max-width: 100%;"></a></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/cargo_crev_web/raw/main/LICENSE"><img src="https://camo.githubusercontent.com/83d3746e5881c1867665223424263d8e604df233d0a11aae0813e0414d433943/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667" alt="Licence" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width: 100%;"></a>
+<a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/ef8222ec462c7721460dc030a25917095b4435bd2d3af267b3471df98a232d1e/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246636172676f5f637265765f77656226636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Fcargo_crev_web&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #buildtool #developmenttool #server #crev #review #web #html</p>
+
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_01.png"><img src="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_01.png" width="400" style="max-width: 100%;"></a><a target="_blank" rel="noopener noreferrer" href="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_02.png"><img src="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_02.png" width="400" style="max-width: 100%;"></a><a target="_blank" rel="noopener noreferrer" href="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_03.png"><img src="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_03.png" width="400" style="max-width: 100%;"></a><a target="_blank" rel="noopener noreferrer" href="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_04.png"><img src="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_04.png" width="400" style="max-width: 100%;"></a><a target="_blank" rel="noopener noreferrer" href="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_05.png"><img src="https://github.com/bestia-dev/cargo_crev_web/raw/main/web_server_folder/web_content_folder/images/snip_05.png" width="400" style="max-width: 100%;"></a></p>
+
+<h2 dir="auto"><a id="user-content-try-it-out" class="anchor" aria-hidden="true" href="#try-it-out"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Try it out</h2>
+<p dir="auto"><a href="https://web.crev.dev/rust-reviews/crates" rel="nofollow">https://web.crev.dev/rust-reviews/crates</a></p>
+<h2 dir="auto"><a id="user-content-motivation" class="anchor" aria-hidden="true" href="#motivation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Motivation</h2>
+<p dir="auto">Cargo-crev is a system of review for Rust crates in crates.io.<br>
+<a href="https://github.com/crev-dev/cargo-crev">https://github.com/crev-dev/cargo-crev</a><br>
+Originally it is a CLI that programmers use on their local machines while developing. The installation of cargo-crev is complicated and involving.<br>
+I would like to make a public cargo-crev web app to query reviews globally. Having a web app will be very good for promoting the crev system.<br>
+This web app will try to show all publicly available reviews, so the community will have a broader understanding of the reviews and crates.<br>
+The web server will use cargo-crev internally to fetch the reviews.</p>
+<h2 dir="auto"><a id="user-content-crev---rust-code-reviews---raise-awareness" class="anchor" aria-hidden="true" href="#crev---rust-code-reviews---raise-awareness"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CREV - Rust code reviews - Raise awareness</h2>
+<p dir="auto">Please, spread this info !<br>
+Open source code needs a community effort to express trustworthiness.<br>
+Start with reading the reviews of the crates on <a href="https://web.crev.dev/rust-reviews/crates" rel="nofollow">web.crev.dev</a>. <br>
+Then install the GUI <a href="https://crates.io/crates/cargo_crev_reviews" rel="nofollow">cargo_crev_reviews</a> or the CLI <a href="https://github.com/crev-dev/cargo-crev">cargo-crev</a>.<br>
+Your personal reviews are most important. If you have a boss, he will sooner or later ask you if you reviewed all the dependencies. With <a href="https://crates.io/crates/cargo_crev_reviews" rel="nofollow">cargo_crev_reviews</a> you have a basic tool to do that. <br>
+Write your reviews! Describe the crates you trust. Or warn about the crate versions you think are dangerous. Publish and share your opinion with other developers.\</p>
+<h2 dir="auto"><a id="user-content-cratesio-and-librs" class="anchor" aria-hidden="true" href="#cratesio-and-librs"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>crates.io and lib.rs</h2>
+<p dir="auto">A similar web page is also created by @Kornelski at <a href="https://lib.rs/crates/num-traits/crev" rel="nofollow">https://lib.rs/crates/num-traits/crev</a>.<br>
+lib.rs is an alternative index to crates.io.<br>
+Crates.io is the official Rust-lang storage of crates source code that is trusted and immutable.<br>
+Lib.rs is focused on searching for crates in a categories with handy additional information.</p>
+<h2 dir="auto"><a id="user-content-warp" class="anchor" aria-hidden="true" href="#warp"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>warp</h2>
+<p dir="auto">Warp is a web server written in Rust.<br>
+<a href="https://github.com/seanmonstar/warp">https://github.com/seanmonstar/warp</a><br>
+It will listen on port 8051 listens to http.</p>
+<h2 dir="auto"><a id="user-content-google-vm" class="anchor" aria-hidden="true" href="#google-vm"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Google vm</h2>
+<p dir="auto">A working web server is installed on my google vm.<br>
+There is a nginx server reverse proxy that accepts https http2 on 443 and relay to internal 8051. Nginx also redirects all http 80 to https 443.<br>
+In sites-available/default I added this lines:</p>
+<div class="highlight highlight-source-nginx notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="#region rust-reviews
+    #without the trailing / it is not a directory (for the server and for the browser)
+    #do the browser redirect 301
+    location = /rust-reviews {
+      return 301 /rust-reviews/;
+    }
+    #folder name only, pass to index.html on port 8051
+    location = /rust-reviews/ {
+      proxy_pass http://127.0.0.1:8051/index.html;
+      proxy_buffering off;
+    }
+    # the trailing / after both of these lines means this route is not appended to the forwarding
+    location /rust-reviews/ {
+      proxy_pass http://127.0.0.1:8051/;
+      proxy_buffering off;
+    }
+  #endregion"><pre><span class="pl-c">#region rust-reviews</span>
+    <span class="pl-c">#without the trailing / it is not a directory (for the server and for the browser)</span>
+    <span class="pl-c">#do the browser redirect 301</span>
+    <span class="pl-k">location</span> <span class="pl-en">= /rust-reviews </span>{
+      <span class="pl-c1">return</span> <span class="pl-s">301</span> /rust-reviews/;
+    }
+    <span class="pl-c">#folder name only, pass to index.html on port 8051</span>
+    <span class="pl-k">location</span> <span class="pl-en">= /rust-reviews/ </span>{
+      <span class="pl-k">proxy_pass</span> http://127.0.0.1:8051/index.html;
+      <span class="pl-k">proxy_buffering</span><span class="pl-c1"> off</span>;
+    }
+    <span class="pl-c"># the trailing / after both of these lines means this route is not appended to the forwarding</span>
+    <span class="pl-k">location</span> <span class="pl-en">/rust-reviews/ </span>{
+      <span class="pl-k">proxy_pass</span> http://127.0.0.1:8051/;
+      <span class="pl-k">proxy_buffering</span><span class="pl-c1"> off</span>;
+    }
+  <span class="pl-c">#endregion</span></pre></div>
+<h2 dir="auto"><a id="user-content-screen-linux-program" class="anchor" aria-hidden="true" href="#screen-linux-program"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>screen (Linux program)</h2>
+<p dir="auto">My application will run in background with the command "screen" with a session_name.<br>
+So I can see all the stdout of the application easily.<br>
+create a new session<br>
+<code>screen -S cargo_crev_web_8051</code>,<br>
+connect to an existing session<br>
+<code>screen -r cargo_crev_web_8051</code>,<br>
+Set the credentials for cargo-crev CLI in the env variable:<br>
+<code>(space) export CREV_PASSPHRASE=your_passphrase</code><br>
+Warning: never write secrets in code or files that are published on Github.<br>
+Add a space before the command to avoid it to be saved in bash history.
+start the web server<br>
+<code>cd /var/www/webapps/cargo_crev_web; ./cargo_crev_web</code><br>
+If you want to scroll the screen session:<br>
+<code>ctrl+a ESC</code><br>
+scroll with arrows or page-up, page-down. End scroll mode with:<br>
+<code>ESC</code><br>
+detach the session<br>
+<code>ctrl+a d</code></p>
+<h2 dir="auto"><a id="user-content-install-cargo-crev-to-fetch-reviews" class="anchor" aria-hidden="true" href="#install-cargo-crev-to-fetch-reviews"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>install cargo-crev to fetch reviews</h2>
+<p dir="auto">On my web server I want to fetch the cargo-crev reviews from GitHub in regular intervals.<br>
+I need to install cargo-crev.<br>
+My first attempt was to install Rust and cargo with rustup with minimal profile.
+<code>curl https://sh.rustup.rs -sSf | sh -s -- --profile minimal</code><br>
+Then I tried to install cargo-crev with cargo:<br>
+<code>cargo install cargo-crev</code><br>
+It was a disaster. I have the smallest, tiniest possible VM and it looks that compiling the source code of cargo-crev is too much for it. I tried 3 times, waited for a few hours and it didn't succeed. I then deleted the big folder <code>~/.cargo/registry/src</code> to free some disk space.<br>
+Fortunately there is a binary release already compiled here:<br>
+<code>https://github.com/crev-dev/cargo-crev/releases/download/v0.16.1/cargo-crev-v0.16.1-x86_64-unknown-linux-musl.tar.gz</code><br>
+I unzip it twice and saved the binary file <code>cargo-crev</code> in:<br>
+<code>~/.cargo/bin</code></p>
+<h2 dir="auto"><a id="user-content-github-crev-proofs" class="anchor" aria-hidden="true" href="#github-crev-proofs"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>GitHub crev-proofs</h2>
+<p dir="auto">I followed the instructions <a href="https://github.com/crev-dev/cargo-crev/raw/main/cargo-crev/src/doc/getting_started.md">getting_started</a>.<br>
+I created a new GitHub user: <code>cargo-crev-web</code>. I wanted to name it <code>cargo_crev_web</code>, but underscore is not allowed :-( So now I have inconsistent names :-(<br>
+I used my second email, because my first email is used for my personal GitHub bestia-dev.<br>
+On the google vm web server I created an SSH key and copied the key to GitHub to have SSH access.<br>
+I forked the template <a href="https://github.com/crev-dev/crev-proofs">https://github.com/crev-dev/crev-proofs</a>.<br>
+For git fetch and reindex I will open a new screen session:<br>
+<code>screen -S cargo_crev_web_git</code><br>
+to reconnect later:<br>
+<code>screen -r cargo_crev_web_git</code><br>
+I will need the credentials for ssh for GitHub:<br>
+<code>eval $(ssh-agent -s)</code><br>
+<code>ssh-add ~/.ssh/bestia2_for_github</code><br>
+create new crev id with my new github repo:<br>
+<code>cargo crev id new --url https://github.com/cargo-crev-web/crev-proofs</code><br>
+add the trusted user <code>dpc</code>, the author of cargo-crev:<br>
+<code>cargo crev trust --level medium https://github.com/dpc/crev-proofs</code><br>
+Push my crev data to github:<br>
+<code>cargo crev repo publish</code></p>
+<h2 dir="auto"><a id="user-content-trusted-reviewers" class="anchor" aria-hidden="true" href="#trusted-reviewers"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>trusted reviewers</h2>
+<p dir="auto">For the purpose of showing all public reviews, <code>cargo_rev_web</code> will "trust --level low" everybody.<br>
+I will personally, manually maintain this list.<br>
+I have a function that searches Github for all crev-proofs repositories. Beside this, the command <code>cargo crev id query all</code> returns a list of all repos found in locally cached crev files (trusted people from trusted people).
+Then I manually check every repository if it's correct: it has to contain a crev-id and some reviews in the correct format.<br>
+If the repo is correct then "cargo crev trust --level low repo". If not I add it to "blocklisted repos" with a description what is wrong.</p>
+<h2 dir="auto"><a id="user-content-linux-scheduler" class="anchor" aria-hidden="true" href="#linux-scheduler"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Linux scheduler</h2>
+<p dir="auto">I need to call every hour:<br>
+<code>cargo crev repo fetch trusted</code>
+to have fresh reviews available locally in <code>~/.cache/crev/</code>.<br>
+The Linux scheduler <code>crontab</code> is ok, but I miss something more visual.<br>
+I wrote <a href="https://github.com/bestia-dev/foreground_scheduler">https://github.com/bestia-dev/foreground_scheduler</a> to do this.<br>
+It is a normal CLI and it is easy to read the output on the screen.<br>
+To make this run indefinitely in another terminal session I use <code>screen</code>.
+Open a new screen session:<br>
+<code>screen -S cargo_crev_web_git</code><br>
+to reconnect later:<br>
+<code>screen -r cargo_crev_web_git</code><br>
+The script is stored in <code>/var/www/scripts/cargo_crev_web_fetch_reindex.sh</code>
+I run it (every 5th minute of every hour):<br>
+<code>foreground_scheduler 05 /bin/bash "/var/www/scripts/cargo_crev_web/cargo_crev_web_fetch_reindex.sh"</code><br>
+To stop it:<br>
+<code>ctrl+c</code></p>
+<h2 dir="auto"><a id="user-content-testing-cachecrev" class="anchor" aria-hidden="true" href="#testing-cachecrev"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>testing .cache/crev</h2>
+<p dir="auto">Not all data is required in every review, so I need to test examples that contains different data.<br>
+<a href="https://web.crev.dev/rust-reviews/crate/btoi" rel="nofollow">https://web.crev.dev/rust-reviews/crate/btoi</a>  alternatives<br>
+<a href="https://web.crev.dev/rust-reviews/crate/num-traits/" rel="nofollow">https://web.crev.dev/rust-reviews/crate/num-traits/</a>  issues<br>
+<a href="https://web.crev.dev/rust-reviews/crate/protobuf" rel="nofollow">https://web.crev.dev/rust-reviews/crate/protobuf</a>  advisory old<br>
+<a href="https://web.crev.dev/rust-reviews/crate/inventory" rel="nofollow">https://web.crev.dev/rust-reviews/crate/inventory</a>   advisories</p>
+<p dir="auto">Locally in development is the same, just the server is 127.0.0.1:8051/.</p>
+<h2 dir="auto"><a id="user-content-html-templating" class="anchor" aria-hidden="true" href="#html-templating"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>html templating</h2>
+<p dir="auto">Like many developers I also suffer from "graphical designitis".<br>
+It is very hard for me to find the exact color variations and shape proportions and subtle font differences to make a web page beautiful. It is not lack of knowledge of html and css. It is lack of style and taste.<br>
+Simply unrepairable!<br>
+So I created a simple html templating system to separate the graphical designer work from the developer work. As much as possible.<br>
+First the graphical designer prepares a nice html+css with static data, that looks awesome.<br>
+The 2 files are on his local disk and don't need any server or configuration. The static data must be as realistic as possible.<br>
+Then I add comments that are commands where to insert the dynamic data. This comments don't destroy the original html. That html can still be visualized statically from the disk. It is easy to add to or modify the design. Just avoid to touch the comments.<br>
+On the web server the HtmlTemplating trait takes the template and inserts the dynamic data.<br>
+The result is normal html and is sent to the browser.</p>
+<h2 dir="auto"><a id="user-content-markdown-md-to-html" class="anchor" aria-hidden="true" href="#markdown-md-to-html"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>markdown md to html</h2>
+<p dir="auto">I use the Rust comrak lib to convert the review comment from md to html.</p>
+<h2 dir="auto"><a id="user-content-badges" class="anchor" aria-hidden="true" href="#badges"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Badges</h2>
+<p dir="auto">A service for SVG badges for <code>crev count of reviews for one crate</code> is on url:<br>
+<a href="https://web.crev.dev/rust-reviews/badge/crev_count/reader_for_microxml.svg" rel="nofollow">https://web.crev.dev/rust-reviews/badge/crev_count/reader_for_microxml.svg</a><br>
+Example how it looks like on GitHub:<br>
+<a href="https://github.com/bestia-dev/reader_for_microxml/">https://github.com/bestia-dev/reader_for_microxml/</a></p>
+<div class="highlight highlight-source-gfm notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[![crev reviews](
+https://web.crev.dev/rust-reviews/badge/crev_count/reader_for_microxml.svg
+)](https://web.crev.dev/rust-reviews/crate/reader_for_microxml/)"><pre>[![crev reviews](
+https://web.crev.dev/rust-reviews/badge/crev_count/reader_for_microxml.svg
+)](https://web.crev.dev/rust-reviews/crate/reader_for_microxml/)</pre></div>
+<h3 dir="auto"><a id="user-content-xhtml-validator" class="anchor" aria-hidden="true" href="#xhtml-validator"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>xhtml validator</h3>
+<p dir="auto">Manually coded xhtml can be full of "bugs".<br>
+The validator will quickly find them out.<br>
+I would like to have this tool inside VsCode.<br>
+<a href="https://www.liquid-technologies.com/online-xml-validator" rel="nofollow">https://www.liquid-technologies.com/online-xml-validator</a></p>
+<h2 dir="auto"><a id="user-content-codetour" class="anchor" aria-hidden="true" href="#codetour"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>CodeTour</h2>
+<p dir="auto">I like very much the VSCode extension CodeTour.<br>
+It makes a special kind of documentation that shows the code flow.<br>
+No other type of documentation is so useful as this.<br>
+It works only in VSCode. I made an export to md utility because is so much easier to distribute the md file around.</p>
+<h2 dir="auto"><a id="user-content-javascript-click-to-copy" class="anchor" aria-hidden="true" href="#javascript-click-to-copy"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>javascript Click to Copy</h2>
+<p dir="auto">I used <a href="https://clipboardjs.com/" rel="nofollow">https://clipboardjs.com/</a> for Click to Copy.<br>
+For tooltips I used <a href="https://chrisbracco.com/a-simple-css-tooltip/" rel="nofollow">https://chrisbracco.com/a-simple-css-tooltip/</a></p>
+<h2 dir="auto"><a id="user-content-colors" class="anchor" aria-hidden="true" href="#colors"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>colors</h2>
+<p dir="auto">Every person on this planet would like to have different colors. That is human nature. Or just nature's statistical dispersion to increase chance of survival when the environment changes dramatically...<br>
+To build a website that satisfies everybody's taste for color is impossible.<br>
+Even hoping to satisfy a few close friends is mission impossible.<br>
+So there is this Chrome extension named User Css:<br>
+<a href="https://chrome.google.com/webstore/detail/user-css/okpjlejfhacmgjkmknjhadmkdbcldfcb" rel="nofollow">https://chrome.google.com/webstore/detail/user-css/okpjlejfhacmgjkmknjhadmkdbcldfcb</a><br>
+You write a css in your browser and while you are typing it immediately changes the look of the webpage.<br>
+In the webpage <a href="https://web.crev.dev/rust-reviews/" rel="nofollow">https://web.crev.dev/rust-reviews/</a> you can find a basic css for the color palette. Just Click-to-Copy and try it in User Css. Then change colors to your liking.<br>
+At the end save the css for the next time you visit the website.<br>
+If somebody is very happy with his/her user css, please send it to me. I will make it available to other users. They will be happy. Humans love colors - different colors.</p>
+<h2 dir="auto"><a id="user-content-ideas" class="anchor" aria-hidden="true" href="#ideas"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>ideas</h2>
+<p dir="auto">The same web server can easily run on the local machine of the developer.<br>
+It is just one single binary executable file.<br>
+It will read only the trusted reviews specific to that developer.<br>
+So now we have a local web server and a browser. It means we have now the possibility to make a beautiful GUI for cargo-crev that works on any OS and remotely also. Good.<br>
+This local server will ue crev-lib to access the crev functionality.</p>
+<h2 dir="auto"><a id="user-content-stats" class="anchor" aria-hidden="true" href="#stats"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Stats</h2>
+<p dir="auto"><a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="628186103" data-permission-text="Title is private" data-url="https://github.com/bestia-dev/cargo_crev_web/issues/4" data-hovercard-type="issue" data-hovercard-url="/bestia-dev/cargo_crev_web/issues/4/hovercard" href="https://github.com/bestia-dev/cargo_crev_web/issues/4">#4</a></p>
+<h2 dir="auto"><a id="user-content-references" class="anchor" aria-hidden="true" href="#references"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>References</h2>
+<p dir="auto"><a href="https://github.com/rustomax/rust-iterators">https://github.com/rustomax/rust-iterators</a></p>
+</article>
+</body>
+
+</html>

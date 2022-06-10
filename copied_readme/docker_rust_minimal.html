@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-docker_rust_minimal" class="anchor" aria-hidden="true" href="#docker_rust_minimal"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>docker_rust_minimal</h1>
+<p dir="auto"><strong>Docker is cool. Let's do Rust with Docker</strong><br>
+<em><strong>version: 1.0  date: 2020-08-26 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/docker_rust_minimal">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/f4b38bd293a9b0b5fb2503bd5ec26cb33ddb5dede820d6b606a198a3febf20be/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246646f636b65725f727573745f6d696e696d616c26636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Fdocker_rust_minimal&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #tutorial #docker</p>
+<h2 dir="auto"><a id="user-content-wsl2" class="anchor" aria-hidden="true" href="#wsl2"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>WSL2</h2>
+<p dir="auto">On my Win10 I have WSL2 - Windows subsystem for Linux.<br>
+I had WSL 1 for a while, but it was not a true Linux kernel and Docker did not work with WSL 1.<br>
+WSL2 is a revolution. With it I have a lightweight virtual machine with a true Linux kernel. Great !<br>
+Win10 must be version 1903 or higher. My machine did not automatically update to that yet, so I needed the workaround.
+I needed to register in the Microsoft Insiders program.<br>
+<a href="https://insider.windows.com/en-us/getting-started" rel="nofollow">https://insider.windows.com/en-us/getting-started</a><br>
+It uses the same account you use for other Microsoft service.<br>
+Now in <code>Check for updates</code> I can see the update to version 19041. Just do it!</p>
+<h3 dir="auto"><a id="user-content-installing-wsl2" class="anchor" aria-hidden="true" href="#installing-wsl2"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Installing WSL2</h3>
+<p dir="auto"><a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2" rel="nofollow">https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2</a></p>
+<div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="# Open PowerShell as Administrator
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+# restart and update to WSL2
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+# restart your machine. Set WSL2 as default
+wsl --set-default-version 2
+# I get the error: WSL 2 requires an update to its kernel component. 
+# visit https://aka.ms/wsl2kernel and do the update
+# I choose to install the Debian distro:
+https://www.microsoft.com/sl-si/p/debian/9msvkqc78pk6?rtc=1
+# give it a password you will remember
+# then in linux bash
+$ sudo apt update
+$ sudo apt dist-upgrade"><pre><span class="pl-c"><span class="pl-c">#</span> Open PowerShell as Administrator</span>
+<span class="pl-c1">dism.exe</span> <span class="pl-k">/</span>online <span class="pl-k">/</span><span class="pl-c1">enable-feature</span> <span class="pl-k">/</span>featurename:Microsoft<span class="pl-k">-</span>Windows<span class="pl-k">-</span>Subsystem<span class="pl-k">-</span>Linux <span class="pl-k">/</span>all <span class="pl-k">/</span>norestart
+<span class="pl-c"><span class="pl-c">#</span> restart and update to WSL2</span>
+<span class="pl-c1">dism.exe</span> <span class="pl-k">/</span>online <span class="pl-k">/</span><span class="pl-c1">enable-feature</span> <span class="pl-k">/</span>featurename:VirtualMachinePlatform <span class="pl-k">/</span>all <span class="pl-k">/</span>norestart
+<span class="pl-c"><span class="pl-c">#</span> restart your machine. Set WSL2 as default</span>
+wsl <span class="pl-k">--</span><span class="pl-c1">set-default</span><span class="pl-k">-</span>version <span class="pl-c1">2</span>
+<span class="pl-c"><span class="pl-c">#</span> I get the error: WSL 2 requires an update to its kernel component. </span>
+<span class="pl-c"><span class="pl-c">#</span> visit https://aka.ms/wsl2kernel and do the update</span>
+<span class="pl-c"><span class="pl-c">#</span> I choose to install the Debian distro:</span>
+https:<span class="pl-k">//</span><span class="pl-c1">www.microsoft.com</span><span class="pl-k">/</span>sl<span class="pl-k">-</span>si<span class="pl-k">/</span>p<span class="pl-k">/</span>debian<span class="pl-k">/</span>9msvkqc78pk6?rtc<span class="pl-k">=</span><span class="pl-c1">1</span>
+<span class="pl-c"><span class="pl-c">#</span> give it a password you will remember</span>
+<span class="pl-c"><span class="pl-c">#</span> then in linux bash</span>
+$ sudo apt update
+$ sudo apt dist<span class="pl-k">-</span>upgrade</pre></div>
+<h2 dir="auto"><a id="user-content-rust" class="anchor" aria-hidden="true" href="#rust"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Rust</h2>
+<p dir="auto">I will try to compile all my Rust code to Linux or Wasm.<br>
+The Windows OS is less and less interesting to me. It is really good for GUI applications. But I am not interested in those, because it limits the use of the program to only that OS. This kind of platform vendor-lock-in because of the GUI is stupid.<br>
+I will try to make applications that are separated into server/backend and client/frontend. The server will work on Linux. It means everywhere. The server can be on the same machine, in a virtual machine, in the WSL2, on another machine in the local network or anywhere on the internet. So everywhere.<br>
+The client/frontend will work inside the browser with Wasm. It means everywhere.<br>
+All will be written in Rust. Full stack Rust.<br>
+It sounds like a good cross-platform solution.  To me.</p>
+<h2 dir="auto"><a id="user-content-docker" class="anchor" aria-hidden="true" href="#docker"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Docker</h2>
+<p dir="auto">Install Docker in windows with WSL2 support<br>
+<a href="https://docs.docker.com/docker-for-windows/wsl/" rel="nofollow">https://docs.docker.com/docker-for-windows/wsl/</a><br>
+Download and install the stable version from<br>
+<a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows/" rel="nofollow">https://hub.docker.com/editions/community/docker-ce-desktop-windows/</a><br>
+Use the whale icon in the notification area to see the Docker containers.</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="# run in powershell to check the installation
+docker version
+docker run hello-world"><pre lang="powershel" class="notranslate"><code># run in powershell to check the installation
+docker version
+docker run hello-world
+</code></pre></div>
+<p dir="auto">Docker engine is inside WSL2. Great!<br>
+Windows is only a GUI. Everything really is running in Linux.<br>
+This is the future.</p>
+<h2 dir="auto"><a id="user-content-container-for-rust-building" class="anchor" aria-hidden="true" href="#container-for-rust-building"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Container for Rust building</h2>
+<p dir="auto">For now we don't need to install Rust on our Debian.<br>
+Just pull the image for Rust building standalone 100% statically linked app with musl.<br>
+It already has installed everything we need for Rust. Easy.<br>
+<a href="https://blog.sedrik.se/posts/my-docker-setup-for-rust/" rel="nofollow">https://blog.sedrik.se/posts/my-docker-setup-for-rust/</a></p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="# bash commands
+$ docker pull ekidd/rust-musl-builder
+# create an alias to be used easily to run the container
+$ alias rust-musl-builder='docker run --rm -it -v &quot;$(pwd)&quot;:/home/rust/src ekidd/rust-musl-builder'
+# docker container can be run for only one execution and then removed
+# --rm means the container is removed after execution
+# -it means interactive + pseudo-tty (not in background)
+# -v Volume links a read/write host directory to the container file system
+# $(pwd) means &quot;Present Working Directory&quot; and has nothing to do with passwords
+# docker commands finish with the image name"><pre><span class="pl-c"><span class="pl-c">#</span> bash commands</span>
+$ docker pull ekidd/rust-musl-builder
+<span class="pl-c"><span class="pl-c">#</span> create an alias to be used easily to run the container</span>
+$ <span class="pl-c1">alias</span> rust-musl-builder=<span class="pl-s"><span class="pl-pds">'</span>docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder<span class="pl-pds">'</span></span>
+<span class="pl-c"><span class="pl-c">#</span> docker container can be run for only one execution and then removed</span>
+<span class="pl-c"><span class="pl-c">#</span> --rm means the container is removed after execution</span>
+<span class="pl-c"><span class="pl-c">#</span> -it means interactive + pseudo-tty (not in background)</span>
+<span class="pl-c"><span class="pl-c">#</span> -v Volume links a read/write host directory to the container file system</span>
+<span class="pl-c"><span class="pl-c">#</span> $(pwd) means "Present Working Directory" and has nothing to do with passwords</span>
+<span class="pl-c"><span class="pl-c">#</span> docker commands finish with the image name</span></pre></div>
+<h2 dir="auto"><a id="user-content-git" class="anchor" aria-hidden="true" href="#git"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Git</h2>
+<p dir="auto">We will need git in Debian for our example program.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo apt install git
+git --version
+git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;youremail@yourdomain.com&quot;"><pre>sudo apt install git
+git --version
+git config --global user.name <span class="pl-s"><span class="pl-pds">"</span>Your Name<span class="pl-pds">"</span></span>
+git config --global user.email <span class="pl-s"><span class="pl-pds">"</span>youremail@yourdomain.com<span class="pl-pds">"</span></span></pre></div>
+<p dir="auto">Clone this repo:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd ~
+mkdir rustprojects
+cd rustprojects
+git clone git@github.com:bestia-dev/docker_rust_minimal.git
+"><pre><span class="pl-c1">cd</span> <span class="pl-k">~</span>
+mkdir rustprojects
+<span class="pl-c1">cd</span> rustprojects
+git clone git@github.com:bestia-dev/docker_rust_minimal.git
+</pre></div>
+<h2 dir="auto"><a id="user-content-building-a-cli-program" class="anchor" aria-hidden="true" href="#building-a-cli-program"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Building a CLI program</h2>
+<p dir="auto">Our pwd Present Working Directory is the cloned project.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd ~/rustprojects/docker_rust_minimal"><pre><span class="pl-c1">cd</span> <span class="pl-k">~</span>/rustprojects/docker_rust_minimal</pre></div>
+<p dir="auto">We will use the alias to run a docker container. And after that we will give the command to execute in the container. We want to build the Rust project.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="rust-musl-builder cargo build --release"><pre>rust-musl-builder cargo build --release</pre></div>
+<p dir="auto">That's it. The docker container was spinned, the volume was linked, the project was built. We can find the result in <code>target/x86_64-unknown-linux-musl/release/hello</code> on the host OS Debian.</p>
+<h2 dir="auto"><a id="user-content-make-it-small" class="anchor" aria-hidden="true" href="#make-it-small"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Make it small</h2>
+<p dir="auto">Now we have a binary (executable) and we want to deploy it somewhere.
+We will try to make it as small as possible. Maybe that is not smart for every scenario out there, but let's have a look.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="# let &quot;strip&quot; the binary for minimal size
+$ strip target/x86_64-unknown-linux-musl/release/hello
+# from 3MB to 300kB ?!"><pre><span class="pl-c"><span class="pl-c">#</span> let "strip" the binary for minimal size</span>
+$ strip target/x86_64-unknown-linux-musl/release/hello
+<span class="pl-c"><span class="pl-c">#</span> from 3MB to 300kB ?!</span></pre></div>
+<h2 dir="auto"><a id="user-content-build-the-docker-image" class="anchor" aria-hidden="true" href="#build-the-docker-image"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Build the Docker image</h2>
+<p dir="auto">We want to use docker to encapsulate all the needed files and configuration so the person on the other side does not need to worry about it.
+We need to have a Dockerfile in our Working Directory. It is already in this git repo. It looks simple like this:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="FROM scratch
+COPY target/x86_64-unknown-linux-musl/release/hello /
+CMD [&quot;/hello&quot;]"><pre>FROM scratch
+COPY target/x86_64-unknown-linux-musl/release/hello /
+CMD [<span class="pl-s"><span class="pl-pds">"</span>/hello<span class="pl-pds">"</span></span>]</pre></div>
+<p dir="auto"><code>scratch</code> is the smallest possible docker image base. We can use it because our binary is statically linked to everything including <code>musl</code>. The next smallest image base is Alpine Linux. Only 5 MB. The next can be Debian Slim 88 MB. You see the difference in size.<br>
+We need to copy only our binary file to the image.<br>
+When the container is run, it will execute our binary.<br>
+Now build this image:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="alias utc='date -u +&quot;%Y-%m-%dT%H-%M-%S&quot;'
+docker build --no-cache -t scratch_hello -t scratch_hello:$(utc) ."><pre><span class="pl-c1">alias</span> utc=<span class="pl-s"><span class="pl-pds">'</span>date -u +"%Y-%m-%dT%H-%M-%S"<span class="pl-pds">'</span></span>
+docker build --no-cache -t scratch_hello -t scratch_hello:<span class="pl-s"><span class="pl-pds">$(</span>utc<span class="pl-pds">)</span></span> <span class="pl-c1">.</span></pre></div>
+<p dir="auto">For deployment reasons we want to give a version to the image. It is difficult to make this smart. I will just use the UTC date and time.<br>
+<code>--no-cache</code> for this example we avoid caching<br>
+<code>-t</code> means tag or name. There can be more than one tag curiously.<br>
+<code>.</code> means the Dockerfile is here in the Working Directory<br>
+We can see it now in our list of local docker images:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="docker images"><pre>docker images</pre></div>
+<p dir="auto">It is only 305kB. Woohoo!</p>
+<h2 dir="auto"><a id="user-content-run-the-containerized-cli" class="anchor" aria-hidden="true" href="#run-the-containerized-cli"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Run the containerized CLI</h2>
+<p dir="auto">We can now run the docker container with our CLI just as we would run the app itself:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="docker run --rm scratch_hello"><pre>docker run --rm scratch_hello</pre></div>
+<p dir="auto"><code>--rm</code> means remove the container after execution<br>
+We can run it also from the <code>Windows Command Prompt</code> and <code>PowerShell terminal</code>.
+Incredible !</p>
+<h2 dir="auto"><a id="user-content-deploy" class="anchor" aria-hidden="true" href="#deploy"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Deploy</h2>
+<p dir="auto">Docker Hub is a website to share docker images easily.  Alternatively it can be saved to a tar file and then transfered, copied and finally loaded.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="docker save --output scratch_hello-2020-08-26T11-45-51.tar scratch_hello:2020-08-26T11-45-51"><pre>docker save --output scratch_hello-2020-08-26T11-45-51.tar scratch_hello:2020-08-26T11-45-51</pre></div>
+<p dir="auto">On the other side:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="docker load --input scratch_hello-2020-08-26T11-45-51.tar
+docker tag scratch_hello:2020-08-26T11-45-51 scratch_hello:latest
+docker run scratch_hello"><pre>docker load --input scratch_hello-2020-08-26T11-45-51.tar
+docker tag scratch_hello:2020-08-26T11-45-51 scratch_hello:latest
+docker run scratch_hello</pre></div>
+<p dir="auto">Adding the tag <code>latest</code> makes it easier to call that image later.</p>
+</article>
+</body>
+
+</html>

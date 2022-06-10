@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-qvs21" class="anchor" aria-hidden="true" href="#qvs21"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>QVS21</h1>
+<p dir="auto"><strong>Modern replacement for csv for the year 2021</strong><br>
+<em><strong>version: 0.0.8  date: 2021-07-16 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/QVS21">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/QVS21/"><img src="https://camo.githubusercontent.com/12c8621583e163fe0c9606fde82e22981312c799aeeecd2a1451a900cbfb46ea/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f527573742d313537342d677265656e2e737667" alt="Lines in Rust code" data-canonical-src="https://img.shields.io/badge/Lines_in_Rust-1574-green.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/QVS21/"><img src="https://camo.githubusercontent.com/5be7928dfe61409034b65842ba6d671258209a85027daca032e97d2b0602d900/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f446f635f636f6d6d656e74732d3631322d626c75652e737667" alt="Lines in Doc comments" data-canonical-src="https://img.shields.io/badge/Lines_in_Doc_comments-612-blue.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/QVS21/"><img src="https://camo.githubusercontent.com/1a9543778e3924f792012feae1b676aadb4a2348c180790281244587bde9a4f8/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f636f6d6d656e74732d3231312d707572706c652e737667" alt="Lines in Comments" data-canonical-src="https://img.shields.io/badge/Lines_in_comments-211-purple.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/QVS21/"><img src="https://camo.githubusercontent.com/a552d7946451621805ac073f08fe1f6444d027090287cb723900fb6e85fdcda4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f6578616d706c65732d3935342d79656c6c6f772e737667" alt="Lines in examples" data-canonical-src="https://img.shields.io/badge/Lines_in_examples-954-yellow.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/QVS21/"><img src="https://camo.githubusercontent.com/064245960953c92317b2a4744d7b6d13e7a714a9ed79d384fd22a1579fe22142/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f74657374732d3831322d6f72616e67652e737667" alt="Lines in tests" data-canonical-src="https://img.shields.io/badge/Lines_in_tests-812-orange.svg" style="max-width: 100%;"></a></p>
+<p dir="auto"><a href="https://crates.io/crates/qvs21" rel="nofollow"><img src="https://camo.githubusercontent.com/7a23b64db2d30187a0ce21dcba08314e8852a48a2184006d40072b5f197e7270/68747470733a2f2f696d672e736869656c64732e696f2f6372617465732f762f71767332312e737667" alt="crates.io" data-canonical-src="https://img.shields.io/crates/v/qvs21.svg" style="max-width: 100%;"></a>
+<a href="https://docs.rs/qvs21/" rel="nofollow"><img src="https://camo.githubusercontent.com/c6a1d72bb5329ee7b337062886f48926526b23788b93e147753506bde48a0d76/68747470733a2f2f646f63732e72732f71767332312f62616467652e737667" alt="Documentation" data-canonical-src="https://docs.rs/qvs21/badge.svg" style="max-width: 100%;"></a>
+<a href="https://web.crev.dev/rust-reviews/crate/qvs21/" rel="nofollow"><img src="https://camo.githubusercontent.com/c473a73e2f1c8c0faa022a19a6d69305d03d8453781c33e2347353214e03859f/68747470733a2f2f7765622e637265762e6465762f727573742d726576696577732f62616467652f637265765f636f756e742f71767332312e737667" alt="crev reviews" data-canonical-src="https://web.crev.dev/rust-reviews/badge/crev_count/qvs21.svg" style="max-width: 100%;"></a>
+<a href="https://lib.rs/crates/qvs21/" rel="nofollow"><img src="https://camo.githubusercontent.com/9164bfcebc9eb586a3b2e00e2d0d9a768b5c32960d5a66b68db582b15168f5b9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c69622e72732d727573742d6f72616e67652e737667" alt="Lib.rs" data-canonical-src="https://img.shields.io/badge/Lib.rs-rust-orange.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/qvs21/blob/master/LICENSE"><img src="https://camo.githubusercontent.com/83d3746e5881c1867665223424263d8e604df233d0a11aae0813e0414d433943/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667" alt="License" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width: 100%;"></a>
+<a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/7799fa95f462fd51cbf4bd85199d363a9f1d8346ad6af7c277123af24bcfdc65/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246515653323126636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2FQVS21&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang</p>
+<p dir="auto">My proposed format for import/export of 2 dimensional database tables.</p>
+<h2 dir="auto"><a id="user-content-difference-between-qvs20-and-qvs21" class="anchor" aria-hidden="true" href="#difference-between-qvs20-and-qvs21"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Difference between QVS20 and QVS21</h2>
+<p dir="auto"><code>QVS</code> stands for "sQuare brackets Separated Values".<br>
+The number <code>20</code> is the year of the first version: 2020.<br>
+The number <code>21</code> is the year of the second version: 2021.
+The second version has everything from the first version plus added support for SubTables.<br>
+It is not an update, but a more complex version.<br>
+For most projects it is enough to use the QVS2020. The code is smaller, faster, simpler.<br>
+Only if there is absolute need for SubTables the QVS21 must be used.<br>
+Except for SubTables these versions are 100% compatible.<br>
+Find the repository for QVS20 here: <a href="https://github.com/bestia-dev/QVS20">https://github.com/bestia-dev/QVS20</a>.</p>
+<h2 dir="auto"><a id="user-content-data-type-subtable" class="anchor" aria-hidden="true" href="#data-type-subtable"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Data type SubTable</h2>
+<p dir="auto">Inside one cell of the table is possible to insert a whole sub-table.<br>
+Just like that. Nothing changes, no special escaping, because we have start and end delimiters.<br>
+So we can represent also hierarchical data, if it is really needed.<br>
+Still the primary goal of the standard is tabular data.<br>
+Yes, but one tiny thing must change: the row delimiter of the sub-table is not \n anymore.<br>
+It is the number that represent the depth of the sub-table: 1, 2, 3,...<br>
+It must be only one byte. This format is not really great for hierarchies deeper than 9 levels.</p>
+<p dir="auto">Example of CountryTable:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[Country][Population]  
+[Slovenia][2000000]  
+[Italia][60000000]  
+[Croatia][4000000]  "><pre lang="QVS21" class="notranslate"><code>[Country][Population]  
+[Slovenia][2000000]  
+[Italia][60000000]  
+[Croatia][4000000]  
+</code></pre></div>
+<p dir="auto">Now we want to insert the data of the cities, but hierarchically as a sub-table.<br>
+Example of CityDataTable for Slovenia:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[City][MetropolitanPopulation]  
+[Ljubljana][300000]  
+[Koper][30000]  "><pre lang="QVS21" class="notranslate"><code>[City][MetropolitanPopulation]  
+[Ljubljana][300000]  
+[Koper][30000]  
+</code></pre></div>
+<p dir="auto">Together table and sub-table looks like this:<br>
+The sub-table row delimiter is changed to "1".<br>
+For easy parsing, the sub-table starts with the new row delimiter.</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[Country][CityDataSubTable][Population]  
+[Slovenia][1[Ljubljana][300000]1[Koper][30000]1][2000000]  
+[Italia][1[Milano][400000]1[Venezia][30000]1][60000]  "><pre lang="QVS21" class="notranslate"><code>[Country][CityDataSubTable][Population]  
+[Slovenia][1[Ljubljana][300000]1[Koper][30000]1][2000000]  
+[Italia][1[Milano][400000]1[Venezia][30000]1][60000]  
+</code></pre></div>
+<p dir="auto">This is not very human readable, because the lack of spaces.<br>
+But you can visualize it like this:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[Country ] [CityDataSubTable      ] [Population]  
+[Slovenia] [1[Ljubljana][300000]1  
+             [Koper    ][ 30000]1 ] [   2000000]  
+[Italia  ] [1[Milano   ][400000]1  
+             [Venezia  ][ 30000]1 ] [  60000000]  
+...  "><pre lang="QVS21" class="notranslate"><code>[Country ] [CityDataSubTable      ] [Population]  
+[Slovenia] [1[Ljubljana][300000]1  
+             [Koper    ][ 30000]1 ] [   2000000]  
+[Italia  ] [1[Milano   ][400000]1  
+             [Venezia  ][ 30000]1 ] [  60000000]  
+...  
+</code></pre></div>
+<h2 dir="auto"><a id="user-content-row-delimiter-lf-and-sub-tables" class="anchor" aria-hidden="true" href="#row-delimiter-lf-and-sub-tables"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Row delimiter LF and sub-tables</h2>
+<p dir="auto">The basic row delimiter is LF. Not CR, not CRLF, but exactly LF.<br>
+Every row must end with the row delimiter, especially the last row .<br>
+There is a small performance problem with sub-tables here.<br>
+Let me explain and come to the solution with this flow of thoughts.<br>
+For sequential reading of <code>QVS21</code> files the inserted sub-tables are not a problem. It works well.<br>
+If we read every field sequentially, we know when the sub-table starts and ends. Easy.
+But sometimes we want to go very fast line by line and read only the first field for filtering. Because of sub-tables, the next LF is not always the start of a new row.<br>
+<strong>Let's solve this problem.</strong><br>
+We can use again the fact that we know the different start and end delimiters.<br>
+So between the end field and the new row we can put a different <code>row delimiter</code>.<br>
+The first level row delimiter is conveniently LF.<br>
+For the first sub-table the row delimiter changes to the string <code>1</code>.<br>
+For the next depth level <code>2</code> and so on. The number is the depth of the sub-table.<br>
+In any moment it will be clear what is the row delimiter for that explicit sub-table.<br>
+Very important rule: every row, and the last row especially, must end with a row delimiter !<br>
+We must take care to limit the row delimiter to only one byte. It means there cannot be a sub-table nested deeper than 9 levels.  And that is fine for this type of tabular format.</p>
+<h3 dir="auto"><a id="user-content-schema-3rd-row---sub-table-schemas" class="anchor" aria-hidden="true" href="#schema-3rd-row---sub-table-schemas"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Schema 3rd row - Sub table schemas</h3>
+<p dir="auto">SubTables schemas are write in the 3rd row.<br>
+For other column, the field is empty [].</p>
+<h2 dir="auto"><a id="user-content-file-extension" class="anchor" aria-hidden="true" href="#file-extension"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>File extension</h2>
+<p dir="auto">I want the file extension to be specific for the version of the standard.<br>
+File extension and standard name are the same: <code>*.QVS21</code></p>
+<h2 dir="auto"><a id="user-content-read-also-the-separate-xxxmd-files" class="anchor" aria-hidden="true" href="#read-also-the-separate-xxxmd-files"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Read also the separate XXX.md files</h2>
+<p dir="auto">I use the same README.md file for GitHub, Crates.io and docs.rs.<br>
+So I cannot include the specific information that are not common to all 3 purposes. For that reason I have separate XXX.md files:</p>
+<ul dir="auto">
+<li>DEVELOPMENT.md - information and instruction for development</li>
+<li>CHANGELOG.md - what changed between versions</li>
+<li>TODO.md - reminder of what is in plan to do</li>
+</ul>
+</article>
+</body>
+
+</html>

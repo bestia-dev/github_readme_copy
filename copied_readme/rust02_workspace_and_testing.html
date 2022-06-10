@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-rust02_workspace_and_testing" class="anchor" aria-hidden="true" href="#rust02_workspace_and_testing"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>rust02_workspace_and_testing</h1>
+<p dir="auto"><strong>Learning Rust: how to use workspace, binary, library and testing</strong><br>
+<em><strong>version: 1.0  date: 2019-05-03 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/rust02_workspace_and_testing">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/4936be37039106dcf218de8b617656fa33ffe61e8b11aa0f9115460eda48051c/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d6465762532467275737430325f776f726b73706163655f616e645f74657374696e6726636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Frust02_workspace_and_testing&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #tutorial</p>
+<p dir="auto">Read the <code>Last project</code> first: <a href="https://github.com/bestia-dev/rust01_the_beginning">https://github.com/bestia-dev/rust01_the_beginning</a></p>
+<h2 dir="auto"><a id="user-content-workspace" class="anchor" aria-hidden="true" href="#workspace"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Workspace</h2>
+<p dir="auto">For Rust Workspace is a group of projects developed together.<br>
+It is easy to make a binary (main.rs, executable) project. But it is not good for testing.<br>
+It is easy to make a library (lib.rs) but you can not run it.<br>
+With a workplace I can split my application into one binary source code and one library source code. So I have the best of both worlds.<br>
+The result is still just one executable file. That is a great thing with Rust.</p>
+<h2 dir="auto"><a id="user-content-date_diff" class="anchor" aria-hidden="true" href="#date_diff"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>date_diff</h2>
+<p dir="auto">I want to make a simple CLI (console line interface) application that calculates date difference.<br>
+I need it to know how many days I am already on vacation.<br>
+I try to use all small caps and underscores for all the file/folder names because of the case sensitivity of Linux file system.</p>
+<h2 dir="auto"><a id="user-content-github-and-git" class="anchor" aria-hidden="true" href="#github-and-git"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>GitHub and Git</h2>
+<p dir="auto">I pushed the code of this project to GitHub using Git. I believe you are now reading it from GitHub. I suppose you have Git already installed if you learned from my last project <a href="https://github.com/bestia-dev/rust01_the_beginning">https://github.com/bestia-dev/rust01_the_beginning</a>.<br>
+Cloning a GitHub repository to a local folder is super simple.<br>
+In GitHub click on the <code>Clone or download</code> big green button. You can there copy the URL to your clipboard.<br>
+Open a Command prompt. Go to the <code>/rustprojects</code> folder and type<br>
+<code>clone</code> and space and then paste the clipboard content with <code>Ctrl + v</code><br>
+Yes, the command prompt after years and years of right clicks now supports the ubiquitous <code>Ctrl + v</code>. In Linux bash you have still to use right click for this.<br>
+Press <code>Enter</code> to run it.<br>
+It will clone the GitHub repository in a new subfolder.<br>
+BTW if you like you can install the Chrome extension "GitHub Dark Theme".</p>
+<h2 dir="auto"><a id="user-content-build-and-run" class="anchor" aria-hidden="true" href="#build-and-run"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Build and run</h2>
+<p dir="auto">Go into this subfolder:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd rust02_workspace_and_testing"><pre><span class="pl-c1">cd</span> rust02_workspace_and_testing</pre></div>
+<p dir="auto">Execute the command to build and run with parameters</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo run -- 20190909 20190808"><pre>cargo run -- 20190909 20190808</pre></div>
+<p dir="auto">You can also do it in two separate steps</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo build
+target\debug\date_diff.exe 20190909 20190808"><pre>cargo build
+target<span class="pl-cce">\d</span>ebug<span class="pl-cce">\d</span>ate_diff.exe 20190909 20190808</pre></div>
+<h2 dir="auto"><a id="user-content-source-code" class="anchor" aria-hidden="true" href="#source-code"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Source code</h2>
+<p dir="auto">To understand the result let's have a look at the source code in VSCode.<br>
+<code>File - Open folder - c:\Users\Luciano\RustProjects\rust02_workspace_and_testing\</code><br>
+You will use your username here.<br>
+You will see that VSCode has a command <code>Open Workspace</code>, but I think it is for another type of Workspace, not the Rust Workspace.<br>
+Let's open the file <code>/date_diff/src/main.rs</code><br>
+I verbosely commented the code so it is most instructional.<br>
+Now open the <code>/date_diff_lib/lib.rs</code><br>
+It has a <code>test</code> region and only one true public function.<br>
+All is heavy commented.</p>
+<h2 dir="auto"><a id="user-content-linux" class="anchor" aria-hidden="true" href="#linux"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Linux</h2>
+<p dir="auto">We want the same code to be compiled for Linux.<br>
+Open the <code>Debian bash</code> of WSL. You know that from the first tutorial.<br>
+<code>cd r</code> then press Tab key and it will suggest <code>rustprojects</code> probably.<br>
+<code>cd rust02</code> then press Tab key and it will suggest <code>rust02_workspace_and_testing/</code> probably.<br>
+It is practical to learn this Tab key suggestions instead of typing long file/folder names.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo build  
+target/debug/date_diff 20190909 20190808"><pre>cargo build  
+target/debug/date_diff 20190909 20190808</pre></div>
+<p dir="auto">The result must be the same as in windows.</p>
+<h2 dir="auto"><a id="user-content-cargotoml" class="anchor" aria-hidden="true" href="#cargotoml"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Cargo.toml</h2>
+<p dir="auto">The file <code>Cargo.toml</code> is the configuration file for the Cargo builder tool.<br>
+It is inside every Rust project or workspace.<br>
+If we look inside the first <code>/Cargo.toml</code> we will see that the workspace has 2 members.<br>
+The <code>date_diff</code> project has its own <code>Cargo.toml</code>. It contains package metadata and dependencies.<br>
+The <code>date_diff_lib</code> project <code>Cargo.toml</code> file contains only package metadata.<br>
+The <code>Better TOML</code> extension for VSCode is useful for this syntax in general.<br>
+The VSCode extension <code>crates</code> is useful for working with dependencies in <code>Cargo.toml</code>.<br>
+Dependencies are by default downloaded from the standard Rust crate repository <code>crates.io</code>.<br>
+For local dependencies use the syntax like this <code>{ path = "../date_diff_lib" }</code>.</p>
+<h2 dir="auto"><a id="user-content-testing" class="anchor" aria-hidden="true" href="#testing"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Testing</h2>
+<p dir="auto">In the workspace folder run</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo test"><pre>cargo <span class="pl-c1">test</span></pre></div>
+<p dir="auto">It will execute all tests that are included in the source code.<br>
+Find them in <code>lib.rs</code> in the module <code>mod tests</code>.<br>
+Test are nothing else then normal functions. They are just decorated with<br>
+<code>#[test]</code><br>
+to let the Cargo tool understand they are tests.<br>
+You can also write tests inside function doc comments. This special comments have three slashes and are located before the function declaration. They are used to generate the documentation. If the test passes it can mean, the documentation is up to date.<br>
+<a href="https://learning-rust.github.io/docs/a5.comments_and_documenting_the_code.html" rel="nofollow">https://learning-rust.github.io/docs/a5.comments_and_documenting_the_code.html</a></p>
+<h2 dir="auto"><a id="user-content-vscode" class="anchor" aria-hidden="true" href="#vscode"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>VSCode</h2>
+<p dir="auto">There is a lot of typing in English so I would like to have a spellchecker. I found the VSCode extension <code>Spell Right</code>. When editing a text in the right corner down of the status bar there is an <code>open eye</code>. Click on it to choose the language.</p>
+<h2 dir="auto"><a id="user-content-next-projects" class="anchor" aria-hidden="true" href="#next-projects"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Next projects</h2>
+<p dir="auto"><a href="https://github.com/bestia-dev/mem1">https://github.com/bestia-dev/mem1</a></p>
+<h2 dir="auto"><a id="user-content-references" class="anchor" aria-hidden="true" href="#references"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>References</h2>
+<p dir="auto"><a href="https://doc.rust-lang.org/stable/book/" rel="nofollow">https://doc.rust-lang.org/stable/book/</a></p>
+</article>
+</body>
+
+</html>

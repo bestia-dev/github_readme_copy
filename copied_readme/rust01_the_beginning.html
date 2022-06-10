@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-rust01_the_beginning" class="anchor" aria-hidden="true" href="#rust01_the_beginning"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>rust01_the_beginning</h1>
+<p dir="auto"><strong>First steps for Rust development.</strong><br>
+<em><strong>version: 1.0  date: 2019-05-02 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/rust01_the_beginning">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/25f20815d4c7e8d923a118343cdbe44d89ffe837654150675746e71283dfc8c2/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d6465762532467275737430315f7468655f626567696e6e696e6726636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Frust01_the_beginning&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #tutorial</p>
+<p dir="auto">The first project in Rust. How to install the toolchain and have a first result in 5 minutes.<br>
+There is almost always a lot of different ways to achieve some result. I will describe only one option - for simplicity.<br>
+The learning process is easier if it is simple. But the reality is always much much more complicated then that.<br>
+Knowledge must come in small drops to absorb it. If it is pouring it just confuses the curious mind.<br>
+The "book" <a href="https://doc.rust-lang.org/stable/book/" rel="nofollow">https://doc.rust-lang.org/stable/book/</a> is a great learning tool. The first chapters are really easy and practical and very well written. Use it.</p>
+<h2 dir="auto"><a id="user-content-windows" class="anchor" aria-hidden="true" href="#windows"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Windows</h2>
+<p dir="auto">I used Windows most of my long programmers life (33 years). It is still the number one desktop OS.<br>
+So for developing desktop apps it is a good start to have the developer environment inside Windows.</p>
+<ol dir="auto">
+<li>Go to <a href="https://www.rust-lang.org" rel="nofollow">https://www.rust-lang.org</a> and choose <code>GET STARTED</code>.</li>
+<li>Find the <code>RUSTUP-INI.EXE</code> (6MB) Download it.</li>
+<li>Run it. Windows Defender will warn you that the app is unrecognized. Choose <code>More info</code> and <code>Run anyway</code>. Take your responsibilities!</li>
+<li>Read the text in the console and answer with default choices. They are ok for the first time install.</li>
+<li>If you don't have <code>Tools for Visual Studio 2019</code> for C++ installed on your machine, you will get a warning by the installer and instruction what to do.<br>
+Find the installation of C++ tools here and install it:<br>
+<a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&amp;rel=16" rel="nofollow">https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&amp;rel=16</a><br>
+The file name is something like <code>vs_buildtools__1788641612.1545772962.exe</code>.<br>
+It downloads the true installer with a graphical user interface.<br>
+You have to choose</li>
+</ol>
+<ul dir="auto">
+<li><code>C++ build tools</code> on the left</li>
+<li>and then the latest <code>Windows 10 SDK xxx</code> on the right.<br>
+It will download (1.2 GB) and then install (4.4 GB).<br>
+Probably now you have to restart your PC.<br>
+GOTO step 3.</li>
+</ul>
+<ol start="6" dir="auto">
+<li>Rustup will download and install a number of tools and documentation. Be patient with the docs, they take a looong time. There is a big discussion in the Rust community to not install them by default and let the user choose them later. But now we have what we have.</li>
+</ol>
+<p dir="auto">That's it. Rust is installed. Super simple (except for the C++ tools).</p>
+<h2 dir="auto"><a id="user-content-the-first-project" class="anchor" aria-hidden="true" href="#the-first-project"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>The first project</h2>
+<p dir="auto">Press <code>window + s</code> (<code>window</code> is this strange key on the keyboard in the first row near <code>ctrl</code> and <code>alt</code>) it opens the start menu.<br>
+Start typing <code>command prompt</code> it will suggest you exactly that and press Enter to run it.<br>
+You should be inside your user folder. For me it is <code>C:\Users\Luciano</code>.<br>
+I created a folder with the name all small caps <code>/rustprojects</code> inside my user folder.<br>
+In Windows file/folder names are not case sensitive, but in Linux they are very sensitive. Be careful.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="mkdir rustprojects"><pre>mkdir rustprojects</pre></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd rustprojects"><pre><span class="pl-c1">cd</span> rustprojects</pre></div>
+<p dir="auto">We will create a new rust project with this simple command</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo new first_hello"><pre>cargo new first_hello</pre></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd first_hello"><pre><span class="pl-c1">cd</span> first_hello</pre></div>
+<p dir="auto">You probably already know that you can type just <code>cd f</code> and then press the Tab key multiple times to get suggestions of subfolders name starting with <code>f</code>.<br>
+If not, try it. It works great.</p>
+<p dir="auto">For most of the commands it is really important in what folder you run them. Now you should be inside the <code>c:\users\Luciano\rustprojects\first_hello</code> folder (with your username and not mine).<br>
+Let build the project and run it:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo run"><pre>cargo run</pre></div>
+<p dir="auto">Congratulations! You wrote your first working rust project.</p>
+<p dir="auto">I am sure you want to try this again one more time.<br>
+Press the <code>arrow up</code>. The command prompt will suggest the last typed command from history. In this moment it is <code>cargo run</code>. Run it by pressing Enter.<br>
+This history stuff with <code>arrow up</code> and <code>arrow down</code> is super useful, because you will repeat the same commands a lot.<br>
+This time the compilation is really fast, because there is nothing new to compile.</p>
+<h2 dir="auto"><a id="user-content-vscode" class="anchor" aria-hidden="true" href="#vscode"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>VSCode</h2>
+<p dir="auto">Now you want to see and change the code. I choose the open-source editor VSCode.<br>
+Download it and install it from here <a href="https://code.visualstudio.com/" rel="nofollow">https://code.visualstudio.com/</a><br>
+Run it and add a VSCode extensions for rust <code>Ctrl + Shift + X</code>: Rust (rls)</p>
+<p dir="auto">Open your project with<br>
+<code>File - Open Folder... - c:\users\Luciano\rustprojects\first_hello</code><br>
+Use your username here instead of mine.<br>
+Simple Rust projects are basically just a folder. There is a convention of subfolders names and it works just that simple. You will find your code in the <code>src</code> subfolder in the file <code>main.rs</code>.<br>
+Change the word <code>Hello</code> into <code>First Hello</code> and save it with <code>Ctrl + s</code>.<br>
+You already know from before how to build and run it. Give it a try and show what you have learned.</p>
+<h2 dir="auto"><a id="user-content-git" class="anchor" aria-hidden="true" href="#git"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Git</h2>
+<p dir="auto">Git is a great tool and you should use it for code versioning. Use it often and group the changes so that is easy to understand what a commit really changes.<br>
+VSCode it totally prepared for it. I am not sure if you need to install it manually or VSCode makes all in its installation. You will quickly find out.<br>
+The third icon on the left or <code>Ctrl + Shift + g</code> opens a simple list: what has changed. You write a <code>Message</code> and press <code>Ctrl + Enter</code> to commit.<br>
+If you want to see the changes you select a filename. The changes will show on the right.<br>
+You can also use it to push or sync the changes on GitHub and much more. Then there is a specific <code>.gitignore</code> file for rust source code. This is advanced stuff. You will learn it step by step.</p>
+<h2 dir="auto"><a id="user-content-wsl-windows-subsystem-for-linux" class="anchor" aria-hidden="true" href="#wsl-windows-subsystem-for-linux"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>WSL Windows subsystem for Linux</h2>
+<p dir="auto">Most of the servers in the world today are Linux. So you want a Linux environment to develop for Linux servers. It is possible now to use WSL <code>Windows subsystem for Linux</code> inside your Windows machine. It feels just like Linux for almost everything you'll need. It is like having a virtual machine, but a little bit simpler.<br>
+Here is how to enable it and install it:<br>
+<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" rel="nofollow">https://docs.microsoft.com/en-us/windows/wsl/install-win10</a><br>
+I choose the Debian GNU/Linux distro. Old school.<br>
+From WSL Linux you can use the files in Windows. But from Windows you cannot use files in WSL Linux. I want my <code>/rustprojects</code> files to be accessible from both OS.<br>
+I create a symlink in WSL to the <code>/rustprojects</code> folder<br>
+<code>ln -s /mnt/c/Users/Luciano/rustprojects ~/rustprojects</code><br>
+Now when I start Debian I am in my home user folder <code>~</code><br>
+<code>luciano@MyMachine2015:~$</code><br>
+and I can command<br>
+<code>cd rustprojects</code><br>
+I am now inside the same <code>/rustprojects</code> folder as in Windows.<br>
+The Linux bash (console) has also suggestions for subfolder names if you type <code>cd r</code> and then Tab key, but it is not so user friendly as in windows. It has also the command history with <code>arrow up</code> and <code>arrow down</code>. That is great because it remembers also the old commands from old sessions.</p>
+<p dir="auto">Installing rust on Linux is simple:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="curl https://sh.rustup.rs -sSf | sh"><pre>curl https://sh.rustup.rs -sSf <span class="pl-k">|</span> sh</pre></div>
+<p dir="auto">You will find this info in the "book": <a href="https://doc.rust-lang.org/stable/book/" rel="nofollow">https://doc.rust-lang.org/stable/book/</a></p>
+<p dir="auto">Go to the folder /first_hello</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd first_hello"><pre><span class="pl-c1">cd</span> first_hello</pre></div>
+<p dir="auto">and build and run the project</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo run"><pre>cargo run</pre></div>
+<p dir="auto">Congratulations! The same project now works in Windows and also on Linux.</p>
+<p dir="auto">The result is in the <code>/target</code> folder. Normally the windows file ends with <code>.exe</code> like <code>first_hello.exe</code>, but the Linux file has no extension like <code>first_hello</code>.<br>
+If you build a project in Linux the result will be for Linux. And if you build it in Windows, the result will be for Windows. The results are binary incompatible.</p>
+<p dir="auto">You can still use the Windows VSCode for editing the source code and windows Git for versioning. You then use the Debian bash just to build it and run it.</p>
+<h2 dir="auto"><a id="user-content-for-the-curious-tldr" class="anchor" aria-hidden="true" href="#for-the-curious-tldr"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>For the curious TL;DR;</h2>
+<p dir="auto">The user home folder is called <code>~</code> in Linux and mostly <code>%HOMEPATH%</code> in Windows.<br>
+Windows can very often understand both \ and / as folder delimiters, but not always. In Linux there is only /. So it is smart to learn to user / everywhere where it works.<br>
+Linux file/folder names are very very case sensitive, windows are case insensitive. That can make a lot of confusion. Try to write always small caps names if it is possible. And try to avoid spaces and strange characters. Underscore is very well understood in every situation, I recommend it.</p>
+<h2 dir="auto"><a id="user-content-next-projects" class="anchor" aria-hidden="true" href="#next-projects"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Next projects</h2>
+<p dir="auto"><a href="https://github.com/bestia-dev/rust02_workspace_and_testing">https://github.com/bestia-dev/rust02_workspace_and_testing</a></p>
+<h2 dir="auto"><a id="user-content-references" class="anchor" aria-hidden="true" href="#references"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>References</h2>
+<p dir="auto"><a href="https://doc.rust-lang.org/stable/book/" rel="nofollow">https://doc.rust-lang.org/stable/book/</a></p>
+</article>
+</body>
+
+</html>

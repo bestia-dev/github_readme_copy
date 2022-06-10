@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>template</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta name="Description" content="Learning Rust Wasm/Webassembly programming and having fun">
+    <meta name="author" content="https://github.com/bestia-dev">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bestia01.css">
+    <script>
+        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
+        function toggle_responsive_navbar() {
+            var x = document.getElementById("navbar");
+            if (x.className.includes(" responsive")) {
+                x.className = x.className.replace(" responsive", "");
+            } else {
+                x.className += " responsive";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="fixed_header">
+        <div id="navbar">
+            <a id="navbar_brand" href="https://bestia.dev">
+                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
+                <span id="navbar_title"> Bestia dev</span>
+            </a>
+            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
+            <div id="navbar_topics">
+                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
+                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
+                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
+                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
+                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 dir="auto"><a id="user-content-rust-hack-without-fear-and-trust--docker_rust_development" class="anchor" aria-hidden="true" href="#rust-hack-without-fear-and-trust--docker_rust_development"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Rust: Hack Without Fear and Trust ! (docker_rust_development)</h1>
+<p dir="auto"><strong>A complete development environment for Rust with VSCode inside a docker container.</strong><br>
+<em><strong>version: 2.0  date: 2022-04-13 author: <a href="https://bestia.dev" rel="nofollow">bestia.dev</a> repository: <a href="https://github.com/bestia-dev/docker_rust_development">GitHub</a></strong></em></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/docker_rust_development/"><img src="https://camo.githubusercontent.com/67231585c5b673ee639568b2a5c7a0a2d4c388df86b69e66a58d5be0ca1e4729/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f6d61726b646f776e2d3833322d677265656e2e737667" alt="Lines in md" data-canonical-src="https://img.shields.io/badge/Lines_in_markdown-832-green.svg" style="max-width: 100%;"></a>
+<a href="https://github.com/bestia-dev/docker_rust_development/"><img src="https://camo.githubusercontent.com/a6c05a1324c7d01964ae0d1c566d76faf916afc9ebac63523310ea7c914e4480/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e65735f696e5f626173685f736372697074732d3732322d626c75652e737667" alt="Lines in bash scripts" data-canonical-src="https://img.shields.io/badge/Lines_in_bash_scripts-722-blue.svg" style="max-width: 100%;"></a></p>
+<p dir="auto"><a href="https://github.com/bestia-dev/docker_rust_development/blob/master/LICENSE"><img src="https://camo.githubusercontent.com/83d3746e5881c1867665223424263d8e604df233d0a11aae0813e0414d433943/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667" alt="License" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width: 100%;"></a>
+<a href="https://hits.seeyoufarm.com" rel="nofollow"><img src="https://camo.githubusercontent.com/9192138a6d60f2967096d6a00ed5e88440aec80fbf7d51e9bab12f5e5a5f60db/68747470733a2f2f686974732e736565796f756661726d2e636f6d2f6170692f636f756e742f696e63722f62616467652e7376673f75726c3d68747470732533412532462532466769746875622e636f6d2532466265737469612d646576253246646f636b65725f727573745f646576656c6f706d656e7426636f756e745f62673d253233373943383344267469746c655f62673d2532333535353535352669636f6e3d2669636f6e5f636f6c6f723d253233453745374537267469746c653d6869747326656467655f666c61743d66616c7365" alt="Hits" data-canonical-src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Fdocker_rust_development&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" style="max-width: 100%;"></a></p>
+<p dir="auto">Hashtags: #rustlang #buildtool #developmenttool #tutorial #docker #ssh</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/bestia-dev/docker_rust_development/raw/main/images/spiral_of_madness.png"><img src="https://github.com/bestia-dev/docker_rust_development/raw/main/images/spiral_of_madness.png" alt="spiral_of_madness" title="spiral_of_madness" style="max-width: 100%;"></a></p>
+<h2 dir="auto"><a id="user-content-trust-in-rust-open-source-2022" class="anchor" aria-hidden="true" href="#trust-in-rust-open-source-2022"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Trust in Rust open-source 2022</h2>
+<p dir="auto">First I have to talk about TRUST. This is the whole point of this entire project.</p>
+<p dir="auto">We live in dangerous times for "supply chain attacks" in open-source and it is getting worse. This is a problem we need to address!<br>
+In this project, you don't need to TRUST ME! You can run all the bash commands inside bash scripts line-by-line. My emphasis is to thoroughly comment and describe what is my intention for every single command. You can follow and observe exactly what is going on. This is the beauty of open-source. But this is realistic only for very simple projects.<br>
+To be meticulously precise, you still have to trust the Windows code, Linux, GNU tools, drivers, Podman, Buildah, VSCode, extensions, the microprocessor, memory, disc and many other projects. There is no system without an inherent minimal level of TRUST.</p>
+<h2 dir="auto"><a id="user-content-try-it" class="anchor" aria-hidden="true" href="#try-it"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Try it</h2>
+<p dir="auto">Video tutorial on youtube:</p>
+
+<p dir="auto"><a href="https://bestia.dev/youtube/docker_rust_development.html" rel="nofollow"><img src="https://github.com/bestia-dev/docker_rust_development/raw/main/images/thumbnail.png" width="400px" style="max-width: 100%;"></a></p>
+
+<p dir="auto">Super short instructions without explanation just in 2 easy steps. For tl;dr; continue reading below.
+I tested the script on a completely fresh installation of Debian on WSL2.<br>
+Prerequisites: Win10, WSL2, VSCode and curl:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo apt update
+sudo apt -y full-upgrade
+sudo apt install -y curl"><pre>sudo apt update
+sudo apt -y full-upgrade
+sudo apt install -y curl</pre></div>
+<p dir="auto">1. Prepare your existing SSH keys for github and publish-to-web, so you can use them from inside the container. Here we use the Win10 folder <code>~\.ssh</code> because we want this data to be persistent and can survive the destruction of the container or even WSL2.</p>
+<p dir="auto">Download the templates for bash scripts <code>personal_keys_and_settings.sh</code> and <code>sshadd.sh</code>.
+Then modify the scripts: replace the placeholders with your own data and file_names.<br>
+In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="setx.exe WSLENV &quot;USERPROFILE/p&quot;
+mkdir $USERPROFILE/.ssh
+
+curl -L -s https://github.com/bestia-dev/docker_rust_development/raw/main/personal_keys_and_settings.sh --output $USERPROFILE/.ssh/personal_keys_and_settings.sh
+
+curl -L -s https://github.com/bestia-dev/docker_rust_development/raw/main/sshadd.sh --output $USERPROFILE/.ssh/sshadd.sh
+
+# use sed to replace these words with your own data and file names:
+# 'info@your.mail', 'your_name', 'githubssh1' and 'webserverssh1' 
+
+sed -i.bak 's/info@your.mail/info@my.mail/g' $USERPROFILE/.ssh/personal_keys_and_settings.sh
+sed -i.bak 's/your_name/my_name/g' $USERPROFILE/.ssh/personal_keys_and_settings.sh
+sed -i.bak 's/githubssh1/my_ssh1/g' $USERPROFILE/.ssh/personal_keys_and_settings.sh
+sed -i.bak 's/webserverssh1/my_ssh2/g' $USERPROFILE/.ssh/personal_keys_and_settings.sh
+
+sed -i.bak 's/githubssh1/my_ssh1/g' $USERPROFILE/.ssh/sshadd.sh
+sed -i.bak 's/webserverssh1/my_ssh2/g' $USERPROFILE/.ssh/sshadd.sh
+
+cat $USERPROFILE/.ssh/personal_keys_and_settings.sh
+cat $USERPROFILE/.ssh/sshadd.sh"><pre>setx.exe WSLENV <span class="pl-s"><span class="pl-pds">"</span>USERPROFILE/p<span class="pl-pds">"</span></span>
+mkdir <span class="pl-smi">$USERPROFILE</span>/.ssh
+
+curl -L -s https://github.com/bestia-dev/docker_rust_development/raw/main/personal_keys_and_settings.sh --output <span class="pl-smi">$USERPROFILE</span>/.ssh/personal_keys_and_settings.sh
+
+curl -L -s https://github.com/bestia-dev/docker_rust_development/raw/main/sshadd.sh --output <span class="pl-smi">$USERPROFILE</span>/.ssh/sshadd.sh
+
+<span class="pl-c"><span class="pl-c">#</span> use sed to replace these words with your own data and file names:</span>
+<span class="pl-c"><span class="pl-c">#</span> 'info@your.mail', 'your_name', 'githubssh1' and 'webserverssh1' </span>
+
+sed -i.bak <span class="pl-s"><span class="pl-pds">'</span>s/info@your.mail/info@my.mail/g<span class="pl-pds">'</span></span> <span class="pl-smi">$USERPROFILE</span>/.ssh/personal_keys_and_settings.sh
+sed -i.bak <span class="pl-s"><span class="pl-pds">'</span>s/your_name/my_name/g<span class="pl-pds">'</span></span> <span class="pl-smi">$USERPROFILE</span>/.ssh/personal_keys_and_settings.sh
+sed -i.bak <span class="pl-s"><span class="pl-pds">'</span>s/githubssh1/my_ssh1/g<span class="pl-pds">'</span></span> <span class="pl-smi">$USERPROFILE</span>/.ssh/personal_keys_and_settings.sh
+sed -i.bak <span class="pl-s"><span class="pl-pds">'</span>s/webserverssh1/my_ssh2/g<span class="pl-pds">'</span></span> <span class="pl-smi">$USERPROFILE</span>/.ssh/personal_keys_and_settings.sh
+
+sed -i.bak <span class="pl-s"><span class="pl-pds">'</span>s/githubssh1/my_ssh1/g<span class="pl-pds">'</span></span> <span class="pl-smi">$USERPROFILE</span>/.ssh/sshadd.sh
+sed -i.bak <span class="pl-s"><span class="pl-pds">'</span>s/webserverssh1/my_ssh2/g<span class="pl-pds">'</span></span> <span class="pl-smi">$USERPROFILE</span>/.ssh/sshadd.sh
+
+cat <span class="pl-smi">$USERPROFILE</span>/.ssh/personal_keys_and_settings.sh
+cat <span class="pl-smi">$USERPROFILE</span>/.ssh/sshadd.sh</pre></div>
+<p dir="auto">2. Download the podman_install_and_setup bash script and run it.<br>
+This can take 10 minutes to setup because it downloads 2 GB from docker hub.<br>
+In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="mkdir -p ~/rustprojects/docker_rust_development
+cd ~/rustprojects/docker_rust_development
+# Download the bash script
+curl -L -s https://github.com/bestia-dev/docker_rust_development/raw/main/podman_install_and_setup.sh --output podman_install_and_setup.sh
+# You can check the content of the bash script
+cat podman_install_and_setup.sh
+# then run
+sh podman_install_and_setup.sh
+# You will be asked to create a new passphrase for the SSh key. 
+# Remember it, you will need it later."><pre>mkdir -p <span class="pl-k">~</span>/rustprojects/docker_rust_development
+<span class="pl-c1">cd</span> <span class="pl-k">~</span>/rustprojects/docker_rust_development
+<span class="pl-c"><span class="pl-c">#</span> Download the bash script</span>
+curl -L -s https://github.com/bestia-dev/docker_rust_development/raw/main/podman_install_and_setup.sh --output podman_install_and_setup.sh
+<span class="pl-c"><span class="pl-c">#</span> You can check the content of the bash script</span>
+cat podman_install_and_setup.sh
+<span class="pl-c"><span class="pl-c">#</span> then run</span>
+sh podman_install_and_setup.sh
+<span class="pl-c"><span class="pl-c">#</span> You will be asked to create a new passphrase for the SSh key. </span>
+<span class="pl-c"><span class="pl-c">#</span> Remember it, you will need it later.</span></pre></div>
+<p dir="auto">That's it. Now we can test the connection from various locations.</p>
+<p dir="auto">1. Try the SSH connection from WSL2:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="ssh -i ~/.ssh/rustdevuser_key -p 2201 rustdevuser@localhost
+# Choose `yes` to save fingerprint if asked, just the first time.
+# type passphrase
+# should work !
+# try for example
+ls
+# ls result: rustprojects
+# to exit the container
+exit"><pre>ssh -i <span class="pl-k">~</span>/.ssh/rustdevuser_key -p 2201 rustdevuser@localhost
+<span class="pl-c"><span class="pl-c">#</span> Choose `yes` to save fingerprint if asked, just the first time.</span>
+<span class="pl-c"><span class="pl-c">#</span> type passphrase</span>
+<span class="pl-c"><span class="pl-c">#</span> should work !</span>
+<span class="pl-c"><span class="pl-c">#</span> try for example</span>
+ls
+<span class="pl-c"><span class="pl-c">#</span> ls result: rustprojects</span>
+<span class="pl-c"><span class="pl-c">#</span> to exit the container</span>
+<span class="pl-c1">exit</span></pre></div>
+<p dir="auto">2. Try the SSH connection from <code>windows command prompt</code> or <code>windows powershell terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="# test the ssh connection from Windows cmd prompt
+&quot;C:\WINDOWS\System32\OpenSSH\ssh.exe&quot; -i ~\.ssh\rustdevuser_key -p 2201 rustdevuser@localhost
+# Choose `y` to save fingerprint if asked, just the first time.
+# type passphrase
+# should work !
+# try for example
+ls
+# ls result: rustprojects
+# to exit the container
+exit"><pre><span class="pl-c"><span class="pl-c">#</span> test the ssh connection from Windows cmd prompt</span>
+<span class="pl-s"><span class="pl-pds">"</span>C:\WINDOWS\System32\OpenSSH\ssh.exe<span class="pl-pds">"</span></span> -i <span class="pl-k">~</span><span class="pl-cce">\.</span>ssh<span class="pl-cce">\r</span>ustdevuser_key -p 2201 rustdevuser@localhost
+<span class="pl-c"><span class="pl-c">#</span> Choose `y` to save fingerprint if asked, just the first time.</span>
+<span class="pl-c"><span class="pl-c">#</span> type passphrase</span>
+<span class="pl-c"><span class="pl-c">#</span> should work !</span>
+<span class="pl-c"><span class="pl-c">#</span> try for example</span>
+ls
+<span class="pl-c"><span class="pl-c">#</span> ls result: rustprojects</span>
+<span class="pl-c"><span class="pl-c">#</span> to exit the container</span>
+<span class="pl-c1">exit</span></pre></div>
+<p dir="auto">3. Open VSCode and install extension <code>Remote - SSH</code>.</p>
+<p dir="auto">4. Then in VSCode <code>F1</code>, type <code>ssh</code> and choose <code>Remote-SSH: Connect to Host...</code> and choose <code>rust_dev_pod</code>.<br>
+Choose <code>Linux</code> if asked, just the first time.<br>
+Type your passphrase.<br>
+If we are lucky, everything works and you are now inside the container over SSH.</p>
+<p dir="auto">5. In <code>VSCode terminal</code> create a simple Rust project and run it:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd ~/rustprojects
+cargo new rust_dev_hello
+cd rust_dev_hello
+cargo run"><pre><span class="pl-c1">cd</span> <span class="pl-k">~</span>/rustprojects
+cargo new rust_dev_hello
+<span class="pl-c1">cd</span> rust_dev_hello
+cargo run</pre></div>
+<p dir="auto">That should work and greet you with "Hello, world!"</p>
+<p dir="auto">6. After reboot, WSL2 can create some network problems for podman.<br>
+We can simulate the WSL2 reboot in <code>powershell in windows</code>:</p>
+<div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="Get-Service LxssManager | Restart-Service"><pre><span class="pl-c1">Get-Service</span> LxssManager <span class="pl-k">|</span> <span class="pl-c1">Restart-Service</span></pre></div>
+<p dir="auto">Before entering any podman command we need first to clean some temporary files, restart the pod and restart the SSh server.<br>
+In <code>WSL2 terminal</code> restart the pod after reboot:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sh ~/rustprojects/docker_rust_development/rust_dev_pod_after_reboot.sh"><pre>sh <span class="pl-k">~</span>/rustprojects/docker_rust_development/rust_dev_pod_after_reboot.sh</pre></div>
+<p dir="auto">7. Eventually you will want to remove the entire pod. Docker containers and pods are ephemeral, it means just temporary. But your code and data must persist. Before destroying the pod/containers, push your changes to github, because it will destroy also all the data that is inside.<br>
+Be careful !<br>
+In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman pod rm rust_dev_pod_create -f"><pre>podman pod rm rust_dev_pod_create -f</pre></div>
+<h2 dir="auto"><a id="user-content-motivation" class="anchor" aria-hidden="true" href="#motivation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Motivation</h2>
+<p dir="auto">Rust is a fantastic young language that empowers everyone to build reliable and efficient software. It enables simultaneously low-level control without giving up high-level conveniences. But with great power comes great responsibility !</p>
+<p dir="auto">Rust programs can do any "potentially harmful" things to your system. That is true for any compiled program, Rust is no exception.</p>
+<p dir="auto">But Rust can do anything also in the compile-time using <code>build.rs</code> and <code>procedural macros</code>. Even worse, if you open a code editor (like VSCode) with auto-completion (like Rust-analyzer), it will compile the code in the background without you knowing it. And the <code>build.rs</code> and <code>procedural macros</code> will run and they can do "anything" !</p>
+<p dir="auto">Even if you are very careful and avoid <code>build.rs</code> and <code>procedural macros</code>, your Rust project will have a lot of crates in the dependency tree. Any of those can surprise you with some "malware". This is called a "supply chain attack".</p>
+<p dir="auto">It is very hard to avoid "supply chain attacks" in Rust as things are today. We are just lucky, that the ecosystem is young and small and the malevolent players are waiting for Rust to become more popular. Then they will strike and strike hard. We need to be skeptical about anything that comes from the internet. We need to isolate/sandbox it so it cannot harm our system.</p>
+<p dir="auto">For big open-source project you will not read and understand every line of code. It is impossible because of the sheer size of projects and it is impossible to gain deep understanding of all the underlying principles, rules and exceptions of everything. And everything is moving and changing fast and continuously. It is impossible to follow all the changes.<br>
+We need to have layered protection between our computer system and some unknown code. In this project I propose a containerized development environment that will allow some degree of isolation. And in the same time easy of installation, transfer and repeatability.</p>
+<p dir="auto">Let learn to develope "everything" inside a Docker container and to isolate/sandbox it as much as possible from the underlying system.</p>
+<p dir="auto">I have to acknowledge that Docker Linux Containers are not the perfect sandboxing solution. But I believe that for my "Rust development environment", it is "good enough". I expect that container isolation will get better with time (google, amazon, Intel, OpenStack and IBM are working on it). My main system is Win10. Inside that, I have WSL2, which is a Linux virtual machine. And inside that, I have Docker Linux Containers.</p>
+<ul dir="auto">
+<li>No files/volumes are shared with the host.</li>
+<li>The outbound network is restricted to whitelisted domains by a Squid proxy server.</li>
+<li>The inbound network is allowed only to "published/exposed" ports.</li>
+</ul>
+<p dir="auto">Yes, there exists the possibility of abusing a kernel vulnerability, but I believe it is hard and they will get patched.<br>
+I didn't choose a true virtualization approach, but it is easy to run the container inside a virtual machine. More layers, more protection.</p>
+<h2 dir="auto"><a id="user-content-docker-and-oci" class="anchor" aria-hidden="true" href="#docker-and-oci"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Docker and OCI</h2>
+<p dir="auto">We all call it Docker, but <a href="https://www.docker.com/" rel="nofollow">Docker</a> is just a well known company name with the funny whale logo.
+They developed and promoted Linux containers. Then they helped to create an open industry standards around container formats and runtimes. This standard is now called OCI (Open Container Initiative). So the correct name is "OCI containers" and "OCI images".</p>
+<p dir="auto">But "OCI" is a so boring name. I will still use the terms "Docker containers" and "Docker images" even if other companies can work interchangeably with them because of the OCI standards.</p>
+<p dir="auto">And there are alternatives to use Docker software that I will explore here.</p>
+<h2 dir="auto"><a id="user-content-install-podman-in-win10--wsl2--debian-11bullseye" class="anchor" aria-hidden="true" href="#install-podman-in-win10--wsl2--debian-11bullseye"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Install Podman in Win10 + WSL2 + Debian 11(Bullseye)</h2>
+<p dir="auto"><a href="https://podman.io/" rel="nofollow">Podman</a> is a <strong>daemonless</strong>, open source, Linux native tool designed to work with Open Containers Initiative (OCI) Containers and Container Images. Containers under the control of Podman can be run by a <strong>non-privileged user</strong>. The CLI commands of the Podman <em><strong>"Container Engine"</strong></em> are practically identical to the Docker CLI. Podman relies on an OCI compliant <em><strong>"Container Runtime"</strong></em> (runc, crun, runv, etc) to interface with the operating system and create the running containers.</p>
+<p dir="auto">I already wrote some information how to install and use the combination of Win10 + WSL2 + Debian11(Bullseye):</p>
+<p dir="auto"><a href="https://github.com/bestia-dev/win10_wsl2_debian11">https://github.com/bestia-dev/win10_wsl2_debian11</a></p>
+<p dir="auto">Podman is available from the Debian11 package manager.</p>
+<p dir="auto"><a href="https://podman.io/getting-started/installation" rel="nofollow">https://podman.io/getting-started/installation</a></p>
+<p dir="auto">Let's install it. Open the <code>WSL2 terminal</code> and type:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo apt update
+sudo apt install -y podman
+podman version"><pre>sudo apt update
+sudo apt install -y podman
+podman version</pre></div>
+<p dir="auto">Here we see some errors.</p>
+<p dir="auto">Wsl2 has a special kernel and Podman needs a small trick to work.</p>
+<p dir="auto"><a href="https://www.redhat.com/sysadmin/podman-windows-wsl2" rel="nofollow">https://www.redhat.com/sysadmin/podman-windows-wsl2</a></p>
+<p dir="auto"><a href="https://www.youtube.com/watch?v=fWFNGxJNZ8Y" rel="nofollow">https://www.youtube.com/watch?v=fWFNGxJNZ8Y</a></p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="mkdir $HOME/.config/containers
+nano $HOME/.config/containers/containers.conf"><pre>mkdir <span class="pl-smi">$HOME</span>/.config/containers
+nano <span class="pl-smi">$HOME</span>/.config/containers/containers.conf</pre></div>
+<p dir="auto">In this empty new file <code>containers.conf</code> write just this 3 lines and save:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[engine]
+cgroup_manager = &quot;cgroupfs&quot;
+events_logger = &quot;file&quot;"><pre lang="conf" class="notranslate"><code>[engine]
+cgroup_manager = "cgroupfs"
+events_logger = "file"
+</code></pre></div>
+<p dir="auto">Now you can command again and the result has no errors:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman version
+# 3.0.1"><pre>podman version
+<span class="pl-c"><span class="pl-c">#</span> 3.0.1</span></pre></div>
+<p dir="auto">Sadly, the version on Debian 11 stable is 3.0.1, that is buggy and does not work properly. I will install the version 3.4.4 from the <code>testing</code> Debian 12.
+In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo nano /etc/apt/sources.list
+# add the line for `testing` repository
+deb http://http.us.debian.org/debian/ testing non-free contrib main
+# Ctrl-o, enter, Ctrl-x
+sudo apt update
+# Then run 
+sudo apt install -y podman
+podman info
+# podman 3.4.4
+# Very important: Remove the temporary added line and run apt update
+sudo nano /etc/apt/sources.list
+# delete: deb http://http.us.debian.org/debian/ testing non-free contrib main 
+# Ctrl-o, enter, Ctrl-x
+sudo apt update"><pre>sudo nano /etc/apt/sources.list
+<span class="pl-c"><span class="pl-c">#</span> add the line for `testing` repository</span>
+deb http://http.us.debian.org/debian/ testing non-free contrib main
+<span class="pl-c"><span class="pl-c">#</span> Ctrl-o, enter, Ctrl-x</span>
+sudo apt update
+<span class="pl-c"><span class="pl-c">#</span> Then run </span>
+sudo apt install -y podman
+podman info
+<span class="pl-c"><span class="pl-c">#</span> podman 3.4.4</span>
+<span class="pl-c"><span class="pl-c">#</span> Very important: Remove the temporary added line and run apt update</span>
+sudo nano /etc/apt/sources.list
+<span class="pl-c"><span class="pl-c">#</span> delete: deb http://http.us.debian.org/debian/ testing non-free contrib main </span>
+<span class="pl-c"><span class="pl-c">#</span> Ctrl-o, enter, Ctrl-x</span>
+sudo apt update</pre></div>
+<h2 dir="auto"><a id="user-content-using-podman" class="anchor" aria-hidden="true" href="#using-podman"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Using Podman</h2>
+<p dir="auto">Using the Podman CLI is just the same as using Docker CLI.</p>
+<p dir="auto"><a href="https://podman.io/getting-started/" rel="nofollow">https://podman.io/getting-started/</a></p>
+<p dir="auto">Inside the <code>WSL2 terminal</code> type:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman images"><pre>podman images</pre></div>
+<p dir="auto">We have no images for now.
+The words "image" and "container" are somewhat confusing. Super simplifying: When it runs it is a "container". If it does not run it is an "image". The image is just an "installation file". The containers can be <code>started</code> and <code>stopped</code> or <code>attached</code> and <code>detached</code>, but they are <code>run</code> only one time.</p>
+<p dir="auto">For test, run a sample container. It is a web server.</p>
+<p dir="auto">-d means it is run in a detached mode<br>
+-t adds a pseudo-tty to run arbitrary commands in an interactive shell<br>
+-p stays for publish port</p>
+<p dir="auto">The run command will download/pull the image if needed.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman run -dt --name sample_cnt -p 8001:80/tcp docker.io/library/httpd"><pre>podman run -dt --name sample_cnt -p 8001:80/tcp docker.io/library/httpd</pre></div>
+<p dir="auto">List all containers:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman ps -a"><pre>podman ps -a</pre></div>
+<p dir="auto">Testing the httpd container:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="curl http://localhost:8001"><pre>curl http://localhost:8001</pre></div>
+<p dir="auto">That should print the HTML page.</p>
+<p dir="auto">Finally you can remove the <code>sample_cnt</code> container we used:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman rm sample_cnt"><pre>podman rm sample_cnt</pre></div>
+<p dir="auto">You can also remove the image, because this was just practice for learning:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman rmi docker.io/library/httpd"><pre>podman rmi docker.io/library/httpd</pre></div>
+<h2 dir="auto"><a id="user-content-buildah-for-our-rust-development-images" class="anchor" aria-hidden="true" href="#buildah-for-our-rust-development-images"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Buildah for our Rust development images</h2>
+<p dir="auto">Buildah is a replacement for the <code>docker build</code> command. It is easier to incorporate into scripts. It is pronounced exactly as Builder, but with a Bostonian accent ;-)</p>
+<p dir="auto"><a href="https://opensource.com/article/18/6/getting-started-buildah" rel="nofollow">https://opensource.com/article/18/6/getting-started-buildah</a></p>
+<p dir="auto">The Rust official images are on Docker hub: <a href="https://hub.docker.com/_/rust" rel="nofollow">https://hub.docker.com/_/rust</a></p>
+<p dir="auto">I was surprised by the size of the image. It is big from 200Mb compressed to 1.2Gb uncompressed. But this is mostly the size of rust files.</p>
+<p dir="auto">I don't like that this images have only the <code>root</code> user. I will start from the Debian-11 image and install all I need as a non-privileged user <code>rustdevuser</code>.</p>
+<p dir="auto">In <code>WSL2 terminal</code> pull the image from Docker hub:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman pull docker.io/library/debian:bullseye-slim"><pre>podman pull docker.io/library/debian:bullseye-slim</pre></div>
+<p dir="auto">I wrote the bash script <code>rust_dev_cargo_img.sh</code></p>
+<p dir="auto">Run it with</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sh rust_dev_cargo_img.sh"><pre>sh rust_dev_cargo_img.sh</pre></div>
+<p dir="auto">This will create the image <code>rust_dev_cargo_img</code>.</p>
+<p dir="auto">The scripts sre just bash scripts and are super easy to read, follow, learn and modify. Much easier than Dockerfile. You can even run the commands one by one in the <code>WSL2 terminal</code> and inspect the container to debug the building process.</p>
+<h2 dir="auto"><a id="user-content-rust-development-in-a-docker-container" class="anchor" aria-hidden="true" href="#rust-development-in-a-docker-container"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Rust development in a Docker container</h2>
+<p dir="auto">There is a lot of benefits making a development environment in a container.</p>
+<p dir="auto">We want that everything is isolated/sandboxed and cannot affect our host system (WSL2 and Win10).</p>
+<p dir="auto">We also don't want to make any changes to our system because of Rust tools or our project needs.</p>
+<p dir="auto">We can have simultaneously more containers, each with a different version of Rust or a different toolchain with all the necessary configuration and tools. We can easily transfer the container to another system or to another developer and use it exactly as it is configured. Effortlessly.</p>
+<p dir="auto">We can save an <code>container image</code> with the source code and the exact state of all developer tools for a particular app version. Then years later we can still work on it for some security patches without the fear that new tools will break the old source code.</p>
+<p dir="auto">You will see that everybody uses <code>podman run</code>, but this is essentially 4 commands in one: <code>pull</code> from a repository, <code>create</code> the container, <code>start</code> or <code>attach</code> to the container and exec the bash in interactive mode. I like to use this commands separately, because it makes more sense for learning.</p>
+<p dir="auto">Create the container with a fixed name rust_dev_cargo_cnt:</p>
+<p dir="auto">--name - the container name will be <code>rust_dev_cargo_cnt</code><br>
+-ti - we will use the container interactively in the terminal</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman create -ti --name rust_dev_cargo_cnt docker.io/bestiadev/rust_dev_cargo_img:latest"><pre>podman create -ti --name rust_dev_cargo_cnt docker.io/bestiadev/rust_dev_cargo_img:latest</pre></div>
+<p dir="auto">We can list the existing containers with:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman ps -a"><pre>podman ps -a</pre></div>
+<p dir="auto">Now we can start the container:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman start rust_dev_cargo_cnt"><pre>podman start rust_dev_cargo_cnt</pre></div>
+<p dir="auto">Open the bash to interact with the <code>container terminal</code>:<br>
+-it - interactive terminal</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman exec -it rust_dev_cargo_cnt bash"><pre>podman <span class="pl-c1">exec</span> -it rust_dev_cargo_cnt bash</pre></div>
+<p dir="auto">We are now inside the <code>container terminal</code> and we can use <code>cargo</code>, <code>rustup</code> and other rust tools. The files we create will be inside the container. We are <code>rustdevuser</code> inside this container, so we will put our rustprojects in the <code>/home/rustdevuser/rustprojects</code> directory.</p>
+<p dir="auto">This container is started from Podman without <code>root access</code> to the host system !</p>
+<p dir="auto">This is a small, but important difference between Docker and Podman.</p>
+<p dir="auto">First let find the rustc version:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="rustc --version
+  rustc 1.61.0 (7737e0b5c 2022-04-04)"><pre>rustc --version
+  rustc 1.61.0 (7737e0b5c 2022-04-04)</pre></div>
+<p dir="auto">Let create and run a small Rust program:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd ~/rustprojects
+cargo new rust_dev_hello
+cd rust_dev_hello
+cargo run"><pre><span class="pl-c1">cd</span> <span class="pl-k">~</span>/rustprojects
+cargo new rust_dev_hello
+<span class="pl-c1">cd</span> rust_dev_hello
+cargo run</pre></div>
+<p dir="auto">That should work fine and greet you with "Hello, world!"</p>
+<p dir="auto">We can exit the container now with the command</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="exit"><pre><span class="pl-c1">exit</span></pre></div>
+<p dir="auto">When we exited the container we returned to <code>WSL2 terminal</code>.</p>
+<p dir="auto">The container still exists and is still running. Check with <code>podman ps -a</code>.</p>
+<p dir="auto">To interact with it again, repeat the previous command <code>podman exec -it rust_dev_cargo_cnt bash</code>.</p>
+<p dir="auto">This container does not work with VSCode and we will not need it any more. If you use another editor, you can use this image/container as base for your image/container for your editor.</p>
+<p dir="auto">Remove the container with:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman rm rust_dev_cargo_cnt -f"><pre>podman rm rust_dev_cargo_cnt -f</pre></div>
+<h2 dir="auto"><a id="user-content-docker-image-with-vscode-server-and-extensions" class="anchor" aria-hidden="true" href="#docker-image-with-vscode-server-and-extensions"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Docker image with VSCode server and extensions</h2>
+<p dir="auto">I use VSCode as my primary code editor in Windows. It works fine remotely with WSL2 (Debian Linux) with the <code>Remote - WSL</code> extension.</p>
+<p dir="auto">There exists a <code>Remote - Containers</code> extension, that lets you use a Docker container as a full-featured development environment. I tried it. There are a lot of <code>automagic</code> functions in this extension. But for some reason <code>automagic</code> never worked for me. I must always go painfully step-by-step and discover why the <code>automagic</code> does not work in my case. Always!</p>
+<p dir="auto">I decided to go with the <code>SSH</code> communication for remote developing. That is more broadly usable. We need to create an image that contains the VSCode server and extensions.</p>
+<p dir="auto">In <code>WSL2 terminal</code> run the bash script <code>rust_dev_vscode_img.sh</code> will create the image <code>rust_dev_vscode_img</code>.</p>
+<p dir="auto">Run it with:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sh rust_dev_vscode_img.sh"><pre>sh rust_dev_vscode_img.sh</pre></div>
+<p dir="auto">This is based on the image <code>rust_dev_cargo_img</code> and adds the VSCode server and extensions.
+VSCode is great because of its extensions. Most of these extensions are installed inside the image <code>rust_dev_vscode_img</code>:</p>
+<ul dir="auto">
+<li>streetsidesoftware.code-spell-checker</li>
+<li>matklad.rust-analyzer</li>
+<li>davidanson.vscode-markdownlint</li>
+<li>2gua.rainbow-brackets</li>
+<li>dotjoshjohnson.xml</li>
+<li>lonefy.vscode-js-css-html-formatter</li>
+<li>serayuzgur.crates</li>
+</ul>
+<p dir="auto">Other extensions you can add manually through VSCode, but then it is not repeatable. Better is to modify the script and recreate the image <code>rust_dev_vscode_img.sh</code>.</p>
+<h2 dir="auto"><a id="user-content-typescript-compiler" class="anchor" aria-hidden="true" href="#typescript-compiler"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Typescript compiler</h2>
+<p dir="auto">Some projects need the typescript compiler <code>tsc</code>. First we need to install nodejs with npm to install typescript.<br>
+The bash script <code>rust_dev_typescript_image.sh</code> will create a new image with typescript.</p>
+<h2 dir="auto"><a id="user-content-push-image-to-docker-hub" class="anchor" aria-hidden="true" href="#push-image-to-docker-hub"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Push image to docker hub</h2>
+<p dir="auto">I signed in to hub.docker.com.</p>
+<p dir="auto">In Account settings - Security I created an access token. This is the password for <code>podman login</code>. It is needed only once.</p>
+<p dir="auto">Then I created a new image repository with the name <code>rust_dev_vscode_img</code> and tag <code>latest</code>. Docker is helping with the push command syntax. I use <code>podman</code>, so I just renamed <code>docker</code> to <code>podman</code>. The same for <code>rust_dev_squid_img</code>.</p>
+<p dir="auto">In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman login --username bestiadev docker.io
+# type docker access token
+
+podman push docker.io/bestiadev/rust_dev_cargo_img:latest
+podman push docker.io/bestiadev/rust_dev_cargo_img:cargo-1.61.0
+
+podman push docker.io/bestiadev/rust_dev_vscode_img:latest
+podman push docker.io/bestiadev/rust_dev_vscode_img:vscode-1.67.1
+podman push docker.io/bestiadev/rust_dev_vscode_img:cargo-1.61.0
+
+podman push docker.io/bestiadev/rust_dev_squid_img:latest
+podman push docker.io/bestiadev/rust_dev_squid_img:squid-3.5.27-2
+
+podman push docker.io/bestiadev/rust_dev_typescript_img:latest
+podman push docker.io/bestiadev/rust_dev_typescript_img:typescript-4.6.4
+podman push docker.io/bestiadev/rust_dev_typescript_img:vscode-1.67.1
+podman push docker.io/bestiadev/rust_dev_typescript_img:cargo-1.61.0"><pre>podman login --username bestiadev docker.io
+<span class="pl-c"><span class="pl-c">#</span> type docker access token</span>
+
+podman push docker.io/bestiadev/rust_dev_cargo_img:latest
+podman push docker.io/bestiadev/rust_dev_cargo_img:cargo-1.61.0
+
+podman push docker.io/bestiadev/rust_dev_vscode_img:latest
+podman push docker.io/bestiadev/rust_dev_vscode_img:vscode-1.67.1
+podman push docker.io/bestiadev/rust_dev_vscode_img:cargo-1.61.0
+
+podman push docker.io/bestiadev/rust_dev_squid_img:latest
+podman push docker.io/bestiadev/rust_dev_squid_img:squid-3.5.27-2
+
+podman push docker.io/bestiadev/rust_dev_typescript_img:latest
+podman push docker.io/bestiadev/rust_dev_typescript_img:typescript-4.6.4
+podman push docker.io/bestiadev/rust_dev_typescript_img:vscode-1.67.1
+podman push docker.io/bestiadev/rust_dev_typescript_img:cargo-1.61.0</pre></div>
+<p dir="auto">It takes some time to upload more than 2 Gb.</p>
+<h2 dir="auto"><a id="user-content-enter-the-container-as-root" class="anchor" aria-hidden="true" href="#enter-the-container-as-root"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>enter the container as root</h2>
+<p dir="auto">Sometimes you need to do something as <code>root</code>.<br>
+You don't need to use <code>sudo</code>. Just open the container as <code>root</code> user.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman exec -it --user root rust_dev_vscode_cnt bash"><pre>podman <span class="pl-c1">exec</span> -it --user root rust_dev_vscode_cnt bash</pre></div>
+<h2 dir="auto"><a id="user-content-sizes" class="anchor" aria-hidden="true" href="#sizes"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>sizes</h2>
+<p dir="auto">Rust is not so small. I saved some 600MB of space just deleting the docs folder, that actually noone needs.<br>
+docker.io/bestiadev/rust_dev_squid_img  squid3.5.27-2  168 MB
+docker.io/bestiadev/rust_dev_cargo_img  cargo-1.61.0  1.11 GB
+docker.io/bestiadev/rust_dev_vscode_img cargo-1.61.0  1.40 GB</p>
+<h2 dir="auto"><a id="user-content-users-keys-for-ssh" class="anchor" aria-hidden="true" href="#users-keys-for-ssh"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Users keys for SSH</h2>
+<p dir="auto">We need to create 2 SSH keys, one for the <code>SSH server</code> identity <code>host key</code> of the container and the other for the identity of <code>rustdevuser</code>. This is done only once. To avoid old cryptographic algorithms I will force the new <code>ed25519</code>.<br>
+In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="# generate user key
+ssh-keygen -f ~/.ssh/rustdevuser_key -t ed25519 -C &quot;info@my.domain&quot;
+# give it a passphrase and remember it, you will need it
+# generate host key
+mkdir  -p ~/.ssh/rust_dev_pod_keys/etc/ssh
+ssh-keygen -A -f ~/.ssh/rust_dev_pod_keys
+
+# check the new files
+# list user keys
+ls -l ~/.ssh | grep &quot;rustdevuser&quot;
+# -rw------- 1 luciano luciano  2655 Apr  3 12:03 rustdevuser_key
+# -rw-r--r-- 1 luciano luciano   569 Apr  3 12:03 rustdevuser_key.pub
+
+# list host keys
+ls -l ~/.ssh/rust_dev_pod_keys/etc/ssh
+# -rw------- 1 luciano luciano 1381 Apr  4 10:44 ssh_host_dsa_key
+# -rw-r--r-- 1 luciano luciano  603 Apr  4 10:44 ssh_host_dsa_key.pub
+# -rw------- 1 luciano luciano  505 Apr  4 10:44 ssh_host_ecdsa_key
+# -rw-r--r-- 1 luciano luciano  175 Apr  4 10:44 ssh_host_ecdsa_key.pub
+# -rw------- 1 luciano luciano  399 Apr  4 10:44 ssh_host_ed25519_key
+# -rw-r--r-- 1 luciano luciano   95 Apr  4 10:44 ssh_host_ed25519_key.pub
+# -rw------- 1 luciano luciano 2602 Apr  4 10:44 ssh_host_rsa_key
+# -rw-r--r-- 1 luciano luciano  567 Apr  4 10:44 ssh_host_rsa_key.pub"><pre><span class="pl-c"><span class="pl-c">#</span> generate user key</span>
+ssh-keygen -f <span class="pl-k">~</span>/.ssh/rustdevuser_key -t ed25519 -C <span class="pl-s"><span class="pl-pds">"</span>info@my.domain<span class="pl-pds">"</span></span>
+<span class="pl-c"><span class="pl-c">#</span> give it a passphrase and remember it, you will need it</span>
+<span class="pl-c"><span class="pl-c">#</span> generate host key</span>
+mkdir  -p <span class="pl-k">~</span>/.ssh/rust_dev_pod_keys/etc/ssh
+ssh-keygen -A -f <span class="pl-k">~</span>/.ssh/rust_dev_pod_keys
+
+<span class="pl-c"><span class="pl-c">#</span> check the new files</span>
+<span class="pl-c"><span class="pl-c">#</span> list user keys</span>
+ls -l <span class="pl-k">~</span>/.ssh <span class="pl-k">|</span> grep <span class="pl-s"><span class="pl-pds">"</span>rustdevuser<span class="pl-pds">"</span></span>
+<span class="pl-c"><span class="pl-c">#</span> -rw------- 1 luciano luciano  2655 Apr  3 12:03 rustdevuser_key</span>
+<span class="pl-c"><span class="pl-c">#</span> -rw-r--r-- 1 luciano luciano   569 Apr  3 12:03 rustdevuser_key.pub</span>
+
+<span class="pl-c"><span class="pl-c">#</span> list host keys</span>
+ls -l <span class="pl-k">~</span>/.ssh/rust_dev_pod_keys/etc/ssh
+<span class="pl-c"><span class="pl-c">#</span> -rw------- 1 luciano luciano 1381 Apr  4 10:44 ssh_host_dsa_key</span>
+<span class="pl-c"><span class="pl-c">#</span> -rw-r--r-- 1 luciano luciano  603 Apr  4 10:44 ssh_host_dsa_key.pub</span>
+<span class="pl-c"><span class="pl-c">#</span> -rw------- 1 luciano luciano  505 Apr  4 10:44 ssh_host_ecdsa_key</span>
+<span class="pl-c"><span class="pl-c">#</span> -rw-r--r-- 1 luciano luciano  175 Apr  4 10:44 ssh_host_ecdsa_key.pub</span>
+<span class="pl-c"><span class="pl-c">#</span> -rw------- 1 luciano luciano  399 Apr  4 10:44 ssh_host_ed25519_key</span>
+<span class="pl-c"><span class="pl-c">#</span> -rw-r--r-- 1 luciano luciano   95 Apr  4 10:44 ssh_host_ed25519_key.pub</span>
+<span class="pl-c"><span class="pl-c">#</span> -rw------- 1 luciano luciano 2602 Apr  4 10:44 ssh_host_rsa_key</span>
+<span class="pl-c"><span class="pl-c">#</span> -rw-r--r-- 1 luciano luciano  567 Apr  4 10:44 ssh_host_rsa_key.pub</span></pre></div>
+<p dir="auto">The same keys we will need in Windows, because the VSCode client works in windows. We will copy them:
+In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="setx.exe WSLENV &quot;USERPROFILE/p&quot;
+echo $USERPROFILE/.ssh/rustdevuser_key
+cp -v ~/.ssh/rustdevuser_key $USERPROFILE/.ssh/rustdevuser_key
+cp -v ~/.ssh/rustdevuser_key.pub $USERPROFILE/.ssh/rustdevuser_key.pub
+cp -v -r ~/.ssh/rust_dev_pod_keys $USERPROFILE/.ssh/rust_dev_pod_keys
+# check
+ls -l $USERPROFILE/.ssh | grep &quot;rustdevuser&quot;
+ls -l $USERPROFILE/.ssh/rust_dev_pod_keys/etc/ssh"><pre>setx.exe WSLENV <span class="pl-s"><span class="pl-pds">"</span>USERPROFILE/p<span class="pl-pds">"</span></span>
+<span class="pl-c1">echo</span> <span class="pl-smi">$USERPROFILE</span>/.ssh/rustdevuser_key
+cp -v <span class="pl-k">~</span>/.ssh/rustdevuser_key <span class="pl-smi">$USERPROFILE</span>/.ssh/rustdevuser_key
+cp -v <span class="pl-k">~</span>/.ssh/rustdevuser_key.pub <span class="pl-smi">$USERPROFILE</span>/.ssh/rustdevuser_key.pub
+cp -v -r <span class="pl-k">~</span>/.ssh/rust_dev_pod_keys <span class="pl-smi">$USERPROFILE</span>/.ssh/rust_dev_pod_keys
+<span class="pl-c"><span class="pl-c">#</span> check</span>
+ls -l <span class="pl-smi">$USERPROFILE</span>/.ssh <span class="pl-k">|</span> grep <span class="pl-s"><span class="pl-pds">"</span>rustdevuser<span class="pl-pds">"</span></span>
+ls -l <span class="pl-smi">$USERPROFILE</span>/.ssh/rust_dev_pod_keys/etc/ssh</pre></div>
+<h2 dir="auto"><a id="user-content-volumes-or-mount-restrictions" class="anchor" aria-hidden="true" href="#volumes-or-mount-restrictions"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Volumes or mount restrictions</h2>
+<p dir="auto">I don't want that the container can access any file on my local system.</p>
+<p dir="auto">This is a "standalone" development container and everything must run inside.</p>
+<p dir="auto">The files can be cloned/pulled from Github or copied manually with <code>podman cp</code>.</p>
+<h2 dir="auto"><a id="user-content-network-inbound-restrictions" class="anchor" aria-hidden="true" href="#network-inbound-restrictions"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Network Inbound restrictions</h2>
+<p dir="auto">I would like to restrict the use of the network from/to the container.</p>
+<p dir="auto">When using Podman as a rootless user, the network is setup automatically. Only the <code>localhost</code> can be used. The container itself does not have an IP Address, because without root privileges, network association is not allowed. Port publishing as rootless containers can be done for "high ports" only. All ports below <code>1024</code> are privileged and cannot be used for publishing.</p>
+<p dir="auto">I hope/think that all inbound ports are closed by default and I need to explicitly expose them manually.</p>
+<h2 dir="auto"><a id="user-content-network-outbound-restrictions-with-squid-proxy-in-container" class="anchor" aria-hidden="true" href="#network-outbound-restrictions-with-squid-proxy-in-container"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Network Outbound restrictions with Squid proxy in container</h2>
+<p dir="auto">I would like to limit the access to the internet only to whitelisted domains:</p>
+<p dir="auto">crates.io, github.com,...</p>
+<p dir="auto">Some malware could want to "call home" and I will try to disable this.</p>
+<p dir="auto">What I need is a "proxy" or "transparent proxy". I will use the leading open-source proxy <code>Squid</code>, but in a container.</p>
+<p dir="auto">It can restrict both HTTP and HTTPS outbound traffic to a given set of Internet domains, while being fully transparent for instances in the private subnet.</p>
+<p dir="auto"><a href="https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/" rel="nofollow">https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/</a></p>
+<p dir="auto">I want to use this proxy for the container <code>rust_dev_vscode_cnt</code>. Container-to-container networking can be complex.</p>
+<p dir="auto">Podman works with <code>pods</code>, that make networking easy. This is usually the simplest approach for two rootless containers to communicate. Putting them in a <code>pod</code> allows them to communicate directly over <code>localhost</code>.</p>
+<p dir="auto">First create a modified image for Squid with (run inside the rustprojects/docker_rust_development folder):</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sh rust_dev_squid_img.sh"><pre>sh rust_dev_squid_img.sh</pre></div>
+<p dir="auto">If you need, you can modify the file <code>etc_squid_squid.conf</code> to add more whitelisted domains. Then run <code>sh rust_dev_squid_img.sh</code> to build the modified image.</p>
+<h2 dir="auto"><a id="user-content-one-pod-with-2-containers" class="anchor" aria-hidden="true" href="#one-pod-with-2-containers"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>One pod with 2 containers</h2>
+<p dir="auto">Podman and Kubernetes have the concept of pods, where more containers are tightly coupled. Here we will have the <code>rust_dev_vscode_cnt</code> that will use <code>rust_dev_squid_cnt</code> as a proxy. From outside the pod is like one entity with one address. All the network communication goes over the pod. Inside the pod everything is in the <code>localhost</code> address. That makes it easy to configure.</p>
+<p dir="auto">Inside the container <code>rust_dev_vscode_cnt</code> I want that everything goes through the proxy. This env variables should do that:</p>
+<p dir="auto"><code>http_proxy</code>, <code>https_proxy</code>,<code>all_proxy</code>.</p>
+<p dir="auto">Run the bash script to create a new pod <code>rust_dev_pod</code> with proxy settings:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sh rust_dev_pod_create.sh"><pre>sh rust_dev_pod_create.sh</pre></div>
+<p dir="auto">The pod is now running:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman pod list
+podman ps -a "><pre>podman pod list
+podman ps -a </pre></div>
+<h2 dir="auto"><a id="user-content-ssh-from-wsl2-debian" class="anchor" aria-hidden="true" href="#ssh-from-wsl2-debian"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>SSH from WSL2 Debian</h2>
+<p dir="auto">Try the SSH connection from WSL2 to the container:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="ssh -i ~/.ssh/rustdevuser_key -p 2201 rustdevuser@localhost
+# Choose `yes` to save fingerprint if asked, just the first time.
+# type passphrase
+# should work !
+# try for example
+ls
+# ls result: rustprojects
+# to exit the container
+exit"><pre>ssh -i <span class="pl-k">~</span>/.ssh/rustdevuser_key -p 2201 rustdevuser@localhost
+<span class="pl-c"><span class="pl-c">#</span> Choose `yes` to save fingerprint if asked, just the first time.</span>
+<span class="pl-c"><span class="pl-c">#</span> type passphrase</span>
+<span class="pl-c"><span class="pl-c">#</span> should work !</span>
+<span class="pl-c"><span class="pl-c">#</span> try for example</span>
+ls
+<span class="pl-c"><span class="pl-c">#</span> ls result: rustprojects</span>
+<span class="pl-c"><span class="pl-c">#</span> to exit the container</span>
+<span class="pl-c1">exit</span></pre></div>
+<h2 dir="auto"><a id="user-content-ssh-from-windows" class="anchor" aria-hidden="true" href="#ssh-from-windows"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>SSH from windows</h2>
+<p dir="auto">Run in <code>windows cmd prompt</code> to access the container over SSH from windows:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="# test the ssh connection from Windows cmd prompt
+&quot;C:\WINDOWS\System32\OpenSSH\ssh.exe&quot; -i ~\.ssh\rustdevuser_key -p 2201 rustdevuser@localhost
+# Choose `y` to save fingerprint if asked, just the first time.
+# type passphrase
+# should work !
+# try for example
+ls
+# ls result: rustprojects
+# to exit the container
+exit"><pre><span class="pl-c"><span class="pl-c">#</span> test the ssh connection from Windows cmd prompt</span>
+<span class="pl-s"><span class="pl-pds">"</span>C:\WINDOWS\System32\OpenSSH\ssh.exe<span class="pl-pds">"</span></span> -i <span class="pl-k">~</span><span class="pl-cce">\.</span>ssh<span class="pl-cce">\r</span>ustdevuser_key -p 2201 rustdevuser@localhost
+<span class="pl-c"><span class="pl-c">#</span> Choose `y` to save fingerprint if asked, just the first time.</span>
+<span class="pl-c"><span class="pl-c">#</span> type passphrase</span>
+<span class="pl-c"><span class="pl-c">#</span> should work !</span>
+<span class="pl-c"><span class="pl-c">#</span> try for example</span>
+ls
+<span class="pl-c"><span class="pl-c">#</span> ls result: rustprojects</span>
+<span class="pl-c"><span class="pl-c">#</span> to exit the container</span>
+<span class="pl-c1">exit</span></pre></div>
+<h2 dir="auto"><a id="user-content-debug-ssh-connection" class="anchor" aria-hidden="true" href="#debug-ssh-connection"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>debug SSH connection</h2>
+<p dir="auto">Sometimes it is needed to debug the connection to the <code>ssh server</code>, because the normal error messages are completely useless.<br>
+From <code>WSL2 terminal</code> I enter the <code>container terminal</code> as <code>root</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman exec -it --user=root  rust_dev_vscode_cnt bash"><pre>podman <span class="pl-c1">exec</span> -it --user=root  rust_dev_vscode_cnt bash</pre></div>
+<p dir="auto">In <code>container terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="service ssh stop
+/usr/sbin/sshd -ddd -p 2201
+# now we can see the verbose log when we attach an SSH client to this server. And we can see where is the problem.
+# after debug, start the service, before exit
+service ssh start
+exit"><pre>service ssh stop
+/usr/sbin/sshd -ddd -p 2201
+<span class="pl-c"><span class="pl-c">#</span> now we can see the verbose log when we attach an SSH client to this server. And we can see where is the problem.</span>
+<span class="pl-c"><span class="pl-c">#</span> after debug, start the service, before exit</span>
+service ssh start
+<span class="pl-c1">exit</span></pre></div>
+<p dir="auto">To see the verbose log of the <code>SSH client</code> add <code>-v</code> like this:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="ssh -i ~/.ssh/githubssh1 -p 2201 rustdevuser@localhost -v"><pre>ssh -i <span class="pl-k">~</span>/.ssh/githubssh1 -p 2201 rustdevuser@localhost -v</pre></div>
+<p dir="auto">To see the listening ports:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="netstat -tan "><pre>netstat -tan </pre></div>
+<h2 dir="auto"><a id="user-content-vscode" class="anchor" aria-hidden="true" href="#vscode"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>VSCode</h2>
+<p dir="auto">Open VSCode and install the extension <code>Remote - SSH</code>.
+In VSCode <code>F1</code>, type <code>ssh</code> and choose <code>Remote-SSH: Open SSh configuration File...</code>, choose  <code>c:\users\user_name\ssh\config</code> and type (if is missing):</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="Host rust_dev_pod
+  HostName localhost
+  Port 2201
+  User rustdevuser
+  IdentityFile ~\.ssh\rustdevuser_key
+  IdentitiesOnly yes"><pre>Host rust_dev_pod
+  HostName localhost
+  Port 2201
+  User rustdevuser
+  IdentityFile <span class="pl-k">~</span><span class="pl-cce">\.</span>ssh<span class="pl-cce">\r</span>ustdevuser_key
+  IdentitiesOnly yes</pre></div>
+<p dir="auto">Save and close.</p>
+<p dir="auto">Then in VSCode <code>F1</code>, type <code>ssh</code> and choose <code>Remote-SSH: Connect to Host...</code> and choose <code>rust_dev_pod</code>.<br>
+Choose <code>Linux</code> if asked, just the first time.<br>
+Type your passphrase.<br>
+If we are lucky, everything works and VSCode is now inside the container over SSH.</p>
+<h2 dir="auto"><a id="user-content-vscode-terminal" class="anchor" aria-hidden="true" href="#vscode-terminal"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>VSCode terminal</h2>
+<p dir="auto">VSCode has an integrated <code>VSCode terminal</code>. It has some advantages for developers that the standard <code>WSL2 terminal</code> does not have.
+It is great to use it for everything around code in containers. You can open more then one <code>VSCode terminal</code> if you need to. For example if you run a web server.</p>
+<p dir="auto">If the <code>VSCode terminal</code> is not opened simply press <code>Ctrl+j</code> to open it and the same to close it.</p>
+<p dir="auto">Inside <code>VSCode terminal</code>, we will create a sample project:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd ~/rustprojects
+cargo new rust_dev_hello
+cd ~/rustprojects/rust_dev_hello"><pre><span class="pl-c1">cd</span> <span class="pl-k">~</span>/rustprojects
+cargo new rust_dev_hello
+<span class="pl-c1">cd</span> <span class="pl-k">~</span>/rustprojects/rust_dev_hello</pre></div>
+<p dir="auto">This easy command opens a new VSCode window exactly for this project/folder inside the container:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="code ."><pre>code <span class="pl-c1">.</span></pre></div>
+<p dir="auto">A new VSCode windows will open for the <code>rust_dev_hello</code> project. Because of the SSH communication it asks for the passphrase. You can close now all other VSCode windows.</p>
+<p dir="auto">Build and run the project in the <code>VSCode terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo run"><pre>cargo run</pre></div>
+<p dir="auto">That should work and greet you with "Hello, world!".</p>
+<p dir="auto">Leave VSCode open because the next chapter will continue from here.</p>
+<h2 dir="auto"><a id="user-content-github-in-the-container" class="anchor" aria-hidden="true" href="#github-in-the-container"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Github in the container</h2>
+<p dir="auto">Shortcut: Download the template for bash script from here: <a href="https://github.com/bestia-dev/docker_rust_development/blob/main/personal_keys_and_settings.sh">personal_keys_and_settings.sh</a> into Win10 folder <code>~\.ssh</code>. It contains all the steps from below. You need to personalize it.<br>
+Then copy it manually into WSL2 - just once. Run in <code>WSL Terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="setx.exe WSLENV &quot;USERPROFILE/p&quot;
+cp -v $USERPROFILE/.ssh/personal_keys_and_settings.sh ~/.ssh/personal_keys_and_settings.sh
+# and then run
+sh ~/.ssh/personal_keys_and_settings.sh"><pre>setx.exe WSLENV <span class="pl-s"><span class="pl-pds">"</span>USERPROFILE/p<span class="pl-pds">"</span></span>
+cp -v <span class="pl-smi">$USERPROFILE</span>/.ssh/personal_keys_and_settings.sh <span class="pl-k">~</span>/.ssh/personal_keys_and_settings.sh
+<span class="pl-c"><span class="pl-c">#</span> and then run</span>
+sh <span class="pl-k">~</span>/.ssh/personal_keys_and_settings.sh</pre></div>
+<p dir="auto">Manually step by step instructions that are inside the <code>personal_keys_and_settings.sh</code>.<br>
+Git inside the container does not yet have your information, that it needs:
+In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman exec --user=rustdevuser rust_dev_vscode_cnt git config --global user.email &quot;info@your.mail&quot;
+podman exec --user=rustdevuser rust_dev_vscode_cnt git config --global user.name &quot;your_name&quot;
+podman exec --user=rustdevuser rust_dev_vscode_cnt git config --global -l"><pre>podman <span class="pl-c1">exec</span> --user=rustdevuser rust_dev_vscode_cnt git config --global user.email <span class="pl-s"><span class="pl-pds">"</span>info@your.mail<span class="pl-pds">"</span></span>
+podman <span class="pl-c1">exec</span> --user=rustdevuser rust_dev_vscode_cnt git config --global user.name <span class="pl-s"><span class="pl-pds">"</span>your_name<span class="pl-pds">"</span></span>
+podman <span class="pl-c1">exec</span> --user=rustdevuser rust_dev_vscode_cnt git config --global -l</pre></div>
+<p dir="auto">I like to work with Github over SSH and not over https. I think it is the natural thing for Linux.<br>
+To make SSH client work in the container I need the file with the private key for SSH connection to Github. I already have this in the file <code>~/.ssh/githubssh1</code>. I will copy it into the container with <code>podman cp</code>.<br>
+Be careful ! This is a secret !
+It means that this container I cannot share anymore with anybody. It is now my private container. I must never make an image from it and share it. Never !</p>
+<p dir="auto">In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="podman exec --user=rustdevuser rust_dev_vscode_cnt ls -l /home/rustdevuser/.ssh
+podman cp ~/.ssh/githubssh1 rust_dev_vscode_cnt:/home/rustdevuser/.ssh/githubssh1
+podman exec --user=rustdevuser rust_dev_vscode_cnt chmod 600 /home/rustdevuser/.ssh/githubssh1
+podman cp ~/.ssh/githubssh1.pub rust_dev_vscode_cnt:/home/rustdevuser/.ssh/githubssh1.pub
+podman exec --user=rustdevuser rust_dev_vscode_cnt ls -l /home/rustdevuser/.ssh"><pre>podman <span class="pl-c1">exec</span> --user=rustdevuser rust_dev_vscode_cnt ls -l /home/rustdevuser/.ssh
+podman cp <span class="pl-k">~</span>/.ssh/githubssh1 rust_dev_vscode_cnt:/home/rustdevuser/.ssh/githubssh1
+podman <span class="pl-c1">exec</span> --user=rustdevuser rust_dev_vscode_cnt chmod 600 /home/rustdevuser/.ssh/githubssh1
+podman cp <span class="pl-k">~</span>/.ssh/githubssh1.pub rust_dev_vscode_cnt:/home/rustdevuser/.ssh/githubssh1.pub
+podman <span class="pl-c1">exec</span> --user=rustdevuser rust_dev_vscode_cnt ls -l /home/rustdevuser/.ssh</pre></div>
+<p dir="auto">The <code>VSCode terminal</code> is still opened on the project <code>rust_dev_hello</code>.</p>
+<h2 dir="auto"><a id="user-content-ssh-agent" class="anchor" aria-hidden="true" href="#ssh-agent"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>SSH Agent</h2>
+<p dir="auto">It is comfortable to use the <code>ssh-agent</code> to store the passphrase in memory, so we type it only once. The ssh-agent is already started on login in the <code>~/.bash_profile</code> script.</p>
+<p dir="auto">Again attention, that this container has secrets and must not be shared ! Never !</p>
+<p dir="auto">In the <code>VSCode terminal</code> (Ctrl+j) run:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="ssh-add /home/rustdevuser/.ssh/githubssh1
+# enter your passphrase"><pre>ssh-add /home/rustdevuser/.ssh/githubssh1
+<span class="pl-c"><span class="pl-c">#</span> enter your passphrase</span></pre></div>
+<p dir="auto">You can download the template <a href="https://github.com/bestia-dev/docker_rust_development/blob/main/sshadd.sh">sshadd.sh</a> from Github and save it into win10 folder <code>~\.ssh</code>. There, personalize it with you SSH keys file names.
+Then copy it manually into WSL2 and the container - just once. Run in <code>WSL Terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="setx.exe WSLENV &quot;USERPROFILE/p&quot;
+echo $USERPROFILE
+cp -v $USERPROFILE/.ssh/sshadd.sh ~/.ssh/sshadd.sh  
+podman cp ~/.ssh/sshadd.sh rust_dev_vscode_cnt:/home/rustdevuser/.ssh/sshadd.sh  "><pre>setx.exe WSLENV <span class="pl-s"><span class="pl-pds">"</span>USERPROFILE/p<span class="pl-pds">"</span></span>
+<span class="pl-c1">echo</span> <span class="pl-smi">$USERPROFILE</span>
+cp -v <span class="pl-smi">$USERPROFILE</span>/.ssh/sshadd.sh <span class="pl-k">~</span>/.ssh/sshadd.sh  
+podman cp <span class="pl-k">~</span>/.ssh/sshadd.sh rust_dev_vscode_cnt:/home/rustdevuser/.ssh/sshadd.sh  </pre></div>
+<p dir="auto">You will then run inside the <code>VSCode terminal</code> for each window/project separately:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sh ~/.ssh/sshadd.sh"><pre>sh <span class="pl-k">~</span>/.ssh/sshadd.sh</pre></div>
+<p dir="auto">After you enter the passphrase, it will remember it until the terminal is open.<br>
+When you open the terminal again, you will have to run the script again and enter the passphrase again.</p>
+<h2 dir="auto"><a id="user-content-github-push" class="anchor" aria-hidden="true" href="#github-push"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Github push</h2>
+<p dir="auto">Open <code>github.com</code> in the browser and sign in, click <code>New</code> and create a new repository named <code>rust_dev_hello</code>.</p>
+<p dir="auto">Github is user friendly and shows the standard commands we need to run.</p>
+<p dir="auto">Modify the commands below to <strong>your</strong> Github repository.</p>
+<p dir="auto">In VSCode click on the <code>Source control</code> and click <code>Initialize</code> and type the commit msg <code>init</code>.
+Then in <code>VSCode terminal</code> run:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="git remote add origin git@github.com:bestia-dev/rust_dev_hello.git
+git push -u origin main"><pre>git remote add origin git@github.com:bestia-dev/rust_dev_hello.git
+git push -u origin main</pre></div>
+<p dir="auto">Done! Check your Github repository.
+Always push the changes to Github. So you can destroy this pod/container and create a new empty one, then pull the code from Github and continue developing. Containers are the worst place to have persistent data stored. They can be deleted any second for any reason.
+Leave VSCode open because the next chapter will continue from here.</p>
+<h2 dir="auto"><a id="user-content-existing-rust-projects-on-github" class="anchor" aria-hidden="true" href="#existing-rust-projects-on-github"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Existing Rust projects on Github</h2>
+<p dir="auto">You probably already have a Rust project on Github. You want to continue its development inside the container.</p>
+<p dir="auto">For an example we will use my PWA+WebAssembly/WASM project <code>rust_wasm_pwa_minimal_clock</code>, that needs to forward the port 8001, because our project needs a web server. That is fairly common. I am not a fan of autoForward <code>automagic</code> in VSCode, so I disable it in <code>File-Preferences-Settings</code> search <code>remote.autoForwardPorts</code> and uncheck it to false.</p>
+<p dir="auto">We will continue to use the existing <code>VSCode terminal</code>, that is already opened on the folder <code>/home/rustdevuser/rustprojects/rust_dev_hello</code>. Just to practice.</p>
+<p dir="auto">Run the commands to clone the repository from Github and open a new VSCode window. We already have the SSH private key and <code>ssh-agent</code> running:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd /home/rustdevuser/rustprojects/
+git clone git@github.com:bestia-dev/rust_wasm_pwa_minimal_clock.git
+cd rust_wasm_pwa_minimal_clock
+code ."><pre><span class="pl-c1">cd</span> /home/rustdevuser/rustprojects/
+git clone git@github.com:bestia-dev/rust_wasm_pwa_minimal_clock.git
+<span class="pl-c1">cd</span> rust_wasm_pwa_minimal_clock
+code <span class="pl-c1">.</span></pre></div>
+<p dir="auto">The <code>code .</code> command will open a new VSCode window in the folder <code>rust_wasm_pwa_minimal_clock</code>. Enter the SSH passphrase if asked. In the new VSCode window, we can now edit, compile and run the project. All sandboxed/isolated inside the container. We can now close the other VSCode windows, we don't need it any more.</p>
+<p dir="auto">This example is somewhat more complex, because it is WebAssembly, but it is good for learning. I used the automation tool <code>cargo-auto</code> to script a more complex building process. You can read the automation task code in <code>automation_task_rs/src/main.rs</code>. On the first build it will download the wasm components and wasm-bindgen. That can take some time. Don't despair.</p>
+<p dir="auto">Now we can build and run the project in <code>VSCode terminal</code> (Ctrl+j):</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cargo auto build_and_run"><pre>cargo auto build_and_run</pre></div>
+<p dir="auto">In VSCode go to Ports and add the port <code>4000</code>.</p>
+<p dir="auto">Open the browser in Windows:</p>
+<p dir="auto"><code>http://localhost:4000/rust_wasm_pwa_minimal_clock/</code></p>
+<p dir="auto">This is an example of Webassembly and PWA, directly from a docker container.</p>
+<p dir="auto">A good learning example.</p>
+<h2 dir="auto"><a id="user-content-after-reboot" class="anchor" aria-hidden="true" href="#after-reboot"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>After reboot</h2>
+<p dir="auto">After reboot WSL2 can create some network problems for podman.<br>
+We can simulate the WSL2 reboot in <code>powershell in windows</code>:</p>
+<div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="Get-Service LxssManager | Restart-Service"><pre><span class="pl-c1">Get-Service</span> LxssManager <span class="pl-k">|</span> <span class="pl-c1">Restart-Service</span></pre></div>
+<p dir="auto">Before entering any podman command we need first to clean some temporary files, restart the pod and restart the SSh server.<br>
+In <code>WSL2 terminal</code>:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sh rust_dev_pod_after_reboot.sh"><pre>sh rust_dev_pod_after_reboot.sh</pre></div>
+<h2 dir="auto"><a id="user-content-vscode-and-file-copying-from-win10" class="anchor" aria-hidden="true" href="#vscode-and-file-copying-from-win10"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>VSCode and file copying from win10</h2>
+<p dir="auto">It is easy to copy files from Win10 to the VSCode project within the container just with drag&amp;drop.</p>
+<h2 dir="auto"><a id="user-content-protect-the-ssh-private-key-in-windows" class="anchor" aria-hidden="true" href="#protect-the-ssh-private-key-in-windows"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Protect the SSH private key in Windows</h2>
+<p dir="auto">In Linux the private keys inside <code>~/.ssh</code> are protected with <code>chmod 600</code>.
+We need to do similarly for the private keys inside Win10 folder <code>~\.ssh</code>
+Run in <code>powershell terminal</code> with the standard user:</p>
+<div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="cd ~/.ssh
+ls
+# Set Key File Variable:
+  New-Variable -Name Key -Value &quot;$env:UserProfile\.ssh\id_rsa&quot;
+# Remove Inheritance:
+  Icacls $Key /c /t /Inheritance:d
+# Set Ownership to Owner:
+  Icacls $Key /c /t /grant ${env:UserName}:F
+# Remove All Users, except for Owner:
+  Icacls $Key  /c /t /Remove Administrator BUILTIN\Administrators BUILTIN Everyone System Users
+# Verify:
+  Icacls $Key
+# Remove Variable:
+  Remove-Variable -Name Key"><pre>cd ~<span class="pl-k">/</span>.ssh
+ls
+<span class="pl-c"><span class="pl-c">#</span> Set Key File Variable:</span>
+  <span class="pl-c1">New-Variable</span> <span class="pl-k">-</span>Name Key <span class="pl-k">-</span>Value <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$<span class="pl-c1">env:</span>UserProfile</span>\.ssh\id_rsa<span class="pl-pds">"</span></span>
+<span class="pl-c"><span class="pl-c">#</span> Remove Inheritance:</span>
+  Icacls <span class="pl-smi">$Key</span> <span class="pl-k">/</span>c <span class="pl-k">/</span>t <span class="pl-k">/</span>Inheritance:d
+<span class="pl-c"><span class="pl-c">#</span> Set Ownership to Owner:</span>
+  Icacls <span class="pl-smi">$Key</span> <span class="pl-k">/</span>c <span class="pl-k">/</span>t <span class="pl-k">/</span>grant <span class="pl-smi">${<span class="pl-c1">env:</span>UserName}</span>:F
+<span class="pl-c"><span class="pl-c">#</span> Remove All Users, except for Owner:</span>
+  Icacls <span class="pl-smi">$Key</span>  <span class="pl-k">/</span>c <span class="pl-k">/</span>t <span class="pl-k">/</span>Remove Administrator BUILTIN\Administrators BUILTIN Everyone System Users
+<span class="pl-c"><span class="pl-c">#</span> Verify:</span>
+  Icacls <span class="pl-smi">$Key</span>
+<span class="pl-c"><span class="pl-c">#</span> Remove Variable:</span>
+  <span class="pl-c1">Remove-Variable</span> <span class="pl-k">-</span>Name Key</pre></div>
+<h2 dir="auto"><a id="user-content-quirks" class="anchor" aria-hidden="true" href="#quirks"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Quirks</h2>
+<p dir="auto">It is a complex setting. There can be some quirks sometimes.</p>
+<h2 dir="auto"><a id="user-content-ssh-could-not-resolve-hostname" class="anchor" aria-hidden="true" href="#ssh-could-not-resolve-hostname"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>ssh could not resolve hostname</h2>
+<p dir="auto">Warning: The "ssh could not resolve hostname" is a common error. It is not that big of an issue. I closed everything and restart my computer and everything works fine now.</p>
+<h2 dir="auto"><a id="user-content-warning-remote-host-identification-has-changed" class="anchor" aria-hidden="true" href="#warning-remote-host-identification-has-changed"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED</h2>
+<p dir="auto">SSH client remembers the key of the servers in the file <code>~/.ssh/known_hosts</code>.<br>
+If we created a new key for the ephemeral container, we can get the error <code>REMOTE HOST IDENTIFICATION HAS CHANGED</code>.
+It is enough to open the file <code>~/.ssh/known_hosts</code> and delete the offending line.
+In <code>WSL2 terminal</code> we can use:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="ssh-keygen -f ~/.ssh/known_hosts -R &quot;[localhost]:2201&quot;;
+setx.exe WSLENV &quot;USERPROFILE/p&quot;;
+ssh-keygen -f $USERPROFILE/.ssh/known_hosts -R &quot;[localhost]:2201&quot;;"><pre>ssh-keygen -f <span class="pl-k">~</span>/.ssh/known_hosts -R <span class="pl-s"><span class="pl-pds">"</span>[localhost]:2201<span class="pl-pds">"</span></span><span class="pl-k">;</span>
+setx.exe WSLENV <span class="pl-s"><span class="pl-pds">"</span>USERPROFILE/p<span class="pl-pds">"</span></span><span class="pl-k">;</span>
+ssh-keygen -f <span class="pl-smi">$USERPROFILE</span>/.ssh/known_hosts -R <span class="pl-s"><span class="pl-pds">"</span>[localhost]:2201<span class="pl-pds">"</span></span><span class="pl-k">;</span></pre></div>
+<h2 dir="auto"><a id="user-content-read-more" class="anchor" aria-hidden="true" href="#read-more"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Read more</h2>
+<p dir="auto">Read more how I use my <a href="https://github.com/bestia-dev/development_environment">Development environment</a>.</p>
+<h2 dir="auto"><a id="user-content-todo" class="anchor" aria-hidden="true" href="#todo"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>TODO</h2>
+<p dir="auto">Watch the log if the access is restricted to some domains:
+podman exec rust_dev_squid_cnt cat /var/log/squid/access.log
+podman exec rust_dev_squid_cnt tail -f /var/log/squid/access.log</p>
+<p dir="auto">new image with cargo-crev and cargo_crev_reviews
+new image with windows cross compile</p>
+<p dir="auto">Add this following to your ~/.bash_profile</p>
+<p dir="auto">SSH_ENV="$HOME/.ssh/agent-environment"</p>
+<h2 dir="auto"><a id="user-content-cargo-crev-reviews-and-advisory" class="anchor" aria-hidden="true" href="#cargo-crev-reviews-and-advisory"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>cargo crev reviews and advisory</h2>
+<p dir="auto">We live in times of danger with <a href="https://en.wikipedia.org/wiki/Supply_chain_attack" rel="nofollow">supply chain attacks</a>.<br>
+It is recommended to always use <a href="https://github.com/crev-dev/cargo-crev">cargo-crev</a><br>
+to verify the trustworthiness of each of your dependencies.<br>
+Please, spread this info.<br>
+You can also read reviews quickly on the web:<br>
+<a href="https://web.crev.dev/rust-reviews/crates/" rel="nofollow">https://web.crev.dev/rust-reviews/crates/</a></p>
+<h2 dir="auto"><a id="user-content-open-source-and-free-as-a-beer" class="anchor" aria-hidden="true" href="#open-source-and-free-as-a-beer"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>open-source and free as a beer</h2>
+<p dir="auto">My open-source projects are free as a beer (MIT license).<br>
+I just love programming.<br>
+But I need also to drink. If you find my projects and tutorials helpful,<br>
+please buy me a beer donating on my <a href="https://paypal.me/LucianoBestia" rel="nofollow">paypal</a>.<br>
+You know the price of a beer in your local bar ;-)<br>
+So I can drink a free beer for your health :-)<br>
+<a href="https://translate.google.com/?hl=en&amp;sl=sl&amp;tl=en&amp;text=Na%20zdravje&amp;op=translate" rel="nofollow">Na zdravje!</a> <a href="https://dictionary.cambridge.org/dictionary/italian-english/alla-salute" rel="nofollow">Alla salute!</a> <a href="https://dictionary.cambridge.org/dictionary/german-english/prost" rel="nofollow">Prost!</a> <a href="https://matadornetwork.com/nights/how-to-say-cheers-in-50-languages/" rel="nofollow">Nazdravlje!</a> <g-emoji class="g-emoji" alias="beers" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f37b.png">🍻</g-emoji></p>
+</article>
+</body>
+
+</html>
