@@ -12,9 +12,11 @@
         "plantuml",
         "Prost",
         "reqwest",
+        "rfind",
         "rustdevuser",
         "rustprojects",
         "struct",
+        "termion",
         "thiserror",
         "unoptimized",
         "zdravje"

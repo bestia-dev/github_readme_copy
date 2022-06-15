@@ -95,7 +95,9 @@ fn task_build() {
     println!(
         r#"
 After `cargo auto build`, run the compiled binary, examples and/or tests
-run `./target/debug/{package_name}`, if ok, then
+run `./target/debug/{package_name}` or
+run `./target/debug/{package_name} download`, if ok, then
+run `./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/`, if ok, then
 run `cargo auto test`, if ok, then,
 run `cargo auto release`
 "#, 
@@ -116,7 +118,9 @@ fn task_release() {
     println!(
         r#"
 After `cargo auto release`, run the compiled binary, examples and/or tests
-run `./target/release/{package_name}` if ok, then
+run `./target/debug/{package_name}` or
+run `./target/debug/{package_name} download`, if ok, then
+run `./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/`, if ok, then
 run `cargo auto test`, if ok, then,
 run `cargo auto doc`
 "#,

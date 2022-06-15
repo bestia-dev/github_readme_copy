@@ -77,8 +77,11 @@ mod github_mod;
 mod utils_mod;
 
 // `pub use` allows the caller of the lib to access modules functions, structs or all(*)
-pub use github_mod::format_upper_hello_phrase;
-pub use github_mod::list_my_public_repos;
+pub use github_mod::download_readme;
+pub use github_mod::upload_readme;
+pub use utils_mod::RED;
+pub use utils_mod::RESET;
+pub use utils_mod::YELLOW;
 
 // The `main.rs` uses the `anyhow` error library.
 // The `lib.rs` uses the `thiserror` library.

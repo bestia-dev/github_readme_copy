@@ -37,6 +37,16 @@ You need to have a [github PAT (personal access token)](https://docs.github.com/
 export GITHUB_TOKEN=ghp_111111111111111111111
 ```
 
+## Workspaces with Primary project
+
+When a project is a workspace with multiple projects, one of those is the primary project. We want to make a copy of this primary README.md and not of the workspace README.md. We can signal this to `github_readme_copy` with this link:
+
+```html
+<a href="https://github.com/bestia-dev/cargo_crev_reviews_workspace/tree/main/cargo_crev_reviews">Primary project README.md</a>
+```
+
+Example: <https://github.com/bestia-dev/cargo_crev_reviews_workspace>
+
 ## TODO
 
 rayon to get html in parallel.
