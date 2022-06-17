@@ -8,55 +8,75 @@
 
 /// download public readmes
 pub fn download_readme(token: &str) {
-    // TODO: I could use rayon to download more then one html in parallel
+    let dest_folder = std::path::Path::new("copied_readme");
     // create a future and then run it in the tokio runtime
-    let future = async move {
-        let dest_folder = std::path::Path::new("copied_readme");
-        let vec_of_repo = vec_of_repos_from_github(token).await;
+    let rt1 = tokio::runtime::Runtime::new().unwrap();
+    let future1 = async move { vec_of_repos_from_github(token).await };
+    let vec_of_repo = rt1.block_on(future1);
 
+    // 12 threads to download in parallel
+    let pool = rayon::ThreadPoolBuilder::new()
+        .num_threads(12)
+        .build()
+        .unwrap();
+    pool.scope(|scoped| {
         for repo in &vec_of_repo {
             let repo_name = &repo.name;
-            let body = get_readme_body(repo).await;
+            scoped.spawn(move |_s| {
+                // create a future and then run it in the tokio runtime
+                //let measure_instant = std::time::Instant::now();
+                let rt2 = tokio::runtime::Runtime::new().unwrap();
+                //println!( "Elapsed time tokio::runtime::Runtime::new(): {} ms", measure_instant.elapsed().as_millis() );
 
-            let article = get_article(&body);
-            let mut new_html = std::fs::read_to_string("copied_readme/0_template.txt").unwrap();
+                let future2 = async move { get_readme_body(repo).await };
+                let body = rt2.block_on(future2);
+                //let measure_instant = std::time::Instant::now();
+                let article = get_article(&body);
+                //println!( "Elapsed time get_article: {} ms", measure_instant.elapsed().as_millis() );
+                let mut new_html = std::fs::read_to_string("copied_readme/0_template.txt").unwrap();
 
-            insert_article(&mut new_html, article);
+                insert_article(&mut new_html, article);
 
-            let path = dest_folder.join(repo_name).with_extension("html");
-            if path.exists() {
-                let old_html = std::fs::read_to_string(&path).unwrap();
-                if old_html != new_html {
+                let path = dest_folder.join(repo_name).with_extension("html");
+                if path.exists() {
+                    let old_html = std::fs::read_to_string(&path).unwrap();
+                    if old_html != new_html {
+                        std::fs::write(&path, new_html).unwrap();
+                    }
+                } else {
+                    println!("Writing {}", path.to_string_lossy());
                     std::fs::write(&path, new_html).unwrap();
                 }
-            } else {
-                println!("Writing {}", path.to_string_lossy());
-                std::fs::write(&path, new_html).unwrap();
-            }
+            });
         }
-        // check if there is some obsolete html
-        for entry in dest_folder.read_dir().unwrap() {
-            if let Ok(entry) = entry {
-                if entry.file_name().to_string_lossy().ends_with(".html") {
-                    let mut repo_exists = false;
-                    for repo in &vec_of_repo {
-                        if format!("{}.html", &repo.name) == entry.file_name().to_string_lossy() {
-                            repo_exists = true;
-                            break;
-                        }
+    });
+    // check if there is some obsolete html
+    rename_obsolete_html(dest_folder, &vec_of_repo);
+}
+
+// rename obsolete html
+fn rename_obsolete_html(
+    dest_folder: &std::path::Path,
+    vec_of_repo: &Vec<octocrab::models::Repository>,
+) {
+    for entry in dest_folder.read_dir().unwrap() {
+        if let Ok(entry) = entry {
+            if entry.file_name().to_string_lossy().ends_with(".html") {
+                let mut repo_exists = false;
+                for repo in vec_of_repo {
+                    if format!("{}.html", &repo.name) == entry.file_name().to_string_lossy() {
+                        repo_exists = true;
+                        break;
                     }
-                    if repo_exists == false {
-                        // rename the file
-                        println!("Obsolete renamed: {}", &entry.file_name().to_string_lossy());
-                        std::fs::rename(entry.path(), entry.path().with_extension("obsolete"))
-                            .unwrap();
-                    }
+                }
+                if repo_exists == false {
+                    // rename the file
+                    println!("Obsolete renamed: {}", &entry.file_name().to_string_lossy());
+                    std::fs::rename(entry.path(), entry.path().with_extension("obsolete")).unwrap();
                 }
             }
         }
-    };
-    let rt = tokio::runtime::Runtime::new().unwrap();
-    rt.block_on(future);
+    }
 }
 
 fn insert_article(new_html: &mut String, article: &str) {
