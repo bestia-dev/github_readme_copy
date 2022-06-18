@@ -79,9 +79,6 @@ mod utils_mod;
 // `pub use` allows the caller of the lib to access modules functions, structs or all(*)
 pub use github_mod::download_readme;
 pub use github_mod::upload_readme;
-pub use utils_mod::RED;
-pub use utils_mod::RESET;
-pub use utils_mod::YELLOW;
 
 // The `main.rs` uses the `anyhow` error library.
 // The `lib.rs` uses the `thiserror` library.
@@ -95,3 +92,14 @@ pub enum LibraryError {
     #[error("unknown error")]
     Unknown,
 }
+
+// ANSI colors for Linux terminal
+// https://github.com/shiena/ansicolor/blob/master/README.md
+#[allow(dead_code)]
+pub const RED: &str = "\x1b[31m";
+#[allow(dead_code)]
+pub const YELLOW: &str = "\x1b[33m";
+#[allow(dead_code)]
+pub const GREEN: &str = "\x1b[32m";
+#[allow(dead_code)]
+pub const RESET: &str = "\x1b[0m";

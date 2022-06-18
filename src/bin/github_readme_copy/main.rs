@@ -9,6 +9,8 @@
 // The `main.rs` uses the `anyhow` error library.
 // The `lib.rs` uses the `thiserror` library.
 
+use github_readme_copy::{RED, RESET, YELLOW};
+
 /// entry point into the bin-executable
 fn main() {
     // logging is essential for every project
@@ -20,12 +22,11 @@ fn main() {
         Some("download") => {
             // read from env variable
             match std::env::var("GITHUB_TOKEN") {
-                Err(_err) => eprintln!(
-                        "{red}Error: env variable GITHUB_TOKEN not found. 
+                Err(_err) => println!(
+                        "{RED}Error: env variable GITHUB_TOKEN not found. 
 Get your personal github token from https://github.com/settings/tokens.
 Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
- export GITHUB_TOKEN=*****{reset}",
-    red=*github_readme_copy::RED,reset=*github_readme_copy::RESET
+ export GITHUB_TOKEN=*****{RESET}"
                     ),
                 Ok(token) => download_readme(&token),
             }
@@ -33,9 +34,9 @@ Before run, store it in local session env variable (put a space before the comma
         Some("upload") => match std::env::args().nth(2).as_deref() {
             // second argument
             Some(upload_url) => upload_readme(upload_url),
-            None => eprintln!("Missing arguments `upload_url`."),
+            None => println!("{RED}Error: Missing arguments `upload_url`.{RESET}"),
         },
-        _ => eprintln!("Unrecognized arguments. Try `github_readme_copy --help`"),
+        _ => println!("{RED}Error: Unrecognized arguments. Try `github_readme_copy --help`{RESET}"),
     }
 }
 
@@ -43,25 +44,23 @@ Before run, store it in local session env variable (put a space before the comma
 fn print_help() {
     println!(
         r#"      
-{yellow}Welcome to github_readme_copy
+{YELLOW}Welcome to github_readme_copy
 This program will download all your public README.md from Github in html format
 and upload these html files to your web server.
-This is useful, because SEO works really bad on Github READMEs.{reset}
+This is useful, because SEO works really bad on Github READMEs.{RESET}
 
 github_readme_copy --help
 
-{yellow}Before download, store in env variable your personal token: export GITHUB_TOKEN=*****
-Get your personal github token from https://github.com/settings/tokens.{reset}
+{YELLOW}Before download, store in env variable your personal token: export GITHUB_TOKEN=*****
+Get your personal github token from https://github.com/settings/tokens.{RESET}
 
 github_readme_copy download
 
-{yellow}Before upload over SSH, use ssh-agent and ssh-add 
-to add the passphrase for the SSH connection to the web server.{reset}
+{YELLOW}Before upload over SSH, use ssh-agent and ssh-add 
+to add the passphrase for the SSH connection to the web server.{RESET}
 
 github_readme_copy upload username@server:folder/
-"#,
-        yellow = *github_readme_copy::YELLOW,
-        reset = *github_readme_copy::RESET
+"#
     );
 }
 
