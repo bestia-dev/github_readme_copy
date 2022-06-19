@@ -60,6 +60,8 @@ github_readme_copy download
 to add the passphrase for the SSH connection to the web server.{RESET}
 
 github_readme_copy upload username@server:folder/
+
+© 2022 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy
 "#
     );
 }
