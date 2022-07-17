@@ -50,10 +50,11 @@ When a project is a workspace with multiple projects, one of those is the primar
 
 Example: <https://github.com/bestia-dev/cargo_crev_reviews_workspace>
 
+
+
 ## TODO
 
-rayon to get html in parallel.
-upload to web server
+a pull all projects and push all projects bash file for my backup purposes. But all repositories including the private ones.
 
 ## cargo crev reviews and advisory
 

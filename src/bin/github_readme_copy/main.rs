@@ -36,6 +36,18 @@ Before run, store it in local session env variable (put a space before the comma
             Some(upload_url) => upload_readme(upload_url),
             None => println!("{RED}Error: Missing arguments `upload_url`.{RESET}"),
         },
+        Some("github_backup_bash_scripts") => {
+            // read from env variable
+            match std::env::var("GITHUB_TOKEN") {
+                Err(_err) => println!(
+                        "{RED}Error: env variable GITHUB_TOKEN not found. 
+Get your personal github token from https://github.com/settings/tokens.
+Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
+ export GITHUB_TOKEN=*****{RESET}"
+                    ),
+                Ok(token) => github_backup_bash_scripts(&token),
+            }
+        }
         _ => println!("{RED}Error: Unrecognized arguments. Try `github_readme_copy --help`{RESET}"),
     }
 }
@@ -61,6 +73,11 @@ to add the passphrase for the SSH connection to the web server.{RESET}
 
 github_readme_copy upload username@server:folder/
 
+{YELLOW}Before github_backup_bash_scripts, store in env variable your personal token: export GITHUB_TOKEN=*****
+Get your personal github token from https://github.com/settings/tokens.{RESET}
+
+github_readme_copy github_backup_bash_scripts
+
 © 2022 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy
 "#
     );
@@ -74,4 +91,9 @@ fn download_readme(token: &str) {
 /// upload over SSH
 fn upload_readme(upload_url: &str) {
     github_readme_copy::upload_readme(upload_url);
+}
+
+/// create bash scripts for github backup using your personal github token inside the env variable
+fn github_backup_bash_scripts(token: &str) {
+    github_readme_copy::github_backup_bash_scripts(token);
 }

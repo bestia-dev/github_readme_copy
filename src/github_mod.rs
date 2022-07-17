@@ -11,7 +11,7 @@ pub fn download_readme(token: &str) {
     let dest_folder = std::path::Path::new("copied_readme");
     // create a future and then run it in the tokio runtime
     let rt1 = tokio::runtime::Runtime::new().unwrap();
-    let future1 = async move { vec_of_repos_from_github(token).await };
+    let future1 = async move { vec_of_public_repos_from_github(token).await };
     let vec_of_repo = rt1.block_on(future1);
 
     // 12 threads to download in parallel
@@ -129,7 +129,7 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> String {
 }
 
 /// only public repos
-async fn vec_of_repos_from_github(token: &str) -> Vec<octocrab::models::Repository> {
+async fn vec_of_public_repos_from_github(token: &str) -> Vec<octocrab::models::Repository> {
     let octocrab = octocrab::Octocrab::builder()
         .personal_token(token.to_string())
         .build()
@@ -138,6 +138,29 @@ async fn vec_of_repos_from_github(token: &str) -> Vec<octocrab::models::Reposito
         .current()
         .list_repos_for_authenticated_user()
         .type_("public")
+        .sort("full_name")
+        .per_page(100)
+        .send()
+        .await
+        .unwrap();
+    let vec_of_repo = octocrab
+        .all_pages::<octocrab::models::Repository>(page)
+        .await
+        .unwrap();
+    vec_of_repo
+}
+
+/// private and public repos
+async fn vec_of_private_and_public_repos_from_github(
+    token: &str,
+) -> Vec<octocrab::models::Repository> {
+    let octocrab = octocrab::Octocrab::builder()
+        .personal_token(token.to_string())
+        .build()
+        .unwrap();
+    let page = octocrab
+        .current()
+        .list_repos_for_authenticated_user()
         .sort("full_name")
         .per_page(100)
         .send()
@@ -172,6 +195,74 @@ pub fn upload_readme(upload_url: &str) {
         .arg(upload_url);
 
     rsync.status().expect("rsync failed to execute");
+}
+
+/// create bash script for backup of all Github repositories
+pub fn github_backup_bash_scripts(token: &str) {
+    let dest_folder = std::path::Path::new("bash_script_for_backup");
+    // create a future and then run it in the tokio runtime
+    let rt1 = tokio::runtime::Runtime::new().unwrap();
+    let future1 = async move { vec_of_private_and_public_repos_from_github(token).await };
+    let vec_of_repo = rt1.block_on(future1);
+
+    let num_of_repo = format!("{}", vec_of_repo.len());
+    let path_base = r#"c:\Users\Luciano\Dropbox\BestiaDev\github_backup"#;
+    let mut pull_script = String::from(&format!(
+        r#":: pull_all.cmd
+:: script to pull all the changes from github into local folder github_backup
+
+:: num of repositories: {num_of_repo}
+
+ECHO OFF
+
+"#
+    ));
+    let mut push_script = String::from(&format!(
+        r#":: pull_all.cmd
+:: script to push all the changes from local folder github_backup to github
+
+:: num of repositories: {num_of_repo}
+
+ECHO OFF
+
+"#
+    ));
+
+    for repo in &vec_of_repo {
+        let repo_name = &repo.name;
+        pull_script.push_str(&format!(
+            r#"cd {path_base}\{repo_name}\
+echo %cd%
+ git pull
+"#
+        ));
+
+        push_script.push_str(&format!(
+            r#"cd {path_base}\{repo_name}\
+echo %cd%
+ git commit -a -m "2022-07-17" 
+ git push
+"#
+        ));
+    }
+    pull_script.push_str(&format!(
+        r#"
+cd {path_base}\
+"#
+    ));
+    push_script.push_str(&format!(
+        r#"
+cd {path_base}\
+"#
+    ));
+    let path = dest_folder
+        .join("pull_all_for_backup")
+        .with_extension("cmd");
+    std::fs::write(&path, pull_script).unwrap();
+    let path = dest_folder
+        .join("push_all_for_backup")
+        .with_extension("cmd");
+    std::fs::write(&path, push_script).unwrap();
 }
 
 #[cfg(test)]

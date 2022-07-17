@@ -114,9 +114,16 @@ fn task_build() {
     After `cargo auto build`, run the compiled binary, examples and/or tests
 ./target/debug/{package_name}
     or
+    Before download, store once in env variable your personal token: export GITHUB_TOKEN=*****
+    Get your personal github token from https://github.com/settings/tokens.
 ./target/debug/{package_name} download
-    if ok, then
+    or
+    Use sshadd, ssh-agent and ssh-add to store your SSH credentials for the web server.
 ./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/
+    or
+    Before github_backup_bash_scripts, store once in env variable your personal token: export GITHUB_TOKEN=*****
+    Get your personal github token from https://github.com/settings/tokens.
+./target/debug/{package_name} github_backup_bash_scripts
     if ok, then
 cargo auto release
 {RESET}"#,
@@ -139,9 +146,16 @@ fn task_release() {
     After `cargo auto release`, run the compiled binary, examples and/or tests
 ./target/release/{package_name}
     or
+    Before download, store once in env variable your personal token: export GITHUB_TOKEN=*****
+    Get your personal github token from https://github.com/settings/tokens.    
 ./target/release/{package_name} download
-    if ok, then
+    or
+    Use sshadd, ssh-agent and ssh-add to store your SSH credentials for the web server.
 ./target/release/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/
+    or
+    Before github_backup_bash_scripts, store once in env variable your personal token: export GITHUB_TOKEN=*****
+    Get your personal github token from https://github.com/settings/tokens.
+./target/debug/{package_name} github_backup_bash_scripts
     if ok, then,
 cargo auto doc
 {RESET}"#,
