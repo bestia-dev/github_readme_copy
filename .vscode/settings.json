@@ -21,6 +21,7 @@
         "termion",
         "thiserror",
         "unoptimized",
+        "Webassembly",
         "zdravje"
     ]
 }

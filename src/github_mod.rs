@@ -29,12 +29,14 @@ pub fn download_readme(token: &str) {
                 //println!( "Elapsed time tokio::runtime::Runtime::new(): {} ms", measure_instant.elapsed().as_millis() );
 
                 let future2 = async move { get_readme_body(repo).await };
-                let body = rt2.block_on(future2);
+                let (body, title, description) = rt2.block_on(future2);
                 //let measure_instant = std::time::Instant::now();
                 let article = get_article(&body);
                 //println!( "Elapsed time get_article: {} ms", measure_instant.elapsed().as_millis() );
                 let mut new_html = std::fs::read_to_string("copied_readme/0_template.txt").unwrap();
 
+                insert_title(&mut new_html, &title);
+                insert_description(&mut new_html, &description);
                 insert_article(&mut new_html, article);
 
                 let path = dest_folder.join(repo_name).with_extension("html");
@@ -85,6 +87,25 @@ fn insert_article(new_html: &mut String, article: &str) {
     new_html.replace_range(pos3..pos3, article);
 }
 
+fn insert_title(new_html: &mut String, title: &str) {
+    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(
+        &*new_html,
+        0,
+        "<title>template</title>",
+    )
+    .unwrap();
+    new_html.replace_range(pos3 + 7..pos3 + 15, title);
+}
+fn insert_description(new_html: &mut String, description: &str) {
+    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(
+        &*new_html,
+        0,
+        r#"content="Learning Rust Wasm/Webassembly programming and having fun""#,
+    )
+    .unwrap();
+    new_html.replace_range(pos3 + 9..pos3 + 66, description);
+}
+
 fn get_article(body: &str) -> &str {
     let pos1 = crate::utils_mod::find_pos_end_data_before_delimiter(&body, 0, "<article ").unwrap();
     let pos2 =
@@ -93,11 +114,32 @@ fn get_article(body: &str) -> &str {
     article
 }
 
+fn get_long_title(body: &str) -> &str {
+    let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(&body, 0, "<title>").unwrap();
+    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(&body, 0, "</title>").unwrap();
+    let title = &body[pos1..pos2];
+    title
+}
+
+fn get_github_description<'a>(body: &'a str, title: &str) -> &'a str {
+    let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(
+        &body,
+        0,
+        r#"</h1>
+<p dir="auto"><strong>"#,
+    )
+    .expect(&format!("not found github description start for {title}"));
+    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(&body, 0, "</strong><br>")
+        .expect(&format!("not found github description end for {title}"));
+    let github_description = &body[pos1..pos2];
+    github_description
+}
+
 /// get the right readme body
 /// if there is a link to >Primary project README.md<, use that instead, for example cargo_crev_reviews_workspace
-async fn get_readme_body(repo: &octocrab::models::Repository) -> String {
+async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String, String) {
     let repo_url = repo.html_url.as_ref().unwrap();
-    println!("Reading {}", repo_url);
+    println!("    Reading {}", repo_url);
     // open the html
     let body = reqwest::get(repo_url.clone())
         .await
@@ -105,17 +147,42 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> String {
         .text()
         .await
         .unwrap();
+
+    // get title and description
+    // They are already HTML encoded, because they come from a HTML
+    // find and parse: <title>GitHub - bestia-dev/github_readme_copy: Copy my public README.md files from Github in HTML format</title>
+    let title = get_long_title(&body);
+    let mut spl = title.split(": ");
+    let title = spl
+        .next()
+        .unwrap()
+        .trim_start_matches("GitHub - bestia-dev/")
+        .to_string();
+    let description = spl.next().unwrap().to_string();
+
+    // check if the description of the project and the github description is the same
+    let github_description = get_github_description(&body, &title);
+    if github_description != description {
+        println!("");
+        println!("    description different:");
+        println!("    {title}");
+
+        println!("    {description}");
+        println!("    {github_description}");
+        println!("");
+    }
+
     // find the magic link "Primary project README.md" it must be header2
     let pos1 = body.find(r#"">Primary project README.md</a></h2>"#);
     match pos1 {
-        None => return body,
+        None => return (body, title, description),
         Some(pos1) => {
             // extract the link
             let delim2 = r#"<a href=""#;
             let pos2 = body[..pos1].rfind(delim2).expect("The html {} has the phrase >Primary project README.md<, but before that there is no <a href=");
             let pos3 = pos2 + delim2.len();
             let link_url = &body[pos3..pos1];
-            println!("Primary project: Reading {}", repo_url);
+            println!("    Primary project: Reading {}", repo_url);
             let body = reqwest::get(link_url.clone())
                 .await
                 .unwrap()
@@ -123,7 +190,7 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> String {
                 .await
                 .unwrap();
 
-            return body;
+            return (body, title, description);
         }
     }
 }
