@@ -1,0 +1,371 @@
+/* css for copies of github README.md. I want the same style as dark github. */
+
+
+/*simplified css style based on https://www.w3schools.com/w3css/default.asp */
+
+
+/* css variables */
+
+:root {
+    /* color palette */
+    /* use of variables: var(--color_tooltip_1); */
+    /* background color */
+    --b_color_html: #111111;
+    --b_color_body: #161b22;
+    --b_color_header: #444;
+    --b_color_header_hover: #333;
+    --b_color_button: #8BC24A;
+    --b_color_button_disabled: #555;
+    --b_color_button_hover: #333;
+    /* front color */
+    --f_color_body: #f0f6fc;
+    --f_color_header: #f0f6fc;
+    --f_color_button: #f0f6fc;
+    --f_color_link: #FF8C00;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit
+}
+
+html {
+    background-color: var(--b_color_html);
+    color: var(--f_color_body);
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    overflow-x: hidden;
+    /*margin auto means centered horizontally*/
+    margin: 10px;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    background-color: var(--b_color_body);
+    color: var(--f_color_body);
+    margin: 10px;
+    padding: 0;
+    left: 0;
+    line-height: 1.8;
+    word-wrap: break-word;
+}
+
+
+/* no special color for links, but special class for links */
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+img {
+    border-style: none;
+    vertical-align: middle;
+}
+
+
+/* region: fixed header */
+
+.fixed_header {
+    background-color: var(--b_color_header);
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    padding: 0px 0px 0px;
+    width: 100%;
+    height: 35px;
+}
+
+
+/* navbar Segments starts with h1, it needs 10px because of the fixed header */
+
+
+/* endregion: fixed header */
+
+
+/* region: navigation bar*/
+
+
+/* here is the basic style for displays over 600px wide. All in one row.*/
+
+
+/* Add a dark background color to the navigation bar */
+
+#navbar {
+    background-color: var(--b_color_header);
+    overflow: hidden;
+    text-align: center;
+    top: 0px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+
+/* Style the links of navigation bar */
+
+#navbar>#navbar_topics {
+    background-color: var(--b_color_header);
+}
+
+#navbar>#navbar_topics>a {
+    background-color: var(--b_color_header);
+    display: inline;
+    color: var(--f_color_header);
+    text-align: center;
+    padding: 2px 10px;
+    padding-bottom: 5px;
+    text-decoration: none;
+}
+
+#navbar>#navbar_topics>a:hover {
+    background-color: var(--b_color_header_hover);
+}
+
+
+/* brand logo and title*/
+
+#navbar>#navbar_brand {
+    text-decoration: none;
+}
+
+#navbar>#navbar_brand>img {
+    padding-top: 1px;
+    max-height: 32px;
+    padding-bottom: 2px;
+}
+
+#navbar>#navbar_brand>#navbar_title {
+    display: none;
+    color: var(--f_color_header);
+    text-align: center;
+    padding: 2px 10px;
+}
+
+
+/* Hide the hamburger */
+
+#navbar>#navbar_hamburger {
+    color: var(--f_color_header);
+    display: none;
+    text-align: center;
+    padding: 2px 10px;
+    text-decoration: none;
+}
+
+
+/* When the screen is less than 600 pixels wide, hide all links, 
+Show only the brand and hamburger. 
+*/
+
+@media screen and (max-width: 600px) {
+    .fixed_header {
+        height: 45px;
+    }
+
+    #navbar {
+        justify-content: space-between;
+        display: inline;
+        font-size: 30px;
+        line-height: 1.4;
+    }
+    #navbar>#navbar_topics>a {
+        display: none;
+    }
+    #navbar>#navbar_brand {
+        float: left;
+        display: inline;
+        padding-left: 5px;
+        padding-top: 0px;
+        padding-bottom: 5px;
+    }
+    #navbar>#navbar_brand>#navbar_title {
+        float: none;
+        display: inline;
+        padding-right: 20px;
+        padding-top: 0px;
+    }
+    #navbar>#navbar_hamburger {
+        float: right;
+        display: inline;
+        padding-top: 0px;
+    }
+    /*
+The "responsive" class is added to the navbar with JavaScript when the user clicks on the hamburger. 
+This class makes the navbar look good on small screens (display the links vertically instead of horizontally)
+*/
+    #navbar.responsive>#navbar_topics {
+        position: fixed;
+        top: 47px;
+        padding-left: 44px;
+    }
+    #navbar.responsive>#navbar_topics>a {
+        float: none;
+        display: block;
+        text-align: left;
+        padding-right: 60px;
+    }
+}
+
+
+/* endregion: navigation bar*/
+
+.footer {
+    background-color: var(--b_color_header);
+}
+
+
+/* css for github classes*/
+
+article {
+    background-color: #0d1117;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 6px;
+    border-color: #30363d;
+    padding-left: 20px;    
+    max-width: 800px;
+    
+}
+
+h1{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-size: 32px;
+    font-weight: 600;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #21262d;
+    padding-bottom: 9.6px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    margin-block-start: 24px;
+    margin-block-end: 16px;
+}
+h2{
+    font-size: 24px;
+    font-weight: 600;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #21262d;
+    margin-bottom: 16px;
+}
+p{
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 16px;
+}
+a{
+    color:#58a6ff;
+  }
+.octicon-link {
+    display: inline-block;
+    vertical-align: middle;
+    fill: currentColor;
+    font-size: 24px;
+    width: 22px;
+    color:#c9d1d9;
+    padding-right: 4px;
+    margin-left: -20px;
+    text-size-adjust: 100%;
+    visibility: hidden;
+  }
+  .anchor{
+    visibility: hidden;
+  }
+
+  li{
+    font-size: 16px;
+  }
+
+  code{
+    padding: 0.2em 0.4em;
+    background-color: #6e768166;
+    border-radius: 6px;
+    font-size: 13.6px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  .snippet-clipboard-content{
+    box-sizing: border-box;
+    display: block;
+    line-height: 24px;
+    position:relative;
+  }
+
+  .highlight{
+    box-sizing: border-box;
+    display: block;
+    line-height: 24px;
+    position:relative;
+    }
+
+  pre{
+    display: block;
+    border-radius: 6px;
+    padding:16px;
+    background-color: #161b22;
+    box-sizing: border-box;
+    color: #f0f6fc;
+    line-height: 19.72px;
+    font-size: 13.6px;
+    width:98%;
+    margin:0;
+    margin-bottom: 16px;
+
+    overflow-wrap: normal;
+    overflow-x: auto;
+    overflow-y: auto;
+    word-break: normal;
+    white-space: pre;
+    max-width: none;
+  }
+  pre > code{
+    padding: 0;
+    display: inline;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: #0000;
+    background-origin: padding-box;
+    box-sizing: border-box;
+    font-size: 13.6px;
+    margin:0px;
+
+    overflow-wrap: normal;
+    overflow-x: auto;
+    overflow-y: auto;    
+    word-break: normal;
+    white-space: pre;
+    max-width: none;
+  }  
+
+.octicon-copy{
+    display: block;
+    box-sizing:border-box;
+    visibility: hidden;
+    overflow-wrap: break-word;
+}
+.octicon-check{
+    display: block;
+    box-sizing:border-box;
+    visibility: hidden;
+    overflow-wrap: break-word;
+}
+.zeroclipboard-container{
+    height: 0px;
+}

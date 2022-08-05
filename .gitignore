@@ -1,4 +1,4 @@
 /target
-/copied_readme
+/copied_readme/*.html
 /bash_script_for_backup
 **/*.rs.bk
