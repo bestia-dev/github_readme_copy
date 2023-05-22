@@ -1,14 +1,14 @@
 # docs on bestia.dev/docs
 
-It looks like that google search is really bad for github readmes.  
+It looks like that google search is really bad for GitHub readmes.  
 Maybe it will work better as HTML files on my own domain.
 For now it looks that SEO is better on non-platform domains.
 Maybe it needs some more information for SEO. We will see.
-On every HTML there is a link to bestia.dev and a link to the github repository.
+On every HTML there is a link to bestia.dev and a link to the GitHub repository.
 
 ## Copy manually
 
-In chrome open the github readme. 
+In chrome open the GitHub readme. 
 Right-click and Inspect the readme Header.
 Then right-click on the "article" element and Copy OuterHTML. 
 

@@ -128,9 +128,9 @@ fn get_github_description<'a>(body: &'a str, title: &str) -> &'a str {
         r#"</h1>
 <p dir="auto"><strong>"#,
     )
-    .expect(&format!("not found github description start for {title}"));
+    .expect(&format!("not found GitHub description start for {title}"));
     let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(&body, 0, "</strong><br>")
-        .expect(&format!("not found github description end for {title}"));
+        .expect(&format!("not found GitHub description end for {title}"));
     let github_description = &body[pos1..pos2];
     github_description
 }
@@ -158,9 +158,12 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String
         .unwrap()
         .trim_start_matches("GitHub - bestia-dev/")
         .to_string();
-    let description = spl.next().unwrap().to_string();
+    let description = spl
+        .next()
+        .expect(&format!("Panic reading description of {}", title))
+        .to_string();
 
-    // check if the description of the project and the github description is the same
+    // check if the description of the project and the GitHub description is the same
     let github_description = get_github_description(&body, &title);
     if github_description != description {
         println!("");
@@ -264,7 +267,7 @@ pub fn upload_readme(upload_url: &str) {
     rsync.status().expect("rsync failed to execute");
 }
 
-/// create bash script for backup of all Github repositories
+/// create bash script for backup of all GitHub repositories
 pub fn github_backup_bash_scripts(token: &str) {
     let dest_folder = std::path::Path::new("bash_script_for_backup");
     // create a future and then run it in the tokio runtime
@@ -276,7 +279,7 @@ pub fn github_backup_bash_scripts(token: &str) {
     let path_base = r#"c:\Users\Luciano\Dropbox\BestiaDev\github_backup"#;
     let mut pull_script = String::from(&format!(
         r#":: pull_all.cmd
-:: script to pull all the changes from github into local folder github_backup
+:: script to pull all the changes from GitHub into local folder github_backup
 
 :: num of repositories: {num_of_repo}
 

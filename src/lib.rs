@@ -5,8 +5,8 @@
 // region: auto_md_to_doc_comments include README.md A //!
 //! # github_readme_copy
 //!
-//! **Copy my public README.md files from Github in HTML format**  
-//! ***version: 1.0.31 date: 2022-05-14 author: [bestia.dev](https://bestia.dev) repository: [Github](https://github.com/bestia-dev/github_readme_copy)***  
+//! **Copy my public README.md files from GitHub in HTML format**  
+//! ***version: 1.0.31 date: 2022-05-14 author: [bestia.dev](https://bestia.dev) repository: [GitHub (https://github.com/bestia-dev/github_readme_copy)***  
 //!
 //! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-167-green.svg)](https://github.com/bestia-dev/github_readme_copy/)
 //! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-237-blue.svg)](https://github.com/bestia-dev/github_readme_copy/)
@@ -14,20 +14,20 @@
 //! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-19-yellow.svg)](https://github.com/bestia-dev/github_readme_copy/)
 //! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-36-orange.svg)](https://github.com/bestia-dev/github_readme_copy/)
 //!
-//! [![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/github_readme_copy/blob/main/LICENSE) [![Rust](https://github.com/bestia-dev/github_readme_copy/workflows/RustAction/badge.svg)](https://github.com/bestia-dev/github_readme_copy/)
+//! [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/github_readme_copy/blob/main/LICENSE) [![Rust](https://github.com/bestia-dev/github_readme_copy/workflows/RustAction/badge.svg)](https://github.com/bestia-dev/github_readme_copy/)
 //!
 //! ## Motivation
 //!
-//! It looks like google search SEO is really bad for github README.md files.  
+//! It looks like google search SEO is really bad for GitHub README.md files.  
 //! Maybe it will work better as HTML files on my own domain. Yes, it does.  
-//! On every README HTML, there is a link to bestia.dev and a link to the github repository.  
-//! I need a utility CLI that copies the README files as they are rendered on github and save them as html files in the directory `copied_readme`.  
+//! On every README HTML, there is a link to bestia.dev and a link to the GitHub repository.  
+//! I need a utility CLI that copies the README files as they are rendered on GitHub and save them as html files in the directory `copied_readme`.  
 //! Then I will use an `rsync` command to upload the files to my google cloud virtual machine.
 //!
 //! ## Octocrab
 //!
 //! I will use the crate `octocrab` to get a list of my public repos.  
-//! You need to have a [github PAT (personal access token)](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) and save it in a environment variable:  
+//! You need to have a [GitHub PAT (personal access token)](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) and save it in a environment variable:  
 //!
 //! ```bash
 //! export GITHUB_TOKEN=ghp_111111111111111111111

@@ -9,7 +9,7 @@
 // The `main.rs` uses the `anyhow` error library.
 // The `lib.rs` uses the `thiserror` library.
 
-use github_readme_copy::{RED, RESET, YELLOW};
+use github_readme_copy::{GREEN, RED, RESET, YELLOW};
 
 /// entry point into the bin-executable
 fn main() {
@@ -24,7 +24,7 @@ fn main() {
             match std::env::var("GITHUB_TOKEN") {
                 Err(_err) => println!(
                         "{RED}Error: env variable GITHUB_TOKEN not found. 
-Get your personal github token from https://github.com/settings/tokens.
+Get your personal GitHub token from https://github.com/settings/tokens.
 Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
  export GITHUB_TOKEN=*****{RESET}"
                     ),
@@ -41,7 +41,7 @@ Before run, store it in local session env variable (put a space before the comma
             match std::env::var("GITHUB_TOKEN") {
                 Err(_err) => println!(
                         "{RED}Error: env variable GITHUB_TOKEN not found. 
-Get your personal github token from https://github.com/settings/tokens.
+Get your personal GitHub token from https://github.com/settings/tokens.
 Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
  export GITHUB_TOKEN=*****{RESET}"
                     ),
@@ -56,34 +56,26 @@ Before run, store it in local session env variable (put a space before the comma
 fn print_help() {
     println!(
         r#"      
-{YELLOW}Welcome to github_readme_copy
-This program will download all your public README.md from Github in html format
-and upload these html files to your web server.
-This is useful, because SEO works really bad on Github READMEs.{RESET}
+    {YELLOW}Welcome to github_readme_copy
+    This program will download all your public README.md from GitHub in html format
+    and upload these html files to your web server.
+    This is useful, because SEO works really bad on GitHub READMEs.{RESET}
+    {YELLOW}Before download, store in env variable your personal token: export GITHUB_TOKEN=*****
+    Get your personal GitHub token from https://github.com/settings/tokens.{RESET}
+    {YELLOW}Before upload over SSH, use ssh-agent and ssh-add 
+    to add the passphrase for the SSH connection to the web server.{RESET}
 
-github_readme_copy --help
+{GREEN}github_readme_copy --help{RESET}
+{GREEN}github_readme_copy download{RESET}
+{GREEN}github_readme_copy upload username@server:folder/{RESET}
+{GREEN}github_readme_copy github_backup_bash_scripts{RESET}
 
-{YELLOW}Before download, store in env variable your personal token: export GITHUB_TOKEN=*****
-Get your personal github token from https://github.com/settings/tokens.{RESET}
-
-github_readme_copy download
-
-{YELLOW}Before upload over SSH, use ssh-agent and ssh-add 
-to add the passphrase for the SSH connection to the web server.{RESET}
-
-github_readme_copy upload username@server:folder/
-
-{YELLOW}Before github_backup_bash_scripts, store in env variable your personal token: export GITHUB_TOKEN=*****
-Get your personal github token from https://github.com/settings/tokens.{RESET}
-
-github_readme_copy github_backup_bash_scripts
-
-© 2022 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy
+    {YELLOW}© 2022 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy{RESET}
 "#
     );
 }
 
-/// download from github using your personal github token inside the env variable
+/// download from GitHub using your personal GitHub token inside the env variable
 fn download_readme(token: &str) {
     github_readme_copy::download_readme(token);
 }
@@ -93,7 +85,7 @@ fn upload_readme(upload_url: &str) {
     github_readme_copy::upload_readme(upload_url);
 }
 
-/// create bash scripts for github backup using your personal github token inside the env variable
+/// create bash scripts for GitHub backup using your personal GitHub token inside the env variable
 fn github_backup_bash_scripts(token: &str) {
     github_readme_copy::github_backup_bash_scripts(token);
 }

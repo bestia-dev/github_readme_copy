@@ -64,15 +64,15 @@ fn print_help() {
     {YELLOW}Welcome to cargo-auto !
     This program automates your custom tasks when developing a Rust project.{RESET}
 
-    User defined tasks in automation_tasks_rs:
-cargo auto build - builds the crate in debug mode, fmt, increment version
-cargo auto release - builds the crate in release mode, fmt, increment version
-cargo auto doc - builds the docs, copy to docs directory
-cargo auto test - runs all the tests
-cargo auto commit_and_push "message" - commits with message and push with mandatory message
-    (If you use SSH, it is easy to start the ssh-agent in the background and ssh-add your credentials for git.)
+    {YELLOW}User defined tasks in automation_tasks_rs:{RESET}
+{GREEN}cargo auto build{RESET}{YELLOW} - builds the crate in debug mode, fmt, increment version{RESET}
+{GREEN}cargo auto release{RESET}{YELLOW} - builds the crate in release mode, fmt, increment version{RESET}
+{GREEN}cargo auto doc{RESET}{YELLOW} - builds the docs, copy to docs directory{RESET}
+{GREEN}cargo auto test{RESET}{YELLOW} - runs all the tests{RESET}
+{GREEN}cargo auto commit_and_push "message"{RESET}{YELLOW} - commits with message and push with mandatory message{RESET}
+    {YELLOW}(If you use SSH, it is easy to start the ssh-agent in the background and ssh-add your credentials for git.){RESET}
 
-    © 2022 bestia.dev  MIT License github.com/bestia-dev/cargo-auto
+    {YELLOW}© 2023 bestia.dev  MIT License github.com/bestia-dev/cargo-auto{RESET}
 "#
     );
     print_examples_cmd();
@@ -110,23 +110,19 @@ fn task_build() {
     run_shell_command("cargo fmt");
     run_shell_command("cargo build");
     println!(
-        r#"{YELLOW}
-    After `cargo auto build`, run the compiled binary, examples and/or tests
-./target/debug/{package_name}
-    or
-    Before download, store once in env variable your personal token: export GITHUB_TOKEN=*****
-    Get your personal github token from https://github.com/settings/tokens.
-./target/debug/{package_name} download
-    or
-    Use sshadd, ssh-agent and ssh-add to store your SSH credentials for the web server.
-./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/
-    or
-    Before github_backup_bash_scripts, store once in env variable your personal token: export GITHUB_TOKEN=*****
-    Get your personal github token from https://github.com/settings/tokens.
-./target/debug/{package_name} github_backup_bash_scripts
-    if ok, then
-cargo auto release
-{RESET}"#,
+    r#"
+    {YELLOW}Before connecting to GitHub, store once in env variable your personal token: export GITHUB_TOKEN=*****
+    Get your personal GitHub token from https://github.com/settings/tokens.
+    Use sshadd, ssh-agent and ssh-add to store your SSH credentials for GitHub and the web server.{RESET}
+    
+    {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests
+{GREEN}./target/debug/{package_name}{RESET}
+{GREEN}./target/debug/{package_name} download{RESET}
+{GREEN}./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/{RESET}
+{GREEN}./target/debug/{package_name} github_backup_bash_scripts{RESET}
+    {YELLOW}if ok, then run{RESET}
+{GREEN}cargo auto release{RESET}
+"#,
 package_name = cargo_toml.package_name(),
     );
     print_examples_cmd();
@@ -142,29 +138,25 @@ fn task_release() {
     run_shell_command("cargo fmt");
     run_shell_command("cargo build --release");
     println!(
-        r#"{YELLOW}
-    After `cargo auto release`, run the compiled binary, examples and/or tests
-./target/release/{package_name}
-    or
-    Before download, store once in env variable your personal token: export GITHUB_TOKEN=*****
-    Get your personal github token from https://github.com/settings/tokens.    
-./target/release/{package_name} download
-    or
-    Use sshadd, ssh-agent and ssh-add to store your SSH credentials for the web server.
-./target/release/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/
-    or
-    Before github_backup_bash_scripts, store once in env variable your personal token: export GITHUB_TOKEN=*****
-    Get your personal github token from https://github.com/settings/tokens.
-./target/debug/{package_name} github_backup_bash_scripts
-    if ok, then,
-cargo auto doc
-{RESET}"#,
+        r#"
+    {YELLOW}Before connecting to GitHub, store once in env variable your personal token: export GITHUB_TOKEN=*****
+    Get your personal GitHub token from https://github.com/settings/tokens.
+    Use sshadd, ssh-agent and ssh-add to store your SSH credentials for GitHub and the web server.{RESET}
+
+    {YELLOW}After `cargo auto release`, run the compiled binary, examples and/or tests{RESET}
+{GREEN}./target/release/{package_name}{RESET}
+{GREEN}./target/release/{package_name} download{RESET}
+{GREEN}./target/release/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/{RESET}
+{GREEN}./target/debug/{package_name} github_backup_bash_scripts{RESET}
+    {YELLOW}if ok, then run{RESET}
+{GREEN}cargo auto doc{RESET}
+"#,
 package_name = cargo_toml.package_name(),
     );
     print_examples_cmd();
 }
 
-/// cargo doc, then copies to /docs/ folder, because this is a github standard folder
+/// cargo doc, then copies to /docs/ folder, because this is a GitHub standard folder
 fn task_doc() {
     let cargo_toml = CargoToml::read();
     auto_cargo_toml_to_md();
@@ -173,7 +165,7 @@ fn task_doc() {
     auto_md_to_doc_comments();
 
     run_shell_command("cargo doc --no-deps --document-private-items");
-    // copy target/doc into docs/ because it is github standard
+    // copy target/doc into docs/ because it is GitHub standard
     run_shell_command("rsync -a --info=progress2 --delete-after target/doc/ docs/");
     // Create simple index.html file in docs directory
     run_shell_command(&format!(
@@ -183,10 +175,10 @@ fn task_doc() {
     run_shell_command("cargo fmt");
     // message to help user with next move
     println!(
-        r#"{YELLOW}
-    After `cargo auto doc`, check `docs/index.html`. If ok, then test the documentation code examples
-cargo auto test
-{RESET}"#
+        r#"
+    {YELLOW}After `cargo auto doc`, check `docs/index.html`. If ok, then test the documentation code examples{RESET}
+{GREEN}cargo auto test{RESET}
+"#
     );
 }
 
@@ -194,11 +186,11 @@ cargo auto test
 fn task_test() {
     run_shell_command("cargo test");
     println!(
-        r#"{YELLOW}
-    After `cargo auto test`. If ok, then 
-cargo auto commit_and_push "message"
-    with mandatory commit message
-{RESET}"#
+        r#"
+    {YELLOW}After `cargo auto test`. If ok, then {RESET}
+{GREEN}cargo auto commit_and_push "message"{RESET}
+    {YELLOW}with mandatory commit message{RESET}
+"#
     );
 }
 
@@ -210,10 +202,10 @@ fn task_commit_and_push(arg_2: Option<String>) {
             run_shell_command(&format!(r#"git add -A && git commit --allow-empty -m "{}""#, message));
             run_shell_command("git push");
             println!(
-                r#"{YELLOW}
-    After `cargo auto commit_and_push "message"`
-cargo auto publish_to_crates_io
-{RESET}"#
+                r#"
+    {YELLOW}After `cargo auto commit_and_push "message"`{RESET}
+{GREEN}cargo auto publish_to_crates_io{RESET}
+"#
             );
         }
     }

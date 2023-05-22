@@ -1,40 +1,40 @@
-[comment]: # (auto_md_to_doc_comments segment start A)
+[//]: # (auto_md_to_doc_comments segment start A)
 
 # github_readme_copy
 
-[comment]: # (auto_cargo_toml_to_md start)
+[//]: # (auto_cargo_toml_to_md start)
 
-**Copy my public README.md files from Github in HTML format**  
-***version: 1.0.31 date: 2022-05-14 author: [bestia.dev](https://bestia.dev) repository: [Github](https://github.com/bestia-dev/github_readme_copy)***  
+**Copy my public README.md files from GitHub in HTML format**  
+***version: 1.0.31 date: 2022-05-14 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/github_readme_copy)***  
 
-[comment]: # (auto_cargo_toml_to_md end)
+[//]: # (auto_cargo_toml_to_md end)
 
-[comment]: # (auto_lines_of_code start)
+[//]: # (auto_lines_of_code start)
 [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-167-green.svg)](https://github.com/bestia-dev/github_readme_copy/)
 [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-237-blue.svg)](https://github.com/bestia-dev/github_readme_copy/)
 [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-38-purple.svg)](https://github.com/bestia-dev/github_readme_copy/)
 [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-19-yellow.svg)](https://github.com/bestia-dev/github_readme_copy/)
 [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-36-orange.svg)](https://github.com/bestia-dev/github_readme_copy/)
 
-[comment]: # (auto_lines_of_code end)
+[//]: # (auto_lines_of_code end)
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/github_readme_copy/blob/main/LICENSE) [![Rust](https://github.com/bestia-dev/github_readme_copy/workflows/RustAction/badge.svg)](https://github.com/bestia-dev/github_readme_copy/) ![Hits](https://bestia.dev/webpage_hit_counter/get_svg_image/93552555.svg)
 
 Hashtags: #rustlang #tutorial  
-My projects on Github are more like a tutorial than a finished product: [bestia-dev tutorials](https://github.com/bestia-dev/tutorials_rust_wasm).
+My projects on GitHub are more like a tutorial than a finished product: [bestia-dev tutorials](https://github.com/bestia-dev/tutorials_rust_wasm).
 
 ## Motivation
 
-It looks like google search SEO is really bad for github README.md files.  
+It looks like google search SEO is really bad for GitHub README.md files.  
 Maybe it will work better as HTML files on my own domain. Yes, it does.  
-On every README HTML, there is a link to bestia.dev and a link to the github repository.  
-I need a utility CLI that copies the README files as they are rendered on github and save them as html files in the directory `copied_readme`.  
+On every README HTML, there is a link to bestia.dev and a link to the GitHub repository.  
+I need a utility CLI that copies the README files as they are rendered on GitHub and save them as html files in the directory `copied_readme`.  
 Then I will use an `rsync` command to upload the files to my google cloud virtual machine.
 
 ## Octocrab
 
 I will use the crate `octocrab` to get a list of my public repos.  
-You need to have a [github PAT (personal access token)](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) and save it in a environment variable:  
+You need to have a [GitHub PAT (personal access token)](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) and save it in a environment variable:  
 
 ```bash
 export GITHUB_TOKEN=ghp_111111111111111111111
@@ -49,8 +49,6 @@ When a project is a workspace with multiple projects, one of those is the primar
 ```
 
 Example: <https://github.com/bestia-dev/cargo_crev_reviews_workspace>
-
-
 
 ## TODO
 
@@ -82,4 +80,4 @@ So I can drink a free beer for your health :-)
 [//bestiadev.substack.com](https://bestiadev.substack.com)  
 [//youtube.com/@bestia-dev-tutorials](https://youtube.com/@bestia-dev-tutorials)  
 
-[comment]: # (auto_md_to_doc_comments segment end A)
+[//]: # (auto_md_to_doc_comments segment end A)

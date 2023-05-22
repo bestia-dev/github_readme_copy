@@ -1,7 +1,7 @@
 [package]
 name = "github_readme_copy"
-version = "1.0.89"
-description = "Copy my public README.md files from Github in HTML format"
+version = "1.0.97"
+description = "Copy my public README.md files from GitHub in HTML format"
 authors = ["bestia.dev"]
 homepage = "https://bestia.dev"
 edition = "2021"

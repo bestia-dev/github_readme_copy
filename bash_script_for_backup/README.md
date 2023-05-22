@@ -1,2 +1,2 @@
 
-this are scripts for my github backup
+this are scripts for my GitHub backup
