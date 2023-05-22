@@ -37,7 +37,7 @@ pub fn download_readme(token: &str) {
 
                 insert_title(&mut new_html, &title);
                 insert_description(&mut new_html, &description);
-                insert_article(&mut new_html, article);
+                insert_article(&mut new_html, &article);
 
                 let path = dest_folder.join(repo_name).with_extension("html");
                 if path.exists() {
@@ -106,12 +106,69 @@ fn insert_description(new_html: &mut String, description: &str) {
     new_html.replace_range(pos3 + 9..pos3 + 66, description);
 }
 
-fn get_article(body: &str) -> &str {
+fn get_article(body: &str) -> String {
     let pos1 = crate::utils_mod::find_pos_end_data_before_delimiter(&body, 0, "<article ").unwrap();
     let pos2 =
         crate::utils_mod::find_pos_start_data_after_delimiter(&body, 0, "</article>").unwrap();
     let article = &body[pos1..pos2];
+    let article = remove_svg_octicon(article).unwrap();
+    let article = img_src_modify(&article).unwrap();
     article
+}
+
+/// remove <svg class="octicon octicon-link">
+fn remove_svg_octicon(article: &str) -> Result<String, Box<dyn std::error::Error>> {
+    use lol_html::{element, HtmlRewriter, Settings};
+    let mut output = vec![];
+
+    let mut rewriter = HtmlRewriter::new(
+        Settings {
+            element_content_handlers: vec![element!("svg[class]", |el| {
+                let href = el.get_attribute("class").unwrap_or("".to_string());
+                if href.contains("octicon") {
+                    el.remove();
+                }
+                Ok(())
+            })],
+            ..Settings::default()
+        },
+        |c: &[u8]| output.extend_from_slice(c),
+    );
+
+    rewriter.write(article.as_bytes())?;
+    rewriter.end()?;
+
+    let output = String::from_utf8(output)?;
+    Ok(output)
+}
+
+/// if exists data-canonical-src then replace src
+fn img_src_modify(article: &str) -> Result<String, Box<dyn std::error::Error>> {
+    use lol_html::{element, HtmlRewriter, Settings};
+    let mut output = vec![];
+
+    let mut rewriter = HtmlRewriter::new(
+        Settings {
+            element_content_handlers: vec![element!("img[data-canonical-src]", |el| {
+                let canonical = el
+                    .get_attribute("data-canonical-src")
+                    .unwrap_or("".to_string());
+                if !canonical.is_empty() {
+                    el.set_attribute("src", &canonical).unwrap();
+                    el.remove_attribute("data-canonical-src");
+                }
+                Ok(())
+            })],
+            ..Settings::default()
+        },
+        |c: &[u8]| output.extend_from_slice(c),
+    );
+
+    rewriter.write(article.as_bytes())?;
+    rewriter.end()?;
+
+    let output = String::from_utf8(output)?;
+    Ok(output)
 }
 
 fn get_long_title(body: &str) -> &str {
@@ -337,5 +394,49 @@ cd {path_base}\
 
 #[cfg(test)]
 mod test {
-    //use super::*;
+    use super::*;
+
+    #[test]
+    fn test_remove_svg_octicon() {
+        let article = r#"<html>
+<p>start</p>
+<svg> 12345 </svg>
+<p>middle</p>
+<svg class="octicon octicon-link"> 67890 </svg>
+<p>end</p>
+</html>
+"#;
+        let expected = r#"<html>
+<p>start</p>
+<svg> 12345 </svg>
+<p>middle</p>
+
+<p>end</p>
+</html>
+"#;
+        let article = remove_svg_octicon(article).unwrap();
+        assert_eq!(article, expected);
+    }
+
+    #[test]
+    fn test_img_src_modify() {
+        let article = r#"<html>
+<p>start</p>
+<img src="7667" data-canonical-src="green" style="max-width: 100%;">
+<p>middle</p>
+<img src="7667" style="max-width: 100%;">
+<p>end</p>
+</html>
+"#;
+        let expected = r#"<html>
+<p>start</p>
+<img src="green" style="max-width: 100%;">
+<p>middle</p>
+<img src="7667" style="max-width: 100%;">
+<p>end</p>
+</html>
+"#;
+        let article = img_src_modify(article).unwrap();
+        assert_eq!(article, expected);
+    }
 }

@@ -33,6 +33,7 @@ Before run, store it in local session env variable (put a space before the comma
         }
         Some("upload") => match std::env::args().nth(2).as_deref() {
             // second argument
+            // TODO: check if ssh-agent work and has some ssh keys
             Some(upload_url) => upload_readme(upload_url),
             None => println!("{RED}Error: Missing arguments `upload_url`.{RESET}"),
         },
