@@ -10,15 +10,17 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  fmt_build_test:
+  auto_fmt_build_test:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install cargo-auto
+      run: cargo install cargo-auto
     - name: Fmt
       run: cargo fmt -- --check
     - name: Build
-      run: cargo build
+      run: cargo auto build
     - name: Test
-      run: cargo test
+      run: cargo auto test
