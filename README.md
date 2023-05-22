@@ -50,22 +50,6 @@ When a project is a workspace with multiple projects, one of those is the primar
 
 Example: <https://github.com/bestia-dev/cargo_crev_reviews_workspace>
 
-## TODO
-
-a pull all projects and push all projects bash file for my backup purposes. But all repositories including the private ones.
-
-## cargo crev reviews and advisory
-
-We live in times of danger with [supply chain attacks](https://en.wikipedia.org/wiki/Supply_chain_attack).
-
-It is recommended to always use [cargo-crev](https://github.com/crev-dev/cargo-crev) to verify the trustworthiness of each of your dependencies.
-
-Please, spread this info.
-
-You can also read crev reviews quickly on the web:
-
-<https://web.crev.dev/rust-reviews/crates/>
-
 ## Open-source and free as a beer
 
 My open-source projects are free as a beer (MIT license).  
