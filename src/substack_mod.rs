@@ -8,13 +8,13 @@
 use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
-struct SubstackPost {
+struct SubstackArticle {
     canonical_url: String,
     slug: String,
     post_date: String,
 }
 
-/// download substack posts from https://bestiadev.substack.com/archive
+/// download substack articles from https://bestiadev.substack.com/archive
 pub fn substack_download(substack_url: &str) {
     let dest_folder = std::path::Path::new("substack_articles");
     if !dest_folder.exists() {
@@ -102,14 +102,14 @@ pub fn substack_download(substack_url: &str) {
     });
 }
 
-/// list urls from all posts from /api/v1/archive
-async fn vec_of_public_repos_from_github(substack_url: &str) -> Vec<SubstackPost> {
+/// list urls from all articles from /api/v1/archive
+async fn vec_of_public_repos_from_github(substack_url: &str) -> Vec<SubstackArticle> {
     let archive_url = format!("https://{}/api/v1/archive", substack_url);
     println!("    Reading list of articles: {}", &archive_url);
     let list = reqwest::get(archive_url.clone())
         .await
         .unwrap()
-        .json::<Vec<SubstackPost>>()
+        .json::<Vec<SubstackArticle>>()
         .await
         .unwrap();
 
@@ -151,7 +151,7 @@ fn insert_original_url(new_html: &mut String, canonical_url: &str) {
 fn insert_post_date(new_html: &mut String, post_date: &str) {
     let pos3 =
         crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "post_date").unwrap();
-    new_html.replace_range(pos3..pos3 + 9, post_date);
+    new_html.replace_range(pos3..pos3 + 9, &format!("Article date: {post_date}"));
 }
 
 fn insert_article(new_html: &mut String, article: &str) {

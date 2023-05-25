@@ -40,9 +40,10 @@
             </div>
         </div>        
     </div>
-    <p>&nbsp;</p> 
-    <p>This is a copy of the Substack article. Find the original on <a href="canonical_url">canonical_url</a>.</p>
-    <p>post_date</p>
+    <div>&nbsp;</div> 
+    <div class="small">This is a copy of the Substack article.<br/>
+    Find the original on <a href="canonical_url">canonical_url</a><br/>
+    post_date</div>
 
 
 </body>

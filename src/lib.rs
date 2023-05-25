@@ -80,7 +80,8 @@ mod utils_mod;
 // `pub use` allows the caller of the lib to access modules functions, structs or all(*)
 pub use github_mod::download_readme;
 pub use github_mod::github_backup_bash_scripts;
-pub use github_mod::upload_readme;
+pub use github_mod::upload_github_readme;
+pub use github_mod::upload_substack_articles;
 pub use substack_mod::substack_download;
 
 // The `main.rs` uses the `anyhow` error library.

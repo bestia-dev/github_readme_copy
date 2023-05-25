@@ -40,6 +40,9 @@
             </div>
         </div>
     </div>
+    <div>&nbsp;</div> 
+    <div class="small">This is a copy of the Github readme.<br/>
+    Find the original on <a href="canonical_url">canonical_url</a></div>
 
 
 </body>

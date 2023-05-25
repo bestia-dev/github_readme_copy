@@ -34,7 +34,7 @@ Before run, store it in local session env variable (put a space before the comma
         Some("upload") => match std::env::args().nth(2).as_deref() {
             // second argument
             // TODO: check if ssh-agent work and has some ssh keys
-            Some(upload_url) => upload_readme(upload_url),
+            Some(upload_url) => upload_github_readme_and_substack_articles(upload_url),
             None => println!("{RED}Error: Missing arguments `upload_url`.{RESET}"),
         },
         Some("substack") => match std::env::args().nth(2).as_deref() {
@@ -88,8 +88,9 @@ fn download_readme(token: &str) {
 }
 
 /// upload over SSH
-fn upload_readme(upload_url: &str) {
-    github_readme_copy::upload_readme(upload_url);
+fn upload_github_readme_and_substack_articles(upload_url: &str) {
+    github_readme_copy::upload_github_readme(upload_url);
+    github_readme_copy::upload_substack_articles(upload_url);
 }
 
 /// download from substack

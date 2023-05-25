@@ -369,3 +369,7 @@ a{
 .zeroclipboard-container{
     height: 0px;
 }
+.small {
+    font-size: 50%;
+  }
+  

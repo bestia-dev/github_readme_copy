@@ -118,7 +118,7 @@ fn task_build() {
     {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests
 {GREEN}./target/debug/{package_name}{RESET}
 {GREEN}./target/debug/{package_name} download{RESET}
-{GREEN}./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/{RESET}
+{GREEN}./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/{RESET}
 {GREEN}./target/debug/{package_name} substack bestiadev.substack.com{RESET}
 {GREEN}./target/debug/{package_name} github_backup_bash_scripts{RESET}
     {YELLOW}if ok, then run{RESET}
@@ -147,7 +147,7 @@ fn task_release() {
     {YELLOW}After `cargo auto release`, run the compiled binary, examples and/or tests{RESET}
 {GREEN}./target/release/{package_name}{RESET}
 {GREEN}./target/release/{package_name} download{RESET}
-{GREEN}./target/release/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/{RESET}
+{GREEN}./target/release/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev{RESET}
 {GREEN}./target/release/{package_name} substack bestiadev.substack.com{RESET}
 {GREEN}./target/release/{package_name} github_backup_bash_scripts{RESET}
     {YELLOW}if ok, then run{RESET}

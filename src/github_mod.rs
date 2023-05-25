@@ -15,8 +15,8 @@ pub fn download_readme(token: &str) {
             dest_folder.to_string_lossy()
         )
     }
-      // copy directory structure from template
-      std::fs::copy(
+    // copy directory structure from template
+    std::fs::copy(
         "template_for_github_readme/bestia_icon.png",
         "github_readme/bestia_icon.png",
     )
@@ -72,9 +72,13 @@ pub fn download_readme(token: &str) {
                 //let measure_instant = std::time::Instant::now();
                 let article = get_article(&body);
                 //println!( "Elapsed time get_article: {} ms", measure_instant.elapsed().as_millis() );
-                let mut new_html = std::fs::read_to_string("github_readme/0_template.txt").unwrap();
+                let mut new_html =
+                    std::fs::read_to_string("template_for_github_readme/0_template.txt").unwrap();
 
                 insert_title(&mut new_html, &title);
+                insert_url(&mut new_html, &repo.html_url.as_ref().unwrap().to_string());
+                // this is present 2 times
+                insert_url(&mut new_html, &repo.html_url.as_ref().unwrap().to_string());
                 insert_description(&mut new_html, &description);
                 insert_article(&mut new_html, &article);
 
@@ -82,6 +86,7 @@ pub fn download_readme(token: &str) {
                 if path.exists() {
                     let old_html = std::fs::read_to_string(&path).unwrap();
                     if old_html != new_html {
+                        println!("Writing {}", path.to_string_lossy());
                         std::fs::write(&path, new_html).unwrap();
                     }
                 } else {
@@ -135,6 +140,12 @@ fn insert_title(new_html: &mut String, title: &str) {
     .unwrap();
     new_html.replace_range(pos3 + 7..pos3 + 15, title);
 }
+fn insert_url(new_html: &mut String, url: &str) {
+    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "canonical_url")
+        .unwrap();
+    new_html.replace_range(pos3..pos3 + 13, url);
+}
+
 fn insert_description(new_html: &mut String, description: &str) {
     let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(
         &*new_html,
@@ -339,8 +350,34 @@ async fn vec_of_private_and_public_repos_from_github(
     vec_of_repo
 }
 
-pub fn upload_readme(upload_url: &str) {
+pub fn upload_github_readme(upload_url: &str) {
     let source_folder = std::path::Path::new("github_readme");
+    let upload_url = format!("{upload_url}/github_readme");
+    // easy upload with rsync over SSH
+    println!(
+        "\nUploading from {}/ to server {}...\n",
+        source_folder.to_string_lossy(),
+        &upload_url
+    );
+    // the SSh key must be already ssh-add into the ssh-agent
+    // rsync -e ssh -avz --delete-after github_readme luciano_bestia@bestia.dev:/var/www/bestia.dev/github_readme
+    let mut rsync = std::process::Command::new("rsync");
+    rsync
+        .arg("-avz")
+        .arg("--delete-after")
+        .arg("--progress")
+        .arg("-e ssh") // tells rsync which port to use
+        // path must end with / to signal we want to copy the content and not the directory
+        .arg(&format!("{}/", source_folder.to_string_lossy()))
+        // path must end with / to signal we want to copy the content and not the directory
+        .arg(&upload_url);
+
+    rsync.status().expect("rsync failed to execute");
+}
+
+pub fn upload_substack_articles(upload_url: &str) {
+    let source_folder = std::path::Path::new("substack_articles");
+    let upload_url = format!("{upload_url}/substack_articles");
     // easy upload with rsync over SSH
     println!(
         "\nUploading from {}/ to server {}...\n",
@@ -348,7 +385,7 @@ pub fn upload_readme(upload_url: &str) {
         upload_url
     );
     // the SSh key must be already ssh-add into the ssh-agent
-    // rsync -e ssh -avz --delete-after github_readme luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/
+    // rsync -e ssh -avz --delete-after github_readme luciano_bestia@bestia.dev:/var/www/bestia.dev/github_readme
     let mut rsync = std::process::Command::new("rsync");
     rsync
         .arg("-avz")
@@ -366,6 +403,19 @@ pub fn upload_readme(upload_url: &str) {
 /// create bash script for backup of all GitHub repositories
 pub fn github_backup_bash_scripts(token: &str) {
     let dest_folder = std::path::Path::new("bash_script_for_backup");
+    if !dest_folder.exists() {
+        panic!(
+            "Error: Folder {} does not exist.",
+            dest_folder.to_string_lossy()
+        )
+    }
+    // copy directory structure from template
+    std::fs::copy(
+        "template_for_bash_script_for_backup/README.md",
+        "bash_script_for_backup/README.md",
+    )
+    .unwrap();
+
     // create a future and then run it in the tokio runtime
     let rt1 = tokio::runtime::Runtime::new().unwrap();
     let future1 = async move { vec_of_private_and_public_repos_from_github(token).await };
