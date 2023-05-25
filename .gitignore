@@ -1,4 +1,5 @@
 /target
-/copied_readme/*.html
-/bash_script_for_backup/*.cmd
+/github_readme
+/substack_articles
+/bash_script_for_backup
 **/*.rs.bk

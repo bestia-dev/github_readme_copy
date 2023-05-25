@@ -119,6 +119,7 @@ fn task_build() {
 {GREEN}./target/debug/{package_name}{RESET}
 {GREEN}./target/debug/{package_name} download{RESET}
 {GREEN}./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/{RESET}
+{GREEN}./target/debug/{package_name} substack bestiadev.substack.com{RESET}
 {GREEN}./target/debug/{package_name} github_backup_bash_scripts{RESET}
     {YELLOW}if ok, then run{RESET}
 {GREEN}cargo auto release{RESET}
@@ -147,7 +148,8 @@ fn task_release() {
 {GREEN}./target/release/{package_name}{RESET}
 {GREEN}./target/release/{package_name} download{RESET}
 {GREEN}./target/release/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/{RESET}
-{GREEN}./target/debug/{package_name} github_backup_bash_scripts{RESET}
+{GREEN}./target/release/{package_name} substack bestiadev.substack.com{RESET}
+{GREEN}./target/release/{package_name} github_backup_bash_scripts{RESET}
     {YELLOW}if ok, then run{RESET}
 {GREEN}cargo auto doc{RESET}
 "#,

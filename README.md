@@ -28,7 +28,7 @@ My projects on GitHub are more like a tutorial than a finished product: [bestia-
 It looks like google search SEO is really bad for GitHub README.md files.  
 Maybe it will work better as HTML files on my own domain. Yes, it does.  
 On every README HTML, there is a link to bestia.dev and a link to the GitHub repository.  
-I need a utility CLI that copies the README files as they are rendered on GitHub and save them as html files in the directory `copied_readme`.  
+I need a utility CLI that copies the README files as they are rendered on GitHub and save them as html files in the directory `github_readme`.  
 Then I will use an `rsync` command to upload the files to my google cloud virtual machine.
 
 ## Octocrab
@@ -49,6 +49,14 @@ When a project is a workspace with multiple projects, one of those is the primar
 ```
 
 Example: <https://github.com/bestia-dev/cargo_crev_reviews_workspace>
+
+## substack
+
+I want to copy also the articles from substack to my domain web page. If anything happens to substack I will have a backup.  
+
+```bash
+github_readme_copy substack bestiadev
+```
 
 ## Open-source and free as a beer
 

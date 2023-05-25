@@ -37,6 +37,11 @@ Before run, store it in local session env variable (put a space before the comma
             Some(upload_url) => upload_readme(upload_url),
             None => println!("{RED}Error: Missing arguments `upload_url`.{RESET}"),
         },
+        Some("substack") => match std::env::args().nth(2).as_deref() {
+            // second argument
+            Some(substack_url) => substack_download(substack_url),
+            None => println!("{RED}Error: Missing arguments `substack_url`.{RESET}"),
+        },
         Some("github_backup_bash_scripts") => {
             // read from env variable
             match std::env::var("GITHUB_TOKEN") {
@@ -69,6 +74,7 @@ fn print_help() {
 {GREEN}github_readme_copy --help{RESET}
 {GREEN}github_readme_copy download{RESET}
 {GREEN}github_readme_copy upload username@server:folder/{RESET}
+{GREEN}github_readme_copy substack substack_url{RESET}
 {GREEN}github_readme_copy github_backup_bash_scripts{RESET}
 
     {YELLOW}© 2022 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy{RESET}
@@ -84,6 +90,11 @@ fn download_readme(token: &str) {
 /// upload over SSH
 fn upload_readme(upload_url: &str) {
     github_readme_copy::upload_readme(upload_url);
+}
+
+/// download from substack
+fn substack_download(substack_url: &str) {
+    github_readme_copy::substack_download(substack_url);
 }
 
 /// create bash scripts for GitHub backup using your personal GitHub token inside the env variable

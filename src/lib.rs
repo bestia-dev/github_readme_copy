@@ -21,7 +21,7 @@
 //! It looks like google search SEO is really bad for GitHub README.md files.  
 //! Maybe it will work better as HTML files on my own domain. Yes, it does.  
 //! On every README HTML, there is a link to bestia.dev and a link to the GitHub repository.  
-//! I need a utility CLI that copies the README files as they are rendered on GitHub and save them as html files in the directory `copied_readme`.  
+//! I need a utility CLI that copies the README files as they are rendered on GitHub and save them as html files in the directory `github_readme`.  
 //! Then I will use an `rsync` command to upload the files to my google cloud virtual machine.
 //!
 //! ## Octocrab
@@ -74,12 +74,14 @@
 
 // access to modules
 mod github_mod;
+mod substack_mod;
 mod utils_mod;
 
 // `pub use` allows the caller of the lib to access modules functions, structs or all(*)
 pub use github_mod::download_readme;
 pub use github_mod::github_backup_bash_scripts;
 pub use github_mod::upload_readme;
+pub use substack_mod::substack_download;
 
 // The `main.rs` uses the `anyhow` error library.
 // The `lib.rs` uses the `thiserror` library.

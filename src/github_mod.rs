@@ -8,7 +8,46 @@
 
 /// download public readmes
 pub fn download_readme(token: &str) {
-    let dest_folder = std::path::Path::new("copied_readme");
+    let dest_folder = std::path::Path::new("github_readme");
+    if !dest_folder.exists() {
+        panic!(
+            "Error: Folder {} does not exist.",
+            dest_folder.to_string_lossy()
+        )
+    }
+      // copy directory structure from template
+      std::fs::copy(
+        "template_for_github_readme/bestia_icon.png",
+        "github_readme/bestia_icon.png",
+    )
+    .unwrap();
+    std::fs::copy(
+        "template_for_github_readme/README.md",
+        "github_readme/README.md",
+    )
+    .unwrap();
+    std::fs::create_dir_all("github_readme/css").unwrap();
+    std::fs::copy(
+        "template_for_github_readme/css/bestia01.css",
+        "github_readme/css/bestia01.css",
+    )
+    .unwrap();
+    std::fs::copy(
+        "template_for_github_readme/css/bestia01.css",
+        "github_readme/css/bestia01.css",
+    )
+    .unwrap();
+    std::fs::copy(
+        "template_for_github_readme/css/normalize.css",
+        "github_readme/css/normalize.css",
+    )
+    .unwrap();
+    std::fs::copy(
+        "template_for_github_readme/css/Roboto-Medium.woff2",
+        "github_readme/css/Roboto-Medium.woff2",
+    )
+    .unwrap();
+
     // create a future and then run it in the tokio runtime
     let rt1 = tokio::runtime::Runtime::new().unwrap();
     let future1 = async move { vec_of_public_repos_from_github(token).await };
@@ -33,7 +72,7 @@ pub fn download_readme(token: &str) {
                 //let measure_instant = std::time::Instant::now();
                 let article = get_article(&body);
                 //println!( "Elapsed time get_article: {} ms", measure_instant.elapsed().as_millis() );
-                let mut new_html = std::fs::read_to_string("copied_readme/0_template.txt").unwrap();
+                let mut new_html = std::fs::read_to_string("github_readme/0_template.txt").unwrap();
 
                 insert_title(&mut new_html, &title);
                 insert_description(&mut new_html, &description);
@@ -118,56 +157,56 @@ fn get_article(body: &str) -> String {
 
 /// remove <svg class="octicon octicon-link">
 fn remove_svg_octicon(article: &str) -> Result<String, Box<dyn std::error::Error>> {
-    use lol_html::{element, HtmlRewriter, Settings};
-    let mut output = vec![];
+    use lol_html::{element, rewrite_str, RewriteStrSettings};
+    let element_content_handlers = vec![
+        // Rewrite insecure hyperlinks
+        element!("svg[class]", |el| {
+            let href = el.get_attribute("class").unwrap_or("".to_string());
+            if href.contains("octicon") {
+                el.remove();
+            }
+            Ok(())
+        }),
+    ];
 
-    let mut rewriter = HtmlRewriter::new(
-        Settings {
-            element_content_handlers: vec![element!("svg[class]", |el| {
-                let href = el.get_attribute("class").unwrap_or("".to_string());
-                if href.contains("octicon") {
-                    el.remove();
-                }
-                Ok(())
-            })],
-            ..Settings::default()
+    let output = rewrite_str(
+        article,
+        RewriteStrSettings {
+            element_content_handlers,
+            ..RewriteStrSettings::default()
         },
-        |c: &[u8]| output.extend_from_slice(c),
-    );
+    )
+    .unwrap();
 
-    rewriter.write(article.as_bytes())?;
-    rewriter.end()?;
-
-    let output = String::from_utf8(output)?;
     Ok(output)
 }
 
 /// if exists data-canonical-src then replace src
 fn img_src_modify(article: &str) -> Result<String, Box<dyn std::error::Error>> {
-    use lol_html::{element, HtmlRewriter, Settings};
-    let mut output = vec![];
+    use lol_html::{element, rewrite_str, RewriteStrSettings};
+    let element_content_handlers = vec![
+        // Rewrite insecure hyperlinks
+        element!("img[data-canonical-src]", |el| {
+            let canonical = el
+                .get_attribute("data-canonical-src")
+                .unwrap_or("".to_string());
+            if !canonical.is_empty() {
+                el.set_attribute("src", &canonical).unwrap();
+                el.remove_attribute("data-canonical-src");
+            }
+            Ok(())
+        }),
+    ];
 
-    let mut rewriter = HtmlRewriter::new(
-        Settings {
-            element_content_handlers: vec![element!("img[data-canonical-src]", |el| {
-                let canonical = el
-                    .get_attribute("data-canonical-src")
-                    .unwrap_or("".to_string());
-                if !canonical.is_empty() {
-                    el.set_attribute("src", &canonical).unwrap();
-                    el.remove_attribute("data-canonical-src");
-                }
-                Ok(())
-            })],
-            ..Settings::default()
+    let output = rewrite_str(
+        article,
+        RewriteStrSettings {
+            element_content_handlers,
+            ..RewriteStrSettings::default()
         },
-        |c: &[u8]| output.extend_from_slice(c),
-    );
+    )
+    .unwrap();
 
-    rewriter.write(article.as_bytes())?;
-    rewriter.end()?;
-
-    let output = String::from_utf8(output)?;
     Ok(output)
 }
 
@@ -301,7 +340,7 @@ async fn vec_of_private_and_public_repos_from_github(
 }
 
 pub fn upload_readme(upload_url: &str) {
-    let source_folder = std::path::Path::new("copied_readme");
+    let source_folder = std::path::Path::new("github_readme");
     // easy upload with rsync over SSH
     println!(
         "\nUploading from {}/ to server {}...\n",
@@ -309,7 +348,7 @@ pub fn upload_readme(upload_url: &str) {
         upload_url
     );
     // the SSh key must be already ssh-add into the ssh-agent
-    // rsync -e ssh -avz --delete-after copied_readme luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/
+    // rsync -e ssh -avz --delete-after github_readme luciano_bestia@bestia.dev:/var/www/bestia.dev/docs/
     let mut rsync = std::process::Command::new("rsync");
     rsync
         .arg("-avz")
