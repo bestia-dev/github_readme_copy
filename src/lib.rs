@@ -6,15 +6,18 @@
 //! # github_readme_copy
 //!
 //! **Copy my public README.md files from GitHub in HTML format**  
-//! ***version: 1.0.31 date: 2022-05-14 author: [bestia.dev](https://bestia.dev) repository: [GitHub (https://github.com/bestia-dev/github_readme_copy)***  
+//! ***version: 1.0.136 date: 2023-05-31 author: [bestia.dev](https://bestia.dev) repository: [Github](https://github.com/bestia-dev/github_readme_copy)***  
 //!
-//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-167-green.svg)](https://github.com/bestia-dev/github_readme_copy/)
-//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-237-blue.svg)](https://github.com/bestia-dev/github_readme_copy/)
-//! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-38-purple.svg)](https://github.com/bestia-dev/github_readme_copy/)
-//! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-19-yellow.svg)](https://github.com/bestia-dev/github_readme_copy/)
-//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-36-orange.svg)](https://github.com/bestia-dev/github_readme_copy/)
+//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-881-green.svg)](https://github.com/bestia-dev/github_readme_copy/)
+//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-95-blue.svg)](https://github.com/bestia-dev/github_readme_copy/)
+//! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-89-purple.svg)](https://github.com/bestia-dev/github_readme_copy/)
+//! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)](https://github.com/bestia-dev/github_readme_copy/)
+//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-50-orange.svg)](https://github.com/bestia-dev/github_readme_copy/)
 //!
-//! [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/github_readme_copy/blob/main/LICENSE) [![Rust](https://github.com/bestia-dev/github_readme_copy/workflows/RustAction/badge.svg)](https://github.com/bestia-dev/github_readme_copy/)
+//! [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/github_readme_copy/blob/main/LICENSE) [![Rust](https://github.com/bestia-dev/github_readme_copy/workflows/RustAction/badge.svg)](https://github.com/bestia-dev/github_readme_copy/) ![Hits](https://bestia.dev/webpage_hit_counter/get_svg_image/93552555.svg)
+//!
+//! Hashtags: #rustlang #tutorial  
+//! My projects on GitHub are more like a tutorial than a finished product: [bestia-dev tutorials](https://github.com/bestia-dev/tutorials_rust_wasm).
 //!
 //! ## Motivation
 //!
@@ -33,35 +36,37 @@
 //! export GITHUB_TOKEN=ghp_111111111111111111111
 //! ```
 //!
-//! ## TODO
+//! ## Workspaces with Primary project
 //!
-//! rayon to get html in parallel.
-//! upload to web server
+//! When a project is a workspace with multiple projects, one of those is the primary project. We want to make a copy of this primary README.md and not of the workspace README.md. We can signal this to `github_readme_copy` with this link:
 //!
+//! ```html
+//! <a href="https://github.com/bestia-dev/cargo_crev_reviews_workspace/tree/main/cargo_crev_reviews">Primary project README.md</a>
+//! ```
 //!
-//! ## cargo crev reviews and advisory
+//! Example: <https://github.com/bestia-dev/cargo_crev_reviews_workspace>
 //!
-//! We live in times of danger with [supply chain attacks](https://en.wikipedia.org/wiki/Supply_chain_attack).
+//! ## substack
 //!
-//! It is recommended to always use [cargo-crev](https://github.com/crev-dev/cargo-crev) to verify the trustworthiness of each of your dependencies.
+//! I want to copy also the articles from substack to my domain web page. If anything happens to substack I will have a backup.  
 //!
-//! Please, spread this info.
+//! ```bash
+//! github_readme_copy substack bestiadev
+//! ```
 //!
-//! You can also read crev reviews quickly on the web:
+//! ## Open-source and free as a beer
 //!
-//! <https://web.crev.dev/rust-reviews/crates/>
-//!
-//! ## open-source and free as a beer
-//!
-//! My open-source projects are free as a beer (MIT license).
-//!
-//! I just love programming.
-//!
-//! But I need also to drink. If you find my projects and tutorials helpful,please buy me a beer donating on my [paypal](https://paypal.me/LucianoBestia).
-//!
-//! You know the price of a beer in your local bar ;-) So I can drink a free beer for your health :-)
-//!
+//! My open-source projects are free as a beer (MIT license).  
+//! I just love programming.  
+//! But I need also to drink. If you find my projects and tutorials helpful, please buy me a beer by donating to my [PayPal](https://paypal.me/LucianoBestia).  
+//! You know the price of a beer in your local bar ;-)  
+//! So I can drink a free beer for your health :-)  
 //! [Na zdravje!](https://translate.google.com/?hl=en&sl=sl&tl=en&text=Na%20zdravje&op=translate) [Alla salute!](https://dictionary.cambridge.org/dictionary/italian-english/alla-salute) [Prost!](https://dictionary.cambridge.org/dictionary/german-english/prost) [Nazdravlje!](https://matadornetwork.com/nights/how-to-say-cheers-in-50-languages/) 🍻
+//!
+//! [//bestia.dev](https://bestia.dev)  
+//! [//github.com/bestia-dev](https://github.com/bestia-dev)  
+//! [//bestiadev.substack.com](https://bestiadev.substack.com)  
+//! [//youtube.com/@bestia-dev-tutorials](https://youtube.com/@bestia-dev-tutorials)  
 //!
 // endregion: auto_md_to_doc_comments include README.md A //!
 

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_article","insert_article","insert_original_url","insert_post_date","insert_title","remove_a_role_button","remove_attribute_a_rel_nofollow","remove_dev_class_pencraft","remove_div_class_anchor","remove_div_post_footer","remove_div_role_dialog","substack_download","vec_of_public_repos_from_github"],"struct":["SubstackArticle"]};

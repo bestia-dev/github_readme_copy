@@ -166,7 +166,7 @@ fn get_article(body: &str) -> String {
     article
 }
 
-/// remove <svg class="octicon octicon-link">
+/// remove element svg class="octicon octicon-link">
 fn remove_svg_octicon(article: &str) -> Result<String, Box<dyn std::error::Error>> {
     use lol_html::{element, rewrite_str, RewriteStrSettings};
     let element_content_handlers = vec![

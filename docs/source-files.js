@@ -1,3 +1,4 @@
-var N = null;var sourcesIndex = {};
-sourcesIndex["github_readme_copy"] = {"name":"","files":["github_mod.rs","lib.rs","utils_mod.rs"]};
+var sourcesIndex = JSON.parse('{\
+"github_readme_copy":["",[],["github_mod.rs","lib.rs","substack_mod.rs","utils_mod.rs"]]\
+}');
 createSourceSidebar();

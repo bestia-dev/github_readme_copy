@@ -14,7 +14,7 @@ struct SubstackArticle {
     post_date: String,
 }
 
-/// download substack articles from https://bestiadev.substack.com/archive
+/// download substack articles from <https://bestiadev.substack.com/archive>
 pub fn substack_download(substack_url: &str) {
     let dest_folder = std::path::Path::new("substack_articles");
     if !dest_folder.exists() {
