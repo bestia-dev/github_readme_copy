@@ -7,6 +7,9 @@
 **Copy my public README.md files from GitHub in HTML format**  
 ***version: 1.0.136 date: 2023-05-31 author: [bestia.dev](https://bestia.dev) repository: [Github](https://github.com/bestia-dev/github_readme_copy)***  
 
+![status](https://img.shields.io/badge/active_dev-green) 
+![status](https://img.shields.io/badge/in_use-green) 
+
 [//]: # (auto_cargo_toml_to_md end)
 
 [//]: # (auto_lines_of_code start)
