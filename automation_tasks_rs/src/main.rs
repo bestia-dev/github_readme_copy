@@ -49,7 +49,7 @@ fn match_arguments_and_call_tasks(mut args: std::env::Args) {
                 } else if &task == "github_new_release" {
                     task_github_new_release();                    
                 } else {
-                    println!("{RED}Error: Task {task} is unknown.{RESET}");
+                    eprintln!("{RED}Error: Task {task} is unknown.{RESET}");
                     print_help();
                 }
             }
