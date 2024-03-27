@@ -960,7 +960,7 @@
 
 :: num of repositories: {num_of_repo}
 
-ECHO OFF
+printf OFF
 
 &quot;#
     </span>));
@@ -970,7 +970,7 @@ ECHO OFF
 
 :: num of repositories: {num_of_repo}
 
-ECHO OFF
+printf OFF
 
 &quot;#
     </span>));
@@ -979,14 +979,14 @@ ECHO OFF
         <span class="kw">let </span>repo_name = <span class="kw-2">&amp;</span>repo.name;
         pull_script.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(
             <span class="string">r#&quot;cd {path_base}\{repo_name}\
-echo %cd%
+printf %cd%
  git pull
 &quot;#
         </span>));
 
         push_script.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(
             <span class="string">r#&quot;cd {path_base}\{repo_name}\
-echo %cd%
+printf %cd%
  git commit -a -m &quot;2022-07-17&quot; 
  git push
 &quot;#

@@ -425,21 +425,16 @@ pub fn github_backup_bash_scripts(token: &str) {
     let path_base = r#"c:\Users\Luciano\Dropbox\BestiaDev\github_backup"#;
     let mut pull_script = String::from(&format!(
         r#":: pull_all.cmd
-:: script to pull all the changes from GitHub into local folder github_backup
-
-:: num of repositories: {num_of_repo}
-
-ECHO OFF
+# pull_all_for_backup.sh
+# run inside git-bash in windows in the folder /d\Dropbox\BestiaDev\github_backup_automation_tasks_rs\
+# sh pull_all_for_backup.sh
 
 "#
     ));
     let mut push_script = String::from(&format!(
-        r#":: pull_all.cmd
-:: script to push all the changes from local folder github_backup to github
-
-:: num of repositories: {num_of_repo}
-
-ECHO OFF
+        r#"# push_all_for_backup.sh
+# run inside git-bash in windows in the folder /d\Dropbox\BestiaDev\github_backup_automation_tasks_rs\
+# sh push_all_for_backup.sh
 
 "#
     ));
@@ -448,16 +443,18 @@ ECHO OFF
         let repo_name = &repo.name;
         pull_script.push_str(&format!(
             r#"cd {path_base}\{repo_name}\
-echo %cd%
- git pull
+    pwd
+    git fetch --all
+    git merge
 "#
         ));
 
         push_script.push_str(&format!(
             r#"cd {path_base}\{repo_name}\
-echo %cd%
- git commit -a -m "2022-07-17" 
- git push
+    pwd
+    git add .
+    git commit -a -m "2024-03-25" 
+    git push
 "#
         ));
     }
