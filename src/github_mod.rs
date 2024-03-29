@@ -426,14 +426,14 @@ pub fn github_backup_bash_scripts(token: &str) {
     let mut pull_script = String::from(&format!(
         r#":: pull_all.cmd
 # pull_all_for_backup.sh
-# run inside git-bash in windows in the folder /d\Dropbox\BestiaDev\github_backup_automation_tasks_rs\
+# run inside git-bash in windows in the folder /d/Dropbox/BestiaDev/github_backup_automation_tasks_rs/
 # sh pull_all_for_backup.sh
 
 "#
     ));
     let mut push_script = String::from(&format!(
         r#"# push_all_for_backup.sh
-# run inside git-bash in windows in the folder /d\Dropbox\BestiaDev\github_backup_automation_tasks_rs\
+# run inside git-bash in windows in the folder /d/Dropbox/BestiaDev/github_backup_automation_tasks_rs/
 # sh push_all_for_backup.sh
 
 "#
