@@ -1,7 +1,11 @@
 <!-- markdownlint-disable MD041 -->
 [//]: # (auto_md_to_doc_comments segment start A)
 
-this are scripts for my GitHub backup
+# github_readme_copy
+
+**This are scripts for my GitHub backup**  
+
+ ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Open-source and free as a beer
 
