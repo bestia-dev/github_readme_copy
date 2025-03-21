@@ -1,18 +1,28 @@
 // automation_tasks_rs for github_readme_copy
 
-// region: library with basic automation tasks
+// region: library and modules with basic automation tasks
+
+mod cargo_auto_github_api_mod;
+mod encrypt_decrypt_with_ssh_key_mod;
+
+use cargo_auto_github_api_mod as cgl;
 use cargo_auto_lib as cl;
+use encrypt_decrypt_with_ssh_key_mod as ende;
+
+use cl::GREEN;
+use cl::RED;
+use cl::RESET;
+use cl::YELLOW;
+
 // traits must be in scope (Rust strangeness)
 use cl::CargoTomlPublicApiMethods;
-
-use cargo_auto_lib::GREEN;
-use cargo_auto_lib::RED;
-use cargo_auto_lib::RESET;
-use cargo_auto_lib::YELLOW;
+use cl::ShellCommandLimitedDoubleQuotesSanitizerTrait;
 
 // region: library with basic automation tasks
 
 fn main() {
+    std::panic::set_hook(Box::new(panic_set_hook));
+    tracing_init();
     cl::exit_if_not_run_in_rust_project_root_directory();
 
     // get CLI arguments
@@ -21,6 +31,69 @@ fn main() {
     let _arg_0 = args.next();
     match_arguments_and_call_tasks(args);
 }
+
+// region: general functions
+
+/// Initialize tracing to file logs/automation_tasks_rs.log
+///
+/// The folder logs/ is in .gitignore and will not be committed.
+pub fn tracing_init() {
+    // uncomment this line to enable tracing to file
+    // let file_appender = tracing_appender::rolling::daily("logs", "automation_tasks_rs.log");
+
+    let offset = time::UtcOffset::current_local_offset().expect("should get local offset!");
+    let timer = tracing_subscriber::fmt::time::OffsetTime::new(offset, time::macros::format_description!("[hour]:[minute]:[second].[subsecond digits:6]"));
+
+    // Filter out logs from: hyper_util, reqwest
+    // A filter consists of one or more comma-separated directives
+    // target[span{field=value}]=level
+    // examples: tokio::net=info
+    // directives can be added with the RUST_LOG environment variable:
+    // export RUST_LOG=automation_tasks_rs=trace
+    // Unset the environment variable RUST_LOG
+    // unset RUST_LOG
+    let filter = tracing_subscriber::EnvFilter::from_default_env()
+        .add_directive("hyper_util=error".parse().unwrap_or_else(|e| panic!("{e}")))
+        .add_directive("reqwest=error".parse().unwrap_or_else(|e| panic!("{e}")));
+
+    tracing_subscriber::fmt()
+        .with_file(true)
+        .with_max_level(tracing::Level::DEBUG)
+        .with_timer(timer)
+        .with_line_number(true)
+        .with_ansi(false)
+        //.with_writer(file_appender)
+        .with_env_filter(filter)
+        .init();
+}
+
+/// The original Rust report of the panic is ugly for the end user
+///
+/// I use panics extensively to stop the execution. I am lazy to implement a super complicated error handling.
+/// I just need to stop the execution on every little bit of error. This utility is for developers. They will understand me.
+/// For errors I print the location. If the message contains "Exiting..." than it is a "not-error exit" and  the location is not important.
+fn panic_set_hook(panic_info: &std::panic::PanicHookInfo) {
+    let mut string_message = "".to_string();
+    if let Some(message) = panic_info.payload().downcast_ref::<String>() {
+        string_message = message.to_owned();
+    }
+    if let Some(message) = panic_info.payload().downcast_ref::<&str>() {
+        string_message.push_str(message);
+    }
+
+    tracing::debug!("{string_message}");
+    eprintln!("{string_message}");
+
+    if !string_message.contains("Exiting...") {
+        let file = panic_info.location().unwrap().file();
+        let line = panic_info.location().unwrap().line();
+        let column = panic_info.location().unwrap().column();
+        tracing::debug!("Location: {file}:{line}:{column}");
+        eprintln!("Location: {file}:{line}:{column}");
+    }
+}
+
+// endregion: general functions
 
 // region: match, help and completion
 
@@ -34,7 +107,7 @@ fn match_arguments_and_call_tasks(mut args: std::env::Args) {
             if &task == "completion" {
                 completion();
             } else {
-                println!("{YELLOW}Running automation task: {task}{RESET}");
+                println!("  {YELLOW}Running automation task: {task}{RESET}");
                 if &task == "build" {
                     task_build();
                 } else if &task == "release" {
@@ -47,7 +120,7 @@ fn match_arguments_and_call_tasks(mut args: std::env::Args) {
                     let arg_2 = args.next();
                     task_commit_and_push(arg_2);
                 } else if &task == "github_new_release" {
-                    task_github_new_release();                    
+                    task_github_new_release();
                 } else {
                     eprintln!("{RED}Error: Task {task} is unknown.{RESET}");
                     print_help();
@@ -61,36 +134,47 @@ fn match_arguments_and_call_tasks(mut args: std::env::Args) {
 fn print_help() {
     println!(
         r#"
-    {YELLOW}Welcome to cargo-auto !{RESET}
-    {YELLOW}This program automates your custom tasks when developing a Rust project.{RESET}
+  {YELLOW}Welcome to cargo-auto !{RESET}
+  {YELLOW}This program automates your custom tasks when developing a Rust project.{RESET}
 
-    {YELLOW}User defined tasks in automation_tasks_rs:{RESET}
+  {YELLOW}User defined tasks in automation_tasks_rs:{RESET}
 {GREEN}cargo auto build{RESET} - {YELLOW}builds the crate in debug mode, fmt, increment version{RESET}
 {GREEN}cargo auto release{RESET} - {YELLOW}builds the crate in release mode, fmt, increment version{RESET}
 {GREEN}cargo auto doc{RESET} - {YELLOW}builds the docs, copy to docs directory{RESET}
 {GREEN}cargo auto test{RESET} - {YELLOW}runs all the tests{RESET}
-{GREEN}cargo auto commit_and_push "message"{RESET} - {YELLOW}commits with message and push with mandatory message
-    (If you use SSH, it is easy to start the ssh-agent in the background and ssh-add your credentials for git.){RESET}
-{GREEN}cargo auto github_new_release{RESET} - {YELLOW}creates new release on github
-    This task needs PAT (personal access token from github) in the env variable:{RESET}
-{GREEN} export GITHUB_TOKEN=paste_token_here{RESET}
+{GREEN}cargo auto commit_and_push "message"{RESET} - {YELLOW}commits with message and push with mandatory message{RESET}
+  {YELLOW}It is preferred to use SSH for git push to GitHub.{RESET}
+  {YELLOW}<https://github.com/CRUSTDE-ContainerizedRustDevEnv/crustde_cnt_img_pod/blob/main/ssh_easy.md>{YELLOW}
+  {YELLOW}On the very first commit, this task will initialize a new local git repository and create a remote GitHub repo.{RESET}
+  {YELLOW}For the GitHub API the task needs the Access secret token from OAuth2 device workflow.{RESET}
+  {YELLOW}The secret token will be stored in a file encrypted with your SSH private key.{RESET}
+  {YELLOW}You can type the passphrase of the private key for every usee. This is pretty secure.{RESET}
+  {YELLOW}Somewhat less secure (but more comfortable) way is to store the private key in ssh-agent.{RESET}
+{GREEN}cargo auto github_new_release{RESET} - {YELLOW}creates new release on GitHub{RESET}
+  {YELLOW}For the GitHub API the task needs the Personal Access secret_token Classic from <https://github.com/settings/tokens>{RESET}
+  {YELLOW}The secret token will be stored in a file encrypted with your SSH private key.{RESET}
+  {YELLOW}You can type the passphrase of the private key for every usee. This is pretty secure.{RESET}
+  {YELLOW}Somewhat less secure (but more comfortable) way is to store the private key in ssh-agent.{RESET}
 
-    {YELLOW}© 2024 bestia.dev  MIT License github.com/automation-tasks-rs/cargo-auto{RESET}
+  {YELLOW}© 2025 bestia.dev  MIT License github.com/automation--tasks--rs/cargo-auto{RESET}
 "#
     );
     print_examples_cmd();
 }
 
 /// all example commands in one place
-fn print_examples_cmd(){
-/*
-    println!(r#"{YELLOW}run examples:{RESET}
-{GREEN}cargo run --example example1{RESET}
-"#);
-*/
+fn print_examples_cmd() {
+    /*
+        println!(
+            r#"
+  {YELLOW}run examples:{RESET}
+{GREEN}cargo run --example plantuml1{RESET}
+    "#
+        );
+    */
 }
 
-/// sub-command for bash auto-completion of `cargo auto` using the crate `dev_bestia_cargo_completion`
+/// Sub-command for bash auto-completion of `cargo auto` using the crate `dev_bestia_cargo_completion`.
 fn completion() {
     let args: Vec<String> = std::env::args().collect();
     let word_being_completed = args[2].as_str();
@@ -98,8 +182,15 @@ fn completion() {
 
     if last_word == "cargo-auto" || last_word == "auto" {
         let sub_commands = vec!["build", "release", "doc", "test", "commit_and_push", "github_new_release"];
+        cl::completion_return_one_or_more_sub_commands(sub_commands, word_being_completed);
+    }
+    /*
+    // the second level if needed
+    else if last_word == "new" {
+        let sub_commands = vec!["x"];
        cl::completion_return_one_or_more_sub_commands(sub_commands, word_being_completed);
     }
+    */
 }
 
 // endregion: match, help and completion
@@ -110,24 +201,22 @@ fn completion() {
 fn task_build() {
     let cargo_toml = cl::CargoToml::read();
     cl::auto_version_increment_semver_or_date();
-    cl::run_shell_command("cargo fmt");
-    cl::run_shell_command("cargo build");
+    cl::run_shell_command_static("cargo fmt").unwrap_or_else(|e| panic!("{e}"));
+    cl::run_shell_command_static("cargo clippy --no-deps").unwrap_or_else(|e| panic!("{e}"));
+    cl::run_shell_command_static("cargo build").unwrap_or_else(|e| panic!("{e}"));
     println!(
-    r#"
-    {YELLOW}Before connecting to GitHub, store once in env variable your personal token: export GITHUB_TOKEN=*****
-    Get your personal GitHub token from https://github.com/settings/tokens.
-    Use sshadd, ssh-agent and ssh-add to store your SSH credentials for GitHub and the web server.{RESET}
-    
-    {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests
-{GREEN}./target/debug/{package_name}{RESET}
-{GREEN}./target/debug/{package_name} download{RESET}
-{GREEN}./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/{RESET}
-{GREEN}./target/debug/{package_name} substack bestiadev.substack.com{RESET}
-{GREEN}./target/debug/{package_name} github_backup_bash_scripts{RESET}
-    {YELLOW}If ok then run{RESET}
+        r#"
+  {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests{RESET}
+{GREEN}alias {package_name}=./target/debug/{package_name}{RESET}
+{GREEN}{package_name}{RESET}
+{GREEN}{package_name} download{RESET}
+{GREEN}{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/{RESET}
+{GREEN}{package_name} substack bestiadev.substack.com{RESET}
+{GREEN}{package_name} github_backup_bash_scripts{RESET}
+  {YELLOW}if ok then{RESET}
 {GREEN}cargo auto release{RESET}
 "#,
-package_name = cargo_toml.package_name(),
+        package_name = cargo_toml.package_name(),
     );
     print_examples_cmd();
 }
@@ -139,33 +228,36 @@ fn task_release() {
     cl::auto_cargo_toml_to_md();
     cl::auto_lines_of_code("");
 
-    cl::run_shell_command("cargo fmt");
-    cl::run_shell_command("cargo build --release");
-    cl::run_shell_command(&format!(
-        "strip target/release/{package_name}",
-        package_name = cargo_toml.package_name()
-    )); 
+    cl::run_shell_command_static("cargo fmt").unwrap_or_else(|e| panic!("{e}"));
+    cl::run_shell_command_static("cargo clippy --no-deps").unwrap_or_else(|e| panic!("{e}"));
+    cl::run_shell_command_static("cargo build --release").unwrap_or_else(|e| panic!("{e}"));
+
+    #[cfg(target_family = "unix")]
+    cl::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"strip "target/release/{package_name}" "#)
+        .unwrap_or_else(|e| panic!("{e}"))
+        .arg("{package_name}", &cargo_toml.package_name())
+        .unwrap_or_else(|e| panic!("{e}"))
+        .run()
+        .unwrap_or_else(|e| panic!("{e}"));
+
     println!(
         r#"
-    {YELLOW}Before connecting to GitHub, store once in env variable your personal token: export GITHUB_TOKEN=*****
-    Get your personal GitHub token from https://github.com/settings/tokens.
-    Use sshadd, ssh-agent and ssh-add to store your SSH credentials for GitHub and the web server.{RESET}
-
-    {YELLOW}After `cargo auto release`, run the compiled binary, examples and/or tests{RESET}
-{GREEN}./target/release/{package_name}{RESET}
-{GREEN}./target/release/{package_name} download{RESET}
-{GREEN}./target/release/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev{RESET}
-{GREEN}./target/release/{package_name} substack bestiadev.substack.com{RESET}
-{GREEN}./target/release/{package_name} github_backup_bash_scripts{RESET}
-    {YELLOW}If ok then run{RESET}
+  {YELLOW}After `cargo auto release`, run the compiled binary, examples and/or tests{RESET}
+{GREEN}alias {package_name}=./target/release/{package_name}{RESET}
+{GREEN}{package_name}{RESET}
+{GREEN}{package_name} download{RESET}
+{GREEN}{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev{RESET}
+{GREEN}{package_name} substack bestiadev.substack.com{RESET}
+{GREEN}{package_name} github_backup_bash_scripts{RESET}
+  {YELLOW}if ok then{RESET}
 {GREEN}cargo auto doc{RESET}
 "#,
-package_name = cargo_toml.package_name(),
+        package_name = cargo_toml.package_name(),
     );
     print_examples_cmd();
 }
 
-/// cargo doc, then copies to /docs/ folder, because this is a github standard folder
+/// cargo doc, then copies to /docs/ folder, because this is a GitHub standard folder
 fn task_doc() {
     let cargo_toml = cl::CargoToml::read();
     cl::auto_cargo_toml_to_md();
@@ -174,21 +266,31 @@ fn task_doc() {
     cl::auto_playground_run_code();
     cl::auto_md_to_doc_comments();
 
-    cl::run_shell_command("cargo doc --no-deps --document-private-items");
-    // copy target/doc into docs/ because it is github standard
-    cl::run_shell_command("rsync -a --info=progress2 --delete-after target/doc/ docs/");
+    cl::run_shell_command_static("cargo doc --no-deps --document-private-items").unwrap_or_else(|e| panic!("{e}"));
+    // copy target/doc into docs/ because it is GitHub standard
+    cl::run_shell_command_static("rsync -a --info=progress2 --delete-after target/doc/ docs/").unwrap_or_else(|e| panic!("{e}"));
+
     // Create simple index.html file in docs directory
-    cl::run_shell_command(&format!(
-        r#"printf "<meta http-equiv=\"refresh\" content=\"0; url={}/index.html\" />" > docs/index.html\n"#,
-        cargo_toml.package_name().replace("-", "_")
-    ));
+    cl::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"printf "<meta http-equiv=\"refresh\" content=\"0; url={url_sanitized_for_double_quote}/index.html\" />\n" > docs/index.html"#)
+        .unwrap_or_else(|e| panic!("{e}"))
+        .arg("{url_sanitized_for_double_quote}", &cargo_toml.package_name().replace("-", "_"))
+        .unwrap_or_else(|e| panic!("{e}"))
+        .run()
+        .unwrap_or_else(|e| panic!("{e}"));
+
     // pretty html
-    cl::auto_doc_tidy_html().unwrap();
-    cl::run_shell_command("cargo fmt");
+    #[cfg(target_family = "unix")]
+    cl::auto_doc_tidy_html().unwrap_or_else(|e| panic!("{e}"));
+
+    cl::run_shell_command_static("cargo fmt").unwrap_or_else(|e| panic!("{e}"));
     // message to help user with next move
     println!(
         r#"
-    {YELLOW}After `cargo auto doc`, check `docs/index.html`. If ok then test the documentation code examples{RESET}
+  {YELLOW}After `cargo auto doc`, ctrl-click on `docs/index.html`. 
+    It will show the index.html in VSCode Explorer, then right-click and choose "Show Preview".
+    This works inside the CRUSTDE container, because of the extension "Live Preview" 
+    <https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server>
+    If ok then run the tests in code and the documentation code examples.{RESET}
 {GREEN}cargo auto test{RESET}
 "#
     );
@@ -196,12 +298,12 @@ fn task_doc() {
 
 /// cargo test
 fn task_test() {
-    cl::run_shell_command("cargo test");
+    cl::run_shell_command_static("cargo test").unwrap_or_else(|e| panic!("{e}"));
     println!(
-r#"
-    {YELLOW}After `cargo auto test`. If ok then {RESET}
+        r#"
+  {YELLOW}After `cargo auto test`. If ok then {RESET}
+  {YELLOW}(commit message is mandatory){RESET}
 {GREEN}cargo auto commit_and_push "message"{RESET}
-    {YELLOW}with mandatory commit message{RESET}
 "#
     );
 }
@@ -209,72 +311,143 @@ r#"
 /// commit and push
 fn task_commit_and_push(arg_2: Option<String>) {
     let Some(message) = arg_2 else {
-        eprintln!("{RED}Error: Message for commit is mandatory. Exiting.{RESET}");
+        eprintln!("{RED}Error: Message for commit is mandatory.{RESET}");
         // early exit
         return;
     };
 
-    // init repository if needed. If it is not init then normal commit and push.
-    if !cl::init_repository_if_needed(&message) {
+    // If needed, ask to create new local git repository
+    if !cl::git_is_local_repository() {
+        cl::new_local_repository(&message).unwrap();
+    }
+
+    // If needed, ask to create a GitHub remote repository
+    if !cgl::git_has_remote() || !cgl::git_has_upstream() {
+        cgl::new_remote_github_repository().unwrap();
+        cgl::description_and_topics_to_github();
+    } else {
+        // if description or topics/keywords/tags have changed
+        cgl::description_and_topics_to_github();
+
         // separate commit for docs if they changed, to not make a lot of noise in the real commit
         if std::path::Path::new("docs").exists() {
-            cl::run_shell_command(r#"git add docs && git diff --staged --quiet || git commit -m "update docs" "#);
+            cl::run_shell_command_static(r#"git add docs && git diff --staged --quiet || git commit -m "update docs" "#).unwrap_or_else(|e| panic!("{e}"));
         }
+
         cl::add_message_to_unreleased(&message);
         // the real commit of code
-        cl::run_shell_command(&format!( r#"git add -A && git diff --staged --quiet || git commit -m "{message}" "#));
-        cl::run_shell_command("git push");
-        println!(
-r#"
-    {YELLOW}After `cargo auto commit_and_push "message"`{RESET}
+        cl::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"git add -A && git diff --staged --quiet || git commit -m "{message_sanitized_for_double_quote}" "#)
+            .unwrap_or_else(|e| panic!("{e}"))
+            .arg("{message_sanitized_for_double_quote}", &message)
+            .unwrap_or_else(|e| panic!("{e}"))
+            .run()
+            .unwrap_or_else(|e| panic!("{e}"));
+
+        cl::run_shell_command_static("git push").unwrap_or_else(|e| panic!("{e}"));
+    }
+
+    println!(
+        r#"
+  {YELLOW}After `cargo auto commit_and_push "message"`{RESET}
 {GREEN}cargo auto publish_to_crates_io{RESET}
 "#
-        );
-    }
+    );
+}
+
+/// publish to crates.io and git tag
+fn task_publish_to_crates_io() {
+    let cargo_toml = cl::CargoToml::read();
+    let package_name = cargo_toml.package_name();
+    let version = cargo_toml.package_version();
+    // take care of tags
+    let tag_name_version = cl::git_tag_sync_check_create_push(&version);
+
+    // cargo publish with encrypted secret secret_token
+    ende::crates_io_api_token_mod::publish_to_crates_io().unwrap();
+
+    println!(
+        r#"
+  {YELLOW}After `cargo auto publish_to_crates_io`, check in browser{RESET}
+{GREEN}https://crates.io/crates/{package_name}{RESET}
+  {YELLOW}Install the crate with{RESET}
+  {YELLOW}Add the dependency to your Rust project and check how it works.{RESET}
+{GREEN}{package_name} = "{version}"{RESET}
+
+  {YELLOW}First write the content of the release in the RELEASES.md in the `## Unreleased` section, then{RESET}
+  {YELLOW}Then create the GitHub Release {tag_name_version}.{RESET}
+{GREEN}cargo auto github_new_release{RESET}
+"#
+    );
 }
 
 /// create a new release on github
 fn task_github_new_release() {
     let cargo_toml = cl::CargoToml::read();
-    println!("    {YELLOW}The env variable GITHUB_TOKEN must be set:  export GITHUB_TOKEN=paste_token_here{RESET}");
+    let version = cargo_toml.package_version();
+    // take care of tags
+    let tag_name_version = cl::git_tag_sync_check_create_push(&version);
 
-    // git tag
-    let shell_command = format!(
-        "git tag -f -a v{version} -m version_{version}",
-        version = cargo_toml.package_version()
-    );
-    cl::run_shell_command(&shell_command);
+    let github_owner = cargo_toml.github_owner().unwrap();
+    let repo_name = cargo_toml.package_name();
+    let now_date = cl::now_utc_date_iso();
+    let release_name = format!("Version {} ({})", &version, now_date);
+    let branch = "main";
 
-    // async block inside sync code with tokio
-    use tokio::runtime::Runtime;
-    let rt = Runtime::new().unwrap();
-    rt.block_on(async move {
-        let github_owner = cargo_auto_github_lib::github_owner();
-        let repo_name = cargo_toml.package_name();
-        let tag_name_version = format!("v{}", cargo_toml.package_version());
-        let release_name = format!("Release v{}", cargo_toml.package_version());
-        let branch = "main";
+    // First, the user must write the content into file RELEASES.md in the section ## Unreleased.
+    // Then the automation task will copy the content to GitHub release
+    let body_md_text = cl::body_text_from_releases_md().unwrap();
+    let request = cgl::github_api_create_new_release(&github_owner, &repo_name, &tag_name_version, &release_name, branch, &body_md_text);
+    let json_value = ende::github_api_token_with_oauth2_mod::send_to_github_api_with_secret_token(request).unwrap();
+    // early exit on error
+    if let Some(error_message) = json_value.get("message") {
+        eprintln!("{RED}{error_message}{RESET}");
+        if let Some(errors) = json_value.get("errors") {
+            let errors = errors.as_array().unwrap();
+            for error in errors.iter() {
+                if let Some(code) = error.get("code") {
+                    eprintln!("{RED}{code}{RESET}");
+                }
+            }
+        }
+        panic!("{RED}Call to GitHub API returned an error.{RESET}")
+    }
 
-        let body_md_text = &format!(
-r#"## Changed
+    // Create a new Version title in RELEASES.md.
+    cl::create_new_version_in_releases_md(&release_name).unwrap();
 
-- edit the list of changes
-          
-"#);
+    println!("  {YELLOW}New GitHub release created: {release_name}.{RESET}");
 
-        let release_id =  auto_github_create_new_release(&github_owner, &repo_name, &tag_name_version, &release_name, branch, body_md_text).await;
-        println!("    {YELLOW}New release created, now uploading release asset. This can take some time if the files are big. Wait...{RESET}");
+    // region: upload asset only for executables, not for libraries
 
-        // compress files tar.gz
-        let tar_name = format!("{repo_name}-{tag_name_version}-x86_64-unknown-linux-gnu.tar.gz");
-        cl::run_shell_command(&format!("tar -zcvf {tar_name} target/release/{repo_name}"));
-        
-        // upload asset     
-        auto_github_upload_asset_to_release(&github_owner, &repo_name, &release_id, &tar_name).await;
-        cl::run_shell_command(&format!("rm {tar_name}"));  
+    let release_id = json_value.get("id").unwrap().as_i64().unwrap().to_string();
+    println!("  {YELLOW}Now uploading release asset. This can take some time if the files are big. Wait...{RESET}");
+    // Linux executable binary tar-gz-ed compress files tar.gz
+    let executable_path = format!("target/release/{repo_name}");
+    if std::fs::exists(&executable_path).unwrap(){
+        let compressed_name = format!("{repo_name}-{tag_name_version}-x86_64-unknown-linux-gnu.tar.gz");
 
-        println!("    {YELLOW}Asset uploaded. Open and edit the description on Github-Releases in the browser.{RESET}");
-        println!("{GREEN}https://github.com/{github_owner}/{repo_name}/releases{RESET}");
-    });
+        cl::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"tar -zcvf "{compressed_name_sanitized_for_double_quote}" "{executable_path_sanitized_for_double_quote}" "#)
+            .unwrap_or_else(|e| panic!("{e}"))
+            .arg("{compressed_name_sanitized_for_double_quote}", &compressed_name)
+            .unwrap_or_else(|e| panic!("{e}"))
+            .arg("{executable_path_sanitized_for_double_quote}", &executable_path)
+            .unwrap_or_else(|e| panic!("{e}"))
+            .run()
+            .unwrap_or_else(|e| panic!("{e}"));
+
+        // upload asset
+        cgl::github_api_upload_asset_to_release(&github_owner, &repo_name, &release_id, &compressed_name);
+
+        cl::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"rm "{compressed_name_sanitized_for_double_quote}" "#)
+            .unwrap_or_else(|e| panic!("{e}"))
+            .arg("{compressed_name_sanitized_for_double_quote}", &compressed_name)
+            .unwrap_or_else(|e| panic!("{e}"))
+            .run()
+            .unwrap_or_else(|e| panic!("{e}"));
+        println!(r#"  {YELLOW}Asset uploaded. Open and edit the description on GitHub Releases in the browser.{RESET}"#);
+    }
+    // endregion: upload asset only for executables, not for libraries
+
+    println!(r#"{GREEN}https://github.com/{github_owner}/{repo_name}/releases{RESET} "#);
 }
 // endregion: tasks

@@ -1,0 +1,32 @@
+{
+  "vec_file_metadata": [
+    {
+      "filename": "automation_tasks_rs/Cargo.toml",
+      "filehash": "8465a9d51ca2d1e6cbb2e8f1c6c9de8e6f37e329c584c26de7788e05860262ae"
+    },
+    {
+      "filename": "automation_tasks_rs/target/debug/automation_tasks_rs",
+      "filehash": "9ece5dfe03d27fa78fc3dc0aea7e7fed8b43fb540e37cc13d4d48d4622e23bd8"
+    },
+    {
+      "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/crates_io_api_token_mod.rs",
+      "filehash": "8b3fa1ea92ca9b3cc54b291d5282fe65d22bdf76cb1f92a88e1a74cd3a461de5"
+    },
+    {
+      "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/github_api_token_with_oauth2_mod.rs",
+      "filehash": "3af4ba7f6ea0a1f642e83826bc9ad846d12dae86b0c0dc736ee7e18fc1645b54"
+    },
+    {
+      "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/mod.rs",
+      "filehash": "668b977db3357273041d62b965373905579595b66f84f2a0c2a0730d101258cf"
+    },
+    {
+      "filename": "automation_tasks_rs/src/cargo_auto_github_api_mod.rs",
+      "filehash": "b2a9d2c96ae51ab3c0f6ee307647f8bf30fc8f704669316be41d6d400fe61f1f"
+    },
+    {
+      "filename": "automation_tasks_rs/src/main.rs",
+      "filehash": "e4cc9d5dbe45627c1355cb0131e98f5fd7c6632448ad40eef114080d3b3199f1"
+    }
+  ]
+}

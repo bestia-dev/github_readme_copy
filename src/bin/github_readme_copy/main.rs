@@ -15,21 +15,14 @@ use github_readme_copy::{GREEN, RED, RESET, YELLOW};
 fn main() {
     // logging is essential for every project
     pretty_env_logger::init();
-
+    app_state_initialize();
     // super simple argument parsing. There are crates that can parse more complex arguments.
     match std::env::args().nth(1).as_deref() {
         None | Some("--help") | Some("-h") => print_help(),
         Some("download") => {
-            // read from env variable
-            match std::env::var("GITHUB_TOKEN") {
-                Err(_err) => println!(
-                        "{RED}Error: env variable GITHUB_TOKEN not found. 
-Get your personal GitHub token from https://github.com/settings/tokens.
-Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
- export GITHUB_TOKEN=*****{RESET}"
-                    ),
-                Ok(token) => download_readme(&token),
-            }
+            // get the authentication over OAuth2
+            let secret_token = github_readme_copy::get_github_secret_token().unwrap();
+            download_readme(&secret_token);
         }
         Some("upload") => match std::env::args().nth(2).as_deref() {
             // second argument
@@ -43,19 +36,29 @@ Before run, store it in local session env variable (put a space before the comma
             None => println!("{RED}Error: Missing arguments `substack_url`.{RESET}"),
         },
         Some("github_backup_bash_scripts") => {
-            // read from env variable
-            match std::env::var("GITHUB_TOKEN") {
-                Err(_err) => println!(
-                        "{RED}Error: env variable GITHUB_TOKEN not found. 
-Get your personal GitHub token from https://github.com/settings/tokens.
-Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
- export GITHUB_TOKEN=*****{RESET}"
-                    ),
-                Ok(token) => github_backup_bash_scripts(&token),
-            }
+            // get the authentication over OAuth2
+            let secret_token = github_readme_copy::get_github_secret_token().unwrap();
+            github_backup_bash_scripts(&secret_token);
         }
         _ => println!("{RED}Error: Unrecognized arguments. Try `github_readme_copy --help`{RESET}"),
     }
+}
+
+fn app_state_initialize() {
+    use github_readme_copy::{AppState, APP_STATE};
+    if APP_STATE.get().is_some() {
+        return;
+    }
+
+    let github_api_config_json = std::fs::read_to_string("github_api_config.json").unwrap();
+    let github_api_config: github_readme_copy::GithubApiConfig = serde_json::from_str(&github_api_config_json).unwrap();
+    let client_id = github_api_config.client_id;
+    let github_api_private_key_file_bare_name = github_api_config.github_api_private_key_file_bare_name;
+    let app_state = AppState {
+        client_id,
+        github_api_private_key_file_bare_name,
+    };
+    let _ = APP_STATE.set(app_state);
 }
 
 /// print help
@@ -66,8 +69,6 @@ fn print_help() {
     This program will download all your public README.md from GitHub in html format
     and upload these html files to your web server.
     This is useful, because SEO works really bad on GitHub READMEs.{RESET}
-    {YELLOW}Before download, store in env variable your personal token: export GITHUB_TOKEN=*****
-    Get your personal GitHub token from https://github.com/settings/tokens.{RESET}
     {YELLOW}Before upload over SSH, use ssh-agent and ssh-add 
     to add the passphrase for the SSH connection to the web server.{RESET}
 
@@ -83,8 +84,8 @@ fn print_help() {
 }
 
 /// download from GitHub using your personal GitHub token inside the env variable
-fn download_readme(token: &str) {
-    github_readme_copy::download_readme(token);
+fn download_readme(secret_token: &secrecy::SecretString) {
+    github_readme_copy::download_readme(secret_token);
 }
 
 /// upload over SSH
@@ -99,6 +100,6 @@ fn substack_download(substack_url: &str) {
 }
 
 /// create bash scripts for GitHub backup using your personal GitHub token inside the env variable
-fn github_backup_bash_scripts(token: &str) {
-    github_readme_copy::github_backup_bash_scripts(token);
+fn github_backup_bash_scripts(secret_token: &secrecy::SecretString) {
+    github_readme_copy::github_backup_bash_scripts(secret_token);
 }

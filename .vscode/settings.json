@@ -18,15 +18,19 @@
     },
     "rust-analyzer.showUnlinkedFileNotification": false,
     "cSpell.words": [
-        "zcvf",
-        "CRUSTDE",
         "Alla",
         "bestia",
         "bestiadev",
+        "camino",
+        "chrono",
         "crev",
+        "CRUSTDE",
         "debuginfo",
         "deps",
+        "ende",
         "endregion",
+        "keygen",
+        "lizs",
         "Nazdravlje",
         "nbsp",
         "nofollow",
@@ -52,6 +56,8 @@
         "thiserror",
         "unoptimized",
         "Webassembly",
-        "zdravje"
+        "zcvf",
+        "zdravje",
+        "zeroize"
     ]
 }

@@ -12,11 +12,14 @@
 // and it has some global stuff like the Error enum.
 
 // access to modules
+mod encrypt_decrypt_with_ssh_key_mod;
 mod github_mod;
 mod substack_mod;
 mod utils_mod;
 
 // `pub use` allows the caller of the lib to access modules functions, structs or all(*)
+pub use encrypt_decrypt_with_ssh_key_mod::github_api_token_with_oauth2_mod::get_github_secret_token;
+pub use encrypt_decrypt_with_ssh_key_mod::github_api_token_with_oauth2_mod::GithubApiConfig;
 pub use github_mod::download_readme;
 pub use github_mod::github_backup_bash_scripts;
 pub use github_mod::upload_github_readme;
@@ -27,7 +30,7 @@ pub use substack_mod::substack_download;
 // The `lib.rs` uses the `thiserror` library.
 use thiserror::Error;
 
-/// all possible library errors for `thiserror`
+/// All possible library errors for `thiserror`.
 #[derive(Error, Debug)]
 pub enum LibraryError {
     #[error("name `{0}` is already uppercase")]
@@ -46,3 +49,14 @@ pub const YELLOW: &str = "\x1b[33m";
 pub const GREEN: &str = "\x1b[32m";
 #[allow(dead_code)]
 pub const RESET: &str = "\x1b[0m";
+
+/// This struct represents state that is visible everywhere.
+pub struct AppState {
+    pub client_id: String,
+    pub github_api_private_key_file_bare_name: String,
+}
+
+/// Application state is initialized in the main() function.
+///
+/// And then is accessible all over the code.
+pub static APP_STATE: std::sync::OnceLock<AppState> = std::sync::OnceLock::new();
