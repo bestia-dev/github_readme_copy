@@ -293,7 +293,7 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String
             let pos3 = pos2 + delim2.len();
             let link_url = &body[pos3..pos1];
             println!("    Primary project: Reading {}", repo_url);
-            let body = reqwest::get(link_url.clone())
+            let body = reqwest::get(link_url)
                 .await
                 .unwrap()
                 .text()
@@ -421,7 +421,7 @@ pub fn github_backup_bash_scripts(token: &str) {
     let future1 = async move { vec_of_private_and_public_repos_from_github(token).await };
     let vec_of_repo = rt1.block_on(future1);
 
-    let num_of_repo = format!("{}", vec_of_repo.len());
+    let _num_of_repo = format!("{}", vec_of_repo.len());
     let path_base = r#"c:\Users\Luciano\Dropbox\BestiaDev\github_backup"#;
     let mut pull_script = String::from(&format!(
         r#":: pull_all.cmd
