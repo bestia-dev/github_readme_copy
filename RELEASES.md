@@ -10,7 +10,12 @@ The TODO section is part of the [README.md](https://github.com/bestia-dev/github
 
 ## Unreleased
 
-- docs
+## Version 1.0.156 (2025-03-22)
+
+- OAuth2
+- linux file permission
+- CRATES_IO_CONFIG
+- PathStruct
 
 ## Version 0.0.1
 
