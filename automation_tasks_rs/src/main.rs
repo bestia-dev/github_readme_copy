@@ -24,7 +24,8 @@ fn main() {
     std::panic::set_hook(Box::new(panic_set_hook));
     tracing_init();
     cl::exit_if_not_run_in_rust_project_root_directory();
-
+    github_api_config_initialize();
+    crates_io_config_initialize();
     // get CLI arguments
     let mut args = std::env::args();
     // the zero argument is the name of the program
@@ -91,6 +92,36 @@ fn panic_set_hook(panic_info: &std::panic::PanicHookInfo) {
         tracing::debug!("Location: {file}:{line}:{column}");
         eprintln!("Location: {file}:{line}:{column}");
     }
+}
+
+/// Application state is initialized in the main() function.
+///
+/// And then is accessible all over the code.
+pub static GITHUB_API_CONFIG: std::sync::OnceLock<ende::github_api_token_with_oauth2_mod::GithubApiConfig> = std::sync::OnceLock::new();
+
+fn github_api_config_initialize() {
+    if GITHUB_API_CONFIG.get().is_some() {
+        return;
+    }
+
+    let github_api_config_json = std::fs::read_to_string("automation_tasks_rs/github_api_config.json").unwrap();
+    let github_api_config: ende::github_api_token_with_oauth2_mod::GithubApiConfig = serde_json::from_str(&github_api_config_json).unwrap();
+    let _ = GITHUB_API_CONFIG.set(github_api_config);
+}
+
+/// Application state is initialized in the main() function.
+///
+/// And then is accessible all over the code.
+pub static CRATES_IO_CONFIG: std::sync::OnceLock<ende::crates_io_api_token_mod::CratesIoConfig> = std::sync::OnceLock::new();
+
+fn crates_io_config_initialize() {
+    if CRATES_IO_CONFIG.get().is_some() {
+        return;
+    }
+
+    let crates_io_config_json = std::fs::read_to_string("automation_tasks_rs/crates_io_config.json").unwrap();
+    let crates_io_config: ende::crates_io_api_token_mod::CratesIoConfig = serde_json::from_str(&crates_io_config_json).unwrap();
+    let _ = CRATES_IO_CONFIG.set(crates_io_config);
 }
 
 // endregion: general functions
@@ -165,13 +196,13 @@ fn print_help() {
 /// all example commands in one place
 fn print_examples_cmd() {
     /*
-        println!(
-            r#"
-  {YELLOW}run examples:{RESET}
-{GREEN}cargo run --example plantuml1{RESET}
-    "#
-        );
-    */
+            println!(
+                r#"
+      {YELLOW}run examples:{RESET}
+    {GREEN}cargo run --example plantuml1{RESET}
+        "#
+            );
+        */
 }
 
 /// Sub-command for bash auto-completion of `cargo auto` using the crate `dev_bestia_cargo_completion`.
@@ -354,32 +385,6 @@ fn task_commit_and_push(arg_2: Option<String>) {
     );
 }
 
-/// publish to crates.io and git tag
-fn task_publish_to_crates_io() {
-    let cargo_toml = cl::CargoToml::read();
-    let package_name = cargo_toml.package_name();
-    let version = cargo_toml.package_version();
-    // take care of tags
-    let tag_name_version = cl::git_tag_sync_check_create_push(&version);
-
-    // cargo publish with encrypted secret secret_token
-    ende::crates_io_api_token_mod::publish_to_crates_io().unwrap();
-
-    println!(
-        r#"
-  {YELLOW}After `cargo auto publish_to_crates_io`, check in browser{RESET}
-{GREEN}https://crates.io/crates/{package_name}{RESET}
-  {YELLOW}Install the crate with{RESET}
-  {YELLOW}Add the dependency to your Rust project and check how it works.{RESET}
-{GREEN}{package_name} = "{version}"{RESET}
-
-  {YELLOW}First write the content of the release in the RELEASES.md in the `## Unreleased` section, then{RESET}
-  {YELLOW}Then create the GitHub Release {tag_name_version}.{RESET}
-{GREEN}cargo auto github_new_release{RESET}
-"#
-    );
-}
-
 /// create a new release on github
 fn task_github_new_release() {
     let cargo_toml = cl::CargoToml::read();
@@ -423,7 +428,7 @@ fn task_github_new_release() {
     println!("  {YELLOW}Now uploading release asset. This can take some time if the files are big. Wait...{RESET}");
     // Linux executable binary tar-gz-ed compress files tar.gz
     let executable_path = format!("target/release/{repo_name}");
-    if std::fs::exists(&executable_path).unwrap(){
+    if std::fs::exists(&executable_path).unwrap() {
         let compressed_name = format!("{repo_name}-{tag_name_version}-x86_64-unknown-linux-gnu.tar.gz");
 
         cl::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"tar -zcvf "{compressed_name_sanitized_for_double_quote}" "{executable_path_sanitized_for_double_quote}" "#)

@@ -2,23 +2,27 @@
   "vec_file_metadata": [
     {
       "filename": "automation_tasks_rs/Cargo.toml",
-      "filehash": "8465a9d51ca2d1e6cbb2e8f1c6c9de8e6f37e329c584c26de7788e05860262ae"
+      "filehash": "4d947aed336324a5be02e4d20ebeb29e6f429b9f61998723566f9d505adf3403"
     },
     {
       "filename": "automation_tasks_rs/target/debug/automation_tasks_rs",
-      "filehash": "9ece5dfe03d27fa78fc3dc0aea7e7fed8b43fb540e37cc13d4d48d4622e23bd8"
+      "filehash": "26039f746600706a64cafa6dd7755e8094f3a31c912fa92e6ac26b27c2492a83"
     },
     {
       "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/crates_io_api_token_mod.rs",
-      "filehash": "8b3fa1ea92ca9b3cc54b291d5282fe65d22bdf76cb1f92a88e1a74cd3a461de5"
+      "filehash": "8a2cb8388a42ebb1d503db9817c1df72e38649222a384ab85a54f60dd7661714"
+    },
+    {
+      "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/encrypt_decrypt_mod.rs",
+      "filehash": "777092ed5297f2cb40720c413466722050c71a669347202f84cc40cf8ff232df"
     },
     {
       "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/github_api_token_with_oauth2_mod.rs",
-      "filehash": "3af4ba7f6ea0a1f642e83826bc9ad846d12dae86b0c0dc736ee7e18fc1645b54"
+      "filehash": "4f50ac088044ea63273666888c61d9192e88362449099de877781fe1a8f6ea5f"
     },
     {
       "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/mod.rs",
-      "filehash": "668b977db3357273041d62b965373905579595b66f84f2a0c2a0730d101258cf"
+      "filehash": "7ad4cf33d852faafe3c7f1fe02fb30732ccc5b42a0688f5d1f673a1203d5da7e"
     },
     {
       "filename": "automation_tasks_rs/src/cargo_auto_github_api_mod.rs",
@@ -26,7 +30,7 @@
     },
     {
       "filename": "automation_tasks_rs/src/main.rs",
-      "filehash": "e4cc9d5dbe45627c1355cb0131e98f5fd7c6632448ad40eef114080d3b3199f1"
+      "filehash": "61db8b8c9acc733d40e30bb6a2db62fb032a5ff79be458e05dfd572f759da6d3"
     }
   ]
 }

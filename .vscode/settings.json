@@ -19,6 +19,7 @@
     "rust-analyzer.showUnlinkedFileNotification": false,
     "cSpell.words": [
         "Alla",
+        "appender",
         "bestia",
         "bestiadev",
         "camino",
@@ -51,6 +52,7 @@
         "sshadd",
         "struct",
         "stylesheet",
+        "subsecond",
         "substack",
         "termion",
         "thiserror",

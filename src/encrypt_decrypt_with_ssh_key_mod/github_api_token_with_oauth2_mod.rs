@@ -73,7 +73,7 @@ use anyhow::Context;
 use secrecy::{ExposeSecret, SecretBox, SecretString};
 
 use crate::encrypt_decrypt_with_ssh_key_mod::encrypt_decrypt_mod::PathStruct;
-use crate::APP_STATE;
+use crate::GITHUB_API_CONFIG;
 
 use super::encrypt_decrypt_mod as ende;
 use super::encrypt_decrypt_mod::{BLUE, GREEN, RED, RESET, YELLOW};
@@ -82,7 +82,7 @@ use super::encrypt_decrypt_mod::{BLUE, GREEN, RED, RESET, YELLOW};
 pub struct GithubApiConfig {
     pub github_app_name: String,
     pub client_id: String,
-    pub github_api_private_key_file_bare_name: String,
+    pub github_api_private_key_bare_file_name: String,
 }
 
 #[derive(serde::Deserialize, serde::Serialize, zeroize::Zeroize, zeroize::ZeroizeOnDrop)]
@@ -100,8 +100,8 @@ struct SecretResponseAccessToken {
 /// The encrypted file has the same bare name with the "enc" extension.
 /// Returns access_token to use as bearer for api calls
 pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
-    let client_id = APP_STATE.get().unwrap().client_id.to_string();
-    let private_key_file_bare_name = APP_STATE.get().unwrap().github_api_private_key_file_bare_name.to_string();
+    let client_id = GITHUB_API_CONFIG.get().unwrap().client_id.to_string();
+    let private_key_file_bare_name = GITHUB_API_CONFIG.get().unwrap().github_api_private_key_bare_file_name.to_string();
 
     println!("  {YELLOW}Check if the ssh private key exists.{RESET}");
     let private_key_path_struct = PathStruct::new_private_key_file_path(private_key_file_bare_name.clone())?;

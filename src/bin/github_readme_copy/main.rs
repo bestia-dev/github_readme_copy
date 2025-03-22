@@ -15,7 +15,7 @@ use github_readme_copy::{GREEN, RED, RESET, YELLOW};
 fn main() {
     // logging is essential for every project
     pretty_env_logger::init();
-    app_state_initialize();
+    github_api_config_initialize();
     // super simple argument parsing. There are crates that can parse more complex arguments.
     match std::env::args().nth(1).as_deref() {
         None | Some("--help") | Some("-h") => print_help(),
@@ -44,21 +44,15 @@ fn main() {
     }
 }
 
-fn app_state_initialize() {
-    use github_readme_copy::{AppState, APP_STATE};
-    if APP_STATE.get().is_some() {
+fn github_api_config_initialize() {
+    use github_readme_copy::GITHUB_API_CONFIG;
+    if GITHUB_API_CONFIG.get().is_some() {
         return;
     }
 
     let github_api_config_json = std::fs::read_to_string("github_api_config.json").unwrap();
     let github_api_config: github_readme_copy::GithubApiConfig = serde_json::from_str(&github_api_config_json).unwrap();
-    let client_id = github_api_config.client_id;
-    let github_api_private_key_file_bare_name = github_api_config.github_api_private_key_file_bare_name;
-    let app_state = AppState {
-        client_id,
-        github_api_private_key_file_bare_name,
-    };
-    let _ = APP_STATE.set(app_state);
+    let _ = GITHUB_API_CONFIG.set(github_api_config);
 }
 
 /// print help

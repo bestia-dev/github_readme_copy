@@ -2,8 +2,8 @@
     "workbench.colorCustomizations": {
         "titleBar.activeForeground": "#fff",
         "titleBar.inactiveForeground": "#ffffffcc",
-        "titleBar.activeBackground": "#404040",
-        "titleBar.inactiveBackground": "#2d2d2dcc"
+        "titleBar.activeBackground": "#a81c1c",
+        "titleBar.inactiveBackground": "#630b0bcc"
     },
     "spellright.language": [
         "en"
@@ -18,20 +18,28 @@
     },
     "rust-analyzer.showUnlinkedFileNotification": false,
     "cSpell.words": [
-        "zdravje",
-        "zcvf",
-        "thiserror",
-        "substack",
-        "struct",
-        "Prost",
-        "Nazdravlje",
-        "CRUSTDE",
-        "bestiadev",
         "Alla",
+        "appender",
         "bestia",
+        "bestiadev",
+        "camino",
         "chrono",
+        "CRUSTDE",
+        "ende",
         "endregion",
+        "keygen",
+        "lizs",
+        "Nazdravlje",
         "plantuml",
-        "zcvf"
+        "Prost",
+        "reqwest",
+        "serde",
+        "struct",
+        "subsecond",
+        "substack",
+        "thiserror",
+        "zcvf",
+        "zdravje",
+        "zeroize"
     ]
 }

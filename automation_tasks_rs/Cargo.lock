@@ -101,6 +101,8 @@ dependencies = [
  "camino",
  "cargo_auto_lib",
  "chrono",
+ "home",
+ "inquire",
  "reqwest",
  "rsa",
  "secrecy",

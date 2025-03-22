@@ -53,10 +53,10 @@ pub const RESET: &str = "\x1b[0m";
 /// This struct represents state that is visible everywhere.
 pub struct AppState {
     pub client_id: String,
-    pub github_api_private_key_file_bare_name: String,
+    pub github_api_private_key_bare_file_name: String,
 }
 
 /// Application state is initialized in the main() function.
 ///
 /// And then is accessible all over the code.
-pub static APP_STATE: std::sync::OnceLock<AppState> = std::sync::OnceLock::new();
+pub static GITHUB_API_CONFIG: std::sync::OnceLock<GithubApiConfig> = std::sync::OnceLock::new();
