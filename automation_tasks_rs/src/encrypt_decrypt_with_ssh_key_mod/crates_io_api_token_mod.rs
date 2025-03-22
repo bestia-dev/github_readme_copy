@@ -1,6 +1,5 @@
 // crates_io_api_token_mod.rs
 
-// region: auto_md_to_doc_comments include doc_comments/crates_io_api_token_mod.md A //!
 //! # decrypt crates.io api token from file or ask the user to input the access token, encrypt it and save into file
 //!
 //! Publish to crates.io needs the crates.io secret access_token. This is a secret important just like a password or even more.  
@@ -37,7 +36,6 @@
 //! secrecy = "0.10.3"
 //! ```
 //!
-// endregion: auto_md_to_doc_comments include doc_comments/crates_io_api_token_mod.md A //!
 
 #![allow(dead_code)]
 

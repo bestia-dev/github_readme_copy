@@ -4,23 +4,7 @@
 //!
 //! Functions to encrypt decrypt a secret string.
 
-// region: Public API constants
-// ANSI colors for Linux terminal
-// https://github.com/shiena/ansicolor/blob/master/README.md
-/// ANSI color
-pub const RED: &str = "\x1b[31m";
-/// ANSI color
-#[allow(dead_code)]
-pub const GREEN: &str = "\x1b[32m";
-/// ANSI color
-pub const YELLOW: &str = "\x1b[33m";
-/// ANSI color
-#[allow(dead_code)]
-pub const BLUE: &str = "\x1b[34m";
-/// ANSI color
-pub const RESET: &str = "\x1b[0m";
-// endregion: Public API constants
-
+use super::{BLUE, GREEN, RED, RESET, YELLOW};
 use secrecy::{ExposeSecret, ExposeSecretMut, SecretBox, SecretString};
 
 pub struct PathStruct {
@@ -33,7 +17,7 @@ impl PathStruct {
     /// Private key file path: tilde string and PathBuf.
     pub fn new_private_key_file_path(bare_file_name: String) -> anyhow::Result<Self> {
         let tilde_file_path = format!("~/.ssh/{bare_file_name}");
-        let full_file_path = Self::tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
+        let full_file_path = tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
         Ok(PathStruct {
             bare_file_name,
             tilde_file_path,
@@ -43,7 +27,7 @@ impl PathStruct {
     /// Encrypted file path: tilde string and PathBuf.
     pub fn new_encrypted_file_path(bare_file_name: String) -> anyhow::Result<Self> {
         let tilde_file_path = format!("~/.ssh/{bare_file_name}.enc");
-        let full_file_path = Self::tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
+        let full_file_path = tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
         Ok(PathStruct {
             bare_file_name,
             tilde_file_path,
@@ -53,7 +37,7 @@ impl PathStruct {
     /// Public key file path: tilde string and PathBuf.
     pub fn new_public_key_file_path(bare_file_name: String) -> anyhow::Result<Self> {
         let tilde_file_path = format!("~/.ssh/{bare_file_name}.pub");
-        let full_file_path = Self::tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
+        let full_file_path = tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
         Ok(PathStruct {
             bare_file_name,
             tilde_file_path,
@@ -67,24 +51,6 @@ impl PathStruct {
     /// Get reference to full file path.
     pub fn get_full_file_path(&self) -> &camino::Utf8Path {
         &self.full_file_path
-    }
-
-    /// Replace tilde with home::home_dir, only for utf8.
-    fn tilde_expand_to_home_dir_utf8(path_str: &str) -> anyhow::Result<camino::Utf8PathBuf> {
-        let mut expanded = String::new();
-        if path_str.starts_with("~") {
-            use anyhow::Context;
-            let base = home::home_dir().context("Cannot find home_dir in this OS.")?;
-            // only utf8 is accepted
-            let base = base.to_string_lossy();
-            expanded.push_str(&base);
-            expanded.push_str(path_str.trim_start_matches("~"));
-            use std::str::FromStr;
-            Ok(camino::Utf8PathBuf::from_str(&expanded)?)
-        } else {
-            use std::str::FromStr;
-            Ok(camino::Utf8PathBuf::from_str(path_str)?)
-        }
     }
 }
 
@@ -351,3 +317,21 @@ pub(crate) fn decrypt_symmetric(secret_passcode_32bytes: SecretBox<[u8; 32]>, pl
     Ok(secret_decrypted_string)
 }
 // endregion: symmetrical encrypt and decrypt
+
+/// Replace tilde with home::home_dir, only for utf8.
+pub fn tilde_expand_to_home_dir_utf8(path_str: &str) -> anyhow::Result<camino::Utf8PathBuf> {
+    let mut expanded = String::new();
+    if path_str.starts_with("~") {
+        use anyhow::Context;
+        let base = home::home_dir().context("Cannot find home_dir in this OS.")?;
+        // only utf8 is accepted
+        let base = base.to_string_lossy();
+        expanded.push_str(&base);
+        expanded.push_str(path_str.trim_start_matches("~"));
+        use std::str::FromStr;
+        Ok(camino::Utf8PathBuf::from_str(&expanded)?)
+    } else {
+        use std::str::FromStr;
+        Ok(camino::Utf8PathBuf::from_str(path_str)?)
+    }
+}

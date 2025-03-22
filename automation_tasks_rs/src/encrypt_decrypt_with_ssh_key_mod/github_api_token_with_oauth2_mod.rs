@@ -1,6 +1,5 @@
 // github_api_token_with_oauth2_mod.rs
 
-// region: auto_md_to_doc_comments include doc_comments/github_api_token_with_oauth2_mod.md A //!
 //! # decrypt github api token from file or use the oauth2 device workflow to get the access token and encrypt it and save into file
 //!
 //! ## Secrets
@@ -65,7 +64,6 @@
 //! chrono ="0.4.39"
 //! ```
 //!
-// endregion: auto_md_to_doc_comments include doc_comments/github_api_token_with_oauth2_mod.md A //!
 
 #![allow(dead_code)]
 
