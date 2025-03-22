@@ -72,11 +72,11 @@
 use anyhow::Context;
 use secrecy::{ExposeSecret, SecretBox, SecretString};
 
+use crate::encrypt_decrypt_with_ssh_key_mod::encrypt_decrypt_mod::PathStruct;
 use crate::APP_STATE;
 
-use super::encrypt_decrypt_with_ssh_key_mod_mod as ende;
-use super::encrypt_decrypt_with_ssh_key_mod_mod::PathString;
-use super::encrypt_decrypt_with_ssh_key_mod_mod::{BLUE, GREEN, RED, RESET, YELLOW};
+use super::encrypt_decrypt_mod as ende;
+use super::encrypt_decrypt_mod::{BLUE, GREEN, RED, RESET, YELLOW};
 
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct GithubApiConfig {
@@ -101,27 +101,27 @@ struct SecretResponseAccessToken {
 /// Returns access_token to use as bearer for api calls
 pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
     let client_id = APP_STATE.get().unwrap().client_id.to_string();
-    let private_key_file_bare_name = PathString(APP_STATE.get().unwrap().github_api_private_key_file_bare_name.to_string());
+    let private_key_file_bare_name = APP_STATE.get().unwrap().github_api_private_key_file_bare_name.to_string();
 
     println!("  {YELLOW}Check if the ssh private key exists.{RESET}");
-    let (tilde_private_key_file_path, private_key_file_path) = ende::get_private_key_file_path(&private_key_file_bare_name)?;
-    if !std::fs::exists(&private_key_file_path)? {
-        eprintln!("{RED}Error: Private key {tilde_private_key_file_path} does not exist.{RESET}");
+    let private_key_path_struct = PathStruct::new_private_key_file_path(private_key_file_bare_name.clone())?;
+    if !std::fs::exists(private_key_path_struct.get_full_file_path())? {
+        eprintln!("{RED}Error: Private key {private_key_path_struct} does not exist.{RESET}");
         println!("  {YELLOW}Create the private key in bash terminal:{RESET}");
-        println!(r#"{GREEN}ssh-keygen -t ed25519 -f "{tilde_private_key_file_path}" -C "github api secret_token"{RESET}"#);
+        println!(r#"{GREEN}ssh-keygen -t ed25519 -f "{private_key_path_struct}" -C "github api secret_token"{RESET}"#);
         anyhow::bail!("Private key file not found.");
     }
 
     println!("  {YELLOW}Check if the encrypted file exists.{RESET}");
-    let (tilde_encrypted_file_path, encrypted_file_name) = ende::get_encrypted_file_path(&private_key_file_bare_name)?;
-    if !std::fs::exists(&encrypted_file_name)? {
-        println!("  {YELLOW}Encrypted file {tilde_encrypted_file_path} does not exist.{RESET}");
+    let encrypted_path_struct = PathStruct::new_encrypted_file_path(private_key_file_bare_name)?;
+    if !std::fs::exists(encrypted_path_struct.get_full_file_path())? {
+        println!("  {YELLOW}Encrypted file {encrypted_path_struct} does not exist.{RESET}");
         println!("  {YELLOW}Continue to authentication with the browser{RESET}");
-        let secret_access_token = authenticate_with_browser_and_save_file(&client_id, &private_key_file_bare_name, &encrypted_file_name)?;
+        let secret_access_token = authenticate_with_browser_and_save_file(&client_id, &private_key_path_struct, &encrypted_path_struct)?;
         Ok(secret_access_token)
     } else {
-        println!("  {YELLOW}Encrypted file {tilde_encrypted_file_path} exist.{RESET}");
-        let plain_file_text = ende::open_file_b64_get_string(&encrypted_file_name)?;
+        println!("  {YELLOW}Encrypted file {encrypted_path_struct} exist.{RESET}");
+        let plain_file_text = ende::open_file_b64_get_string(encrypted_path_struct.get_full_file_path())?;
         // deserialize json into struct
         let encrypted_text_with_metadata: ende::EncryptedTextWithMetadata = serde_json::from_str(&plain_file_text)?;
 
@@ -133,7 +133,7 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
         let refresh_token_expiration = chrono::DateTime::parse_from_rfc3339(encrypted_text_with_metadata.refresh_token_expiration.as_ref().expect("The former line asserts this is never None"))?;
         if refresh_token_expiration <= utc_now {
             eprintln!("{RED}Refresh token has expired, start authentication_with_browser{RESET}");
-            let secret_access_token = authenticate_with_browser_and_save_file(&client_id, &private_key_file_bare_name, &encrypted_file_name)?;
+            let secret_access_token = authenticate_with_browser_and_save_file(&client_id, &private_key_path_struct, &encrypted_path_struct)?;
             return Ok(secret_access_token);
         }
         if encrypted_text_with_metadata.access_token_expiration.is_none() {
@@ -146,7 +146,7 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
             let secret_response_access_token: SecretBox<SecretResponseAccessToken> = refresh_tokens(&client_id, secret_response_refresh_token.expose_secret().refresh_token.clone())?;
             let secret_access_token = SecretString::from(secret_response_access_token.expose_secret().access_token.clone());
             println!("  {YELLOW}Encrypt data and save file{RESET}");
-            encrypt_and_save_file(&private_key_file_bare_name, &encrypted_file_name, secret_response_access_token)?;
+            encrypt_and_save_file(&private_key_path_struct, &encrypted_path_struct, secret_response_access_token)?;
             return Ok(secret_access_token);
         }
         println!("  {YELLOW}Decrypt the file with the private key.{RESET}");
@@ -156,12 +156,12 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
     }
 }
 
-fn authenticate_with_browser_and_save_file(client_id: &str, private_key_file_bare_name: &PathString, encrypted_file_name: &camino::Utf8Path) -> anyhow::Result<SecretString> {
+fn authenticate_with_browser_and_save_file(client_id: &str, private_key_path_struct: &PathStruct, encrypted_path_struct: &PathStruct) -> anyhow::Result<SecretString> {
     let secret_response_access_token: SecretBox<SecretResponseAccessToken> = authentication_with_browser(client_id)?;
     let secret_access_token = SecretString::from(secret_response_access_token.expose_secret().access_token.clone());
     println!("  {YELLOW}Encrypt data and save file{RESET}");
 
-    encrypt_and_save_file(private_key_file_bare_name, encrypted_file_name, secret_response_access_token)?;
+    encrypt_and_save_file(private_key_path_struct, encrypted_path_struct, secret_response_access_token)?;
     Ok(secret_access_token)
 }
 
@@ -264,13 +264,13 @@ fn refresh_tokens(client_id: &str, refresh_token: String) -> anyhow::Result<Secr
 /// The "seed" and the private key path will be stored in plain text in the file
 /// together with the encrypted data in json format.
 /// To avoid plain text in the end encode in base64 just for obfuscate a little bit.
-fn encrypt_and_save_file(private_key_file_bare_name: &PathString, encrypted_file_name: &camino::Utf8Path, secret_response_access_token: SecretBox<SecretResponseAccessToken>) -> anyhow::Result<()> {
+fn encrypt_and_save_file(private_key_path_struct: &PathStruct, encrypted_path_struct: &PathStruct, secret_response_access_token: SecretBox<SecretResponseAccessToken>) -> anyhow::Result<()> {
     let secret_string = SecretString::from(serde_json::to_string(&secret_response_access_token.expose_secret())?);
 
     let (plain_seed_bytes_32bytes, plain_seed_string) = ende::random_seed_32bytes_and_string()?;
 
     println!("  {YELLOW}Unlock private key to encrypt the secret symmetrically{RESET}");
-    let secret_passcode_32bytes: SecretBox<[u8; 32]> = ende::sign_seed_with_ssh_agent_or_private_key_file(private_key_file_bare_name, plain_seed_bytes_32bytes)?;
+    let secret_passcode_32bytes: SecretBox<[u8; 32]> = ende::sign_seed_with_ssh_agent_or_private_key_file(private_key_path_struct, plain_seed_bytes_32bytes)?;
 
     println!("  {YELLOW}Encrypt the secret symmetrically {RESET}");
     let encrypted_string = ende::encrypt_symmetric(secret_passcode_32bytes, secret_string)?;
@@ -289,7 +289,7 @@ fn encrypt_and_save_file(private_key_file_bare_name: &PathString, encrypted_file
         .to_rfc3339();
 
     let encrypted_text_with_metadata = ende::EncryptedTextWithMetadata {
-        private_key_bare_file_name: private_key_file_bare_name.to_string(),
+        private_key_bare_file_name: private_key_path_struct.get_bare_file_name().to_string(),
         plain_seed_string,
         plain_encrypted_text: encrypted_string,
         access_token_expiration: Some(access_token_expiration),
@@ -300,7 +300,7 @@ fn encrypt_and_save_file(private_key_file_bare_name: &PathString, encrypted_file
     // encode it just to obscure it a little bit
     let file_text = ende::encode64_from_string_to_string(&plain_file_text);
 
-    std::fs::write(encrypted_file_name, file_text)?;
+    std::fs::write(encrypted_path_struct.get_full_file_path(), file_text)?;
     println!("  {YELLOW}Encrypted text saved to file.{RESET}");
 
     Ok(())
@@ -315,15 +315,14 @@ fn encrypt_and_save_file(private_key_file_bare_name: &PathString, encrypted_file
 /// This signature will be used as the true passcode for symmetrical decryption.  
 fn decrypt_text_with_metadata(encrypted_text_with_metadata: ende::EncryptedTextWithMetadata) -> anyhow::Result<SecretBox<SecretResponseAccessToken>> {
     // the private key file is written inside the file
-    let private_key_file_bare_name = PathString(encrypted_text_with_metadata.private_key_bare_file_name.clone());
-    let (_tilde_private_key_file_path, private_key_file_path) = ende::get_private_key_file_path(&private_key_file_bare_name)?;
-    if !camino::Utf8Path::new(&private_key_file_path).exists() {
-        anyhow::bail!("{RED}Error: File {private_key_file_path} does not exist! {RESET}");
+    let private_key_path_struct = PathStruct::new_private_key_file_path(encrypted_text_with_metadata.private_key_bare_file_name.clone())?;
+    if !camino::Utf8Path::new(private_key_path_struct.get_full_file_path()).exists() {
+        anyhow::bail!("{RED}Error: File {private_key_path_struct} does not exist! {RESET}");
     }
 
     let plain_seed_bytes_32bytes = ende::decode64_from_string_to_32bytes(&encrypted_text_with_metadata.plain_seed_string)?;
     // first try to use the private key from ssh-agent, else use the private file with user interaction
-    let secret_passcode_32bytes: SecretBox<[u8; 32]> = ende::sign_seed_with_ssh_agent_or_private_key_file(&private_key_file_bare_name, plain_seed_bytes_32bytes)?;
+    let secret_passcode_32bytes: SecretBox<[u8; 32]> = ende::sign_seed_with_ssh_agent_or_private_key_file(&private_key_path_struct, plain_seed_bytes_32bytes)?;
     // decrypt the data
     let decrypted_string = ende::decrypt_symmetric(secret_passcode_32bytes, encrypted_text_with_metadata.plain_encrypted_text)?;
     // parse json to struct

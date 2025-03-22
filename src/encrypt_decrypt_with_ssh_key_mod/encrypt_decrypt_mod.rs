@@ -21,13 +21,78 @@ pub const BLUE: &str = "\x1b[34m";
 pub const RESET: &str = "\x1b[0m";
 // endregion: Public API constants
 
-use crate::encrypt_decrypt_with_ssh_key_mod as ende;
 use secrecy::{ExposeSecret, ExposeSecretMut, SecretBox, SecretString};
 
-#[derive(derive_more::Display)]
-pub struct TildePathString(pub String);
-#[derive(derive_more::Display)]
-pub struct PathString(pub String);
+pub struct PathStruct {
+    bare_file_name: String,
+    tilde_file_path: String,
+    full_file_path: camino::Utf8PathBuf,
+}
+
+impl PathStruct {
+    /// Private key file path: tilde string and PathBuf.
+    pub fn new_private_key_file_path(bare_file_name: String) -> anyhow::Result<Self> {
+        let tilde_file_path = format!("~/.ssh/{bare_file_name}");
+        let full_file_path = Self::tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
+        Ok(PathStruct {
+            bare_file_name,
+            tilde_file_path,
+            full_file_path,
+        })
+    }
+    /// Encrypted file path: tilde string and PathBuf.
+    pub fn new_encrypted_file_path(bare_file_name: String) -> anyhow::Result<Self> {
+        let tilde_file_path = format!("~/.ssh/{bare_file_name}.enc");
+        let full_file_path = Self::tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
+        Ok(PathStruct {
+            bare_file_name,
+            tilde_file_path,
+            full_file_path,
+        })
+    }
+    /// Public key file path: tilde string and PathBuf.
+    pub fn new_public_key_file_path(bare_file_name: String) -> anyhow::Result<Self> {
+        let tilde_file_path = format!("~/.ssh/{bare_file_name}.pub");
+        let full_file_path = Self::tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
+        Ok(PathStruct {
+            bare_file_name,
+            tilde_file_path,
+            full_file_path,
+        })
+    }
+    /// Get reference to bare file name.
+    pub fn get_bare_file_name(&self) -> &str {
+        &self.bare_file_name
+    }
+    /// Get reference to full file path.
+    pub fn get_full_file_path(&self) -> &camino::Utf8Path {
+        &self.full_file_path
+    }
+
+    /// Replace tilde with home::home_dir, only for utf8.
+    fn tilde_expand_to_home_dir_utf8(path_str: &str) -> anyhow::Result<camino::Utf8PathBuf> {
+        let mut expanded = String::new();
+        if path_str.starts_with("~") {
+            use anyhow::Context;
+            let base = home::home_dir().context("Cannot find home_dir in this OS.")?;
+            // only utf8 is accepted
+            let base = base.to_string_lossy();
+            expanded.push_str(&base);
+            expanded.push_str(path_str.trim_start_matches("~"));
+            use std::str::FromStr;
+            Ok(camino::Utf8PathBuf::from_str(&expanded)?)
+        } else {
+            use std::str::FromStr;
+            Ok(camino::Utf8PathBuf::from_str(path_str)?)
+        }
+    }
+}
+
+impl std::fmt::Display for PathStruct {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{}", self.tilde_file_path)
+    }
+}
 
 /// Struct that represents the json data saved in the '*.enc' file.
 #[derive(serde::Deserialize, serde::Serialize)]
@@ -38,38 +103,6 @@ pub(crate) struct EncryptedTextWithMetadata {
     pub(crate) token_name: Option<String>,
     pub(crate) access_token_expiration: Option<String>,
     pub(crate) refresh_token_expiration: Option<String>,
-}
-
-/// Replace tilde with home::home_dir, only for utf8.
-fn tilde_expand_to_home_dir_utf8(path_str: &TildePathString) -> anyhow::Result<camino::Utf8PathBuf> {
-    let mut expanded = String::new();
-    if path_str.0.starts_with("~") {
-        use anyhow::Context;
-        let base = home::home_dir().context("Cannot find home_dir in this OS.")?;
-        // only utf8 is accepted
-        let base = base.to_string_lossy();
-        expanded.push_str(&base);
-        expanded.push_str(path_str.0.trim_start_matches("~"));
-        use std::str::FromStr;
-        Ok(camino::Utf8PathBuf::from_str(&expanded)?)
-    } else {
-        use std::str::FromStr;
-        Ok(camino::Utf8PathBuf::from_str(&path_str.0)?)
-    }
-}
-
-/// Get private key file path: tilde string and PathBuf
-pub(crate) fn get_private_key_file_path(file_bare_name: &PathString) -> anyhow::Result<(TildePathString, camino::Utf8PathBuf)> {
-    let tilde_file_path = TildePathString(format!("~/.ssh/{file_bare_name}"));
-    let path = tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
-    Ok((tilde_file_path, path))
-}
-
-/// Get encrypted file path: tilde string and PathBuf
-pub(crate) fn get_encrypted_file_path(file_bare_name: &PathString) -> anyhow::Result<(TildePathString, camino::Utf8PathBuf)> {
-    let tilde_file_path = TildePathString(format!("~/.ssh/{file_bare_name}.enc"));
-    let path = tilde_expand_to_home_dir_utf8(&tilde_file_path)?;
-    Ok((tilde_file_path, path))
 }
 
 /// Generate a random seed.
@@ -156,9 +189,8 @@ pub(crate) fn decode64_from_string_to_string(string_to_decode: &str) -> anyhow::
 /// If the passphrase is 'empty string' it will try ssh-agent one more time.
 /// The secret signed seed will be the actual password for symmetrical encryption.  
 /// Returns secret_password_bytes.  
-pub(crate) fn sign_seed_with_ssh_agent_or_private_key_file(private_key_file_bare_name: &PathString, plain_seed_bytes_32bytes: [u8; 32]) -> anyhow::Result<SecretBox<[u8; 32]>> {
-    let (tilde_private_key_file_path, private_key_file_path) = ende::get_private_key_file_path(private_key_file_bare_name)?;
-    let secret_passcode_32bytes_maybe = sign_seed_with_ssh_agent(plain_seed_bytes_32bytes, &private_key_file_path);
+pub(crate) fn sign_seed_with_ssh_agent_or_private_key_file(private_key_path_struct: &PathStruct, plain_seed_bytes_32bytes: [u8; 32]) -> anyhow::Result<SecretBox<[u8; 32]>> {
+    let secret_passcode_32bytes_maybe = sign_seed_with_ssh_agent(plain_seed_bytes_32bytes, private_key_path_struct);
     let secret_passcode_32bytes: SecretBox<[u8; 32]> = if secret_passcode_32bytes_maybe.is_ok() {
         secret_passcode_32bytes_maybe?
     } else {
@@ -169,15 +201,15 @@ pub(crate) fn sign_seed_with_ssh_agent_or_private_key_file(private_key_file_bare
         println!("  {YELLOW}WARNING: using ssh-agent is less secure, because there is no need for user interaction.{RESET}");
         println!("  {YELLOW}Knowing this, you can manually add the SSH private key to ssh-agent for 1 hour.{RESET}");
         println!("  {YELLOW}You can simply open a new bash terminal and add the key there right now:{RESET}");
-        println!("{GREEN}ssh-add -t 1h {tilde_private_key_file_path}{RESET}");
+        println!("{GREEN}ssh-add -t 1h {private_key_path_struct}{RESET}");
         println!("  {YELLOW}Unlock the private key to decrypt the saved file.{RESET}");
 
-        match sign_seed_with_private_key_file(plain_seed_bytes_32bytes, &private_key_file_path) {
+        match sign_seed_with_private_key_file(plain_seed_bytes_32bytes, private_key_path_struct.get_full_file_path()) {
             Ok(secret_passcode_32bytes) => secret_passcode_32bytes,
             Err(err) => {
                 if err.to_string() == "Passphrase empty" {
                     // try with ssh-agent, because maybe the developer has ssh-add in another terminal right now
-                    return sign_seed_with_ssh_agent(plain_seed_bytes_32bytes, &private_key_file_path);
+                    return sign_seed_with_ssh_agent(plain_seed_bytes_32bytes, private_key_path_struct);
                 }
                 anyhow::bail!(err)
             }
@@ -190,7 +222,7 @@ pub(crate) fn sign_seed_with_ssh_agent_or_private_key_file(private_key_file_bare
 ///
 /// This will be the true passcode for symmetrical encryption and decryption.  
 /// Returns secret_password_bytes.  
-fn sign_seed_with_ssh_agent(plain_seed_bytes_32bytes: [u8; 32], private_key_file_path: &camino::Utf8Path) -> anyhow::Result<SecretBox<[u8; 32]>> {
+fn sign_seed_with_ssh_agent(plain_seed_bytes_32bytes: [u8; 32], private_key_path_struct: &PathStruct) -> anyhow::Result<SecretBox<[u8; 32]>> {
     /// Internal function returns the public_key inside ssh-add
     fn public_key_from_ssh_agent(client: &mut ssh_agent_client_rs_git_bash::Client, fingerprint_from_file: &str) -> anyhow::Result<ssh_key::PublicKey> {
         let vec_public_key = client.list_identities()?;
@@ -204,9 +236,8 @@ fn sign_seed_with_ssh_agent(plain_seed_bytes_32bytes: [u8; 32], private_key_file
         }
         anyhow::bail!("This private key is not added to ssh-agent.")
     }
-    let public_key_file_path = format!("{private_key_file_path}.pub");
-    let public_key_file_path = camino::Utf8Path::new(&public_key_file_path);
-    let public_key = ssh_key::PublicKey::read_openssh_file(public_key_file_path.as_std_path())?;
+    let public_key_path_struct = PathStruct::new_public_key_file_path(private_key_path_struct.get_bare_file_name().to_string())?;
+    let public_key = ssh_key::PublicKey::read_openssh_file(public_key_path_struct.get_full_file_path().as_std_path())?;
     let fingerprint_from_file = public_key.fingerprint(Default::default()).to_string();
 
     println!("  {YELLOW}Connect to ssh-agent on SSH_AUTH_SOCK{RESET}");
