@@ -94,33 +94,31 @@ fn panic_set_hook(panic_info: &std::panic::PanicHookInfo) {
     }
 }
 
-/// Application state is initialized in the main() function.
+/// Application state (static) is initialized only once in the main() function.
 ///
 /// And then is accessible all over the code.
-pub static GITHUB_API_CONFIG: std::sync::OnceLock<ende::github_api_token_with_oauth2_mod::GithubApiConfig> = std::sync::OnceLock::new();
-
 fn github_api_config_initialize() {
+    use ende::github_api_token_with_oauth2_mod::{GithubApiConfig, GITHUB_API_CONFIG};
     if GITHUB_API_CONFIG.get().is_some() {
         return;
     }
 
     let github_api_config_json = std::fs::read_to_string("automation_tasks_rs/github_api_config.json").unwrap();
-    let github_api_config: ende::github_api_token_with_oauth2_mod::GithubApiConfig = serde_json::from_str(&github_api_config_json).unwrap();
+    let github_api_config: GithubApiConfig = serde_json::from_str(&github_api_config_json).unwrap();
     let _ = GITHUB_API_CONFIG.set(github_api_config);
 }
 
-/// Application state is initialized in the main() function.
+/// Application state (static) is initialized only once in the main() function.
 ///
 /// And then is accessible all over the code.
-pub static CRATES_IO_CONFIG: std::sync::OnceLock<ende::crates_io_api_token_mod::CratesIoConfig> = std::sync::OnceLock::new();
-
 fn crates_io_config_initialize() {
+    use ende::crates_io_api_token_mod::{CratesIoConfig, CRATES_IO_CONFIG};
     if CRATES_IO_CONFIG.get().is_some() {
         return;
     }
 
     let crates_io_config_json = std::fs::read_to_string("automation_tasks_rs/crates_io_config.json").unwrap();
-    let crates_io_config: ende::crates_io_api_token_mod::CratesIoConfig = serde_json::from_str(&crates_io_config_json).unwrap();
+    let crates_io_config: CratesIoConfig = serde_json::from_str(&crates_io_config_json).unwrap();
     let _ = CRATES_IO_CONFIG.set(crates_io_config);
 }
 

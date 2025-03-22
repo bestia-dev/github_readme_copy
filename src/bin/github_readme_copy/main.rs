@@ -44,14 +44,17 @@ fn main() {
     }
 }
 
+/// Application state (static) is initialized only once in the main() function.
+///
+/// And then is accessible all over the code.
 fn github_api_config_initialize() {
-    use github_readme_copy::GITHUB_API_CONFIG;
+    use github_readme_copy::{GithubApiConfig, GITHUB_API_CONFIG};
     if GITHUB_API_CONFIG.get().is_some() {
         return;
     }
 
     let github_api_config_json = std::fs::read_to_string("github_api_config.json").unwrap();
-    let github_api_config: github_readme_copy::GithubApiConfig = serde_json::from_str(&github_api_config_json).unwrap();
+    let github_api_config: GithubApiConfig = serde_json::from_str(&github_api_config_json).unwrap();
     let _ = GITHUB_API_CONFIG.set(github_api_config);
 }
 
@@ -72,7 +75,7 @@ fn print_help() {
 {GREEN}github_readme_copy substack substack_url{RESET}
 {GREEN}github_readme_copy github_backup_bash_scripts{RESET}
 
-    {YELLOW}© 2022 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy{RESET}
+    {YELLOW}© 2025 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy{RESET}
 "#
     );
 }

@@ -44,8 +44,6 @@
 use cargo_auto_lib::ShellCommandLimitedDoubleQuotesSanitizerTrait;
 use secrecy::{SecretBox, SecretString};
 
-use crate::CRATES_IO_CONFIG;
-
 use super::encrypt_decrypt_mod as ende;
 use super::{BLUE, GREEN, RED, RESET, YELLOW};
 
@@ -53,6 +51,11 @@ use super::{BLUE, GREEN, RED, RESET, YELLOW};
 pub struct CratesIoConfig {
     pub crates_io_private_key_bare_file_name: String,
 }
+
+/// Application state is initialized in the main() function.
+///
+/// And then is accessible all over the code.
+pub static CRATES_IO_CONFIG: std::sync::OnceLock<CratesIoConfig> = std::sync::OnceLock::new();
 
 /// get crates.io secret token
 ///
@@ -115,7 +118,14 @@ pub(crate) fn get_crates_io_secret_token(private_key_bare_file_name: &str) -> an
         // encode it just to obscure it a little bit
         let file_text = ende::encode64_from_string_to_string(&file_text);
 
-        std::fs::write(encrypted_path_struct.get_full_file_path(), file_text)?;
+        let mut file = std::fs::File::create(encrypted_path_struct.get_full_file_path())?;
+        #[cfg(target_family = "unix")]
+        {
+            let metadata = file.metadata()?;
+            let mut permissions = metadata.permissions();
+            std::os::unix::fs::PermissionsExt::set_mode(&mut permissions, 0o600);
+        }
+        std::io::Write::write_all(&mut file, file_text.as_bytes())?;
         println!("  {YELLOW}Encrypted text saved to file.{RESET}");
     }
 

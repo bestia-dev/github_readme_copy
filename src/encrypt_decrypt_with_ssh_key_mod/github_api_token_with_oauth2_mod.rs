@@ -72,11 +72,9 @@
 use anyhow::Context;
 use secrecy::{ExposeSecret, SecretBox, SecretString};
 
-use crate::encrypt_decrypt_with_ssh_key_mod::encrypt_decrypt_mod::PathStruct;
-use crate::GITHUB_API_CONFIG;
-
 use super::encrypt_decrypt_mod as ende;
 use super::encrypt_decrypt_mod::{BLUE, GREEN, RED, RESET, YELLOW};
+use ende::PathStruct;
 
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct GithubApiConfig {
@@ -84,6 +82,11 @@ pub struct GithubApiConfig {
     pub client_id: String,
     pub github_api_private_key_bare_file_name: String,
 }
+
+/// Application state (static) is initialized only once in the main() function.
+///
+/// And then is accessible all over the code.
+pub static GITHUB_API_CONFIG: std::sync::OnceLock<GithubApiConfig> = std::sync::OnceLock::new();
 
 #[derive(serde::Deserialize, serde::Serialize, zeroize::Zeroize, zeroize::ZeroizeOnDrop)]
 struct SecretResponseAccessToken {
@@ -300,7 +303,15 @@ fn encrypt_and_save_file(private_key_path_struct: &PathStruct, encrypted_path_st
     // encode it just to obscure it a little bit
     let file_text = ende::encode64_from_string_to_string(&plain_file_text);
 
-    std::fs::write(encrypted_path_struct.get_full_file_path(), file_text)?;
+    let mut file = std::fs::File::create(encrypted_path_struct.get_full_file_path())?;
+    #[cfg(target_family = "unix")]
+    {
+        let metadata = file.metadata()?;
+        let mut permissions = metadata.permissions();
+        std::os::unix::fs::PermissionsExt::set_mode(&mut permissions, 0o600); 
+    }
+    std::io::Write::write_all(&mut file, file_text.as_bytes())?;
+
     println!("  {YELLOW}Encrypted text saved to file.{RESET}");
 
     Ok(())
