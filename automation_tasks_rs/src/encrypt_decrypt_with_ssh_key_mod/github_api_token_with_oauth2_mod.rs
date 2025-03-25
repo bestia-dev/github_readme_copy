@@ -77,7 +77,7 @@ use super::{BLUE, GREEN, RED, RESET, YELLOW};
 pub struct GithubApiConfig {
     pub github_app_name: String,
     pub client_id: String,
-    pub github_api_private_key_bare_file_name: String,
+    pub github_api_private_key_file_name: String,
 }
 
 /// Application state (static) is initialized only once in the main() function.
@@ -97,14 +97,14 @@ struct SecretResponseAccessToken {
 
 /// Start the github oauth2 device workflow
 /// It will use the private key from the .ssh folder.
-/// The encrypted file has the same bare name with the "enc" extension.
+/// The encrypted file has the same file name with the ".enc" extension.
 /// Returns access_token to use as bearer for api calls
 pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
     let client_id = GITHUB_API_CONFIG.get().unwrap().client_id.to_string();
-    let private_key_bare_file_name = GITHUB_API_CONFIG.get().unwrap().github_api_private_key_bare_file_name.to_string();
+    let private_key_file_name = GITHUB_API_CONFIG.get().unwrap().github_api_private_key_file_name.to_string();
 
     println!("  {YELLOW}Check if the ssh private key exists.{RESET}");
-    let private_key_path_struct = ende::PathStruct::new_private_key_file_path(private_key_bare_file_name.clone())?;
+    let private_key_path_struct = ende::PathStructInSshFolder::new(private_key_file_name.clone())?;
     if !std::fs::exists(private_key_path_struct.get_full_file_path())? {
         eprintln!("{RED}Error: Private key {private_key_path_struct} does not exist.{RESET}");
         println!("  {YELLOW}Create the private key in bash terminal:{RESET}");
@@ -113,7 +113,7 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
     }
 
     println!("  {YELLOW}Check if the encrypted file exists.{RESET}");
-    let encrypted_path_struct = ende::PathStruct::new_encrypted_file_path(private_key_bare_file_name)?;
+    let encrypted_path_struct = ende::PathStructInSshFolder::new(format!("{private_key_file_name}.enc"))?;
     if !std::fs::exists(encrypted_path_struct.get_full_file_path())? {
         println!("  {YELLOW}Encrypted file {encrypted_path_struct} does not exist.{RESET}");
         println!("  {YELLOW}Continue to authentication with the browser{RESET}");
@@ -156,7 +156,7 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
     }
 }
 
-fn authenticate_with_browser_and_save_file(client_id: &str, private_key_path_struct: &ende::PathStruct, encrypted_path_struct: &ende::PathStruct) -> anyhow::Result<SecretString> {
+fn authenticate_with_browser_and_save_file(client_id: &str, private_key_path_struct: &ende::PathStructInSshFolder, encrypted_path_struct: &ende::PathStructInSshFolder) -> anyhow::Result<SecretString> {
     let secret_response_access_token: SecretBox<SecretResponseAccessToken> = authentication_with_browser(client_id)?;
     let secret_access_token = SecretString::from(secret_response_access_token.expose_secret().access_token.clone());
     println!("  {YELLOW}Encrypt data and save file{RESET}");
@@ -265,8 +265,8 @@ fn refresh_tokens(client_id: &str, refresh_token: String) -> anyhow::Result<Secr
 /// together with the encrypted data in json format.
 /// To avoid plain text in the end encode in base64 just for obfuscate a little bit.
 fn encrypt_and_save_file(
-    private_key_path_struct: &ende::PathStruct,
-    encrypted_path_struct: &ende::PathStruct,
+    private_key_path_struct: &ende::PathStructInSshFolder,
+    encrypted_path_struct: &ende::PathStructInSshFolder,
     secret_response_access_token: SecretBox<SecretResponseAccessToken>,
 ) -> anyhow::Result<()> {
     let secret_string = SecretString::from(serde_json::to_string(&secret_response_access_token.expose_secret())?);
@@ -293,7 +293,7 @@ fn encrypt_and_save_file(
         .to_rfc3339();
 
     let encrypted_text_with_metadata = ende::EncryptedTextWithMetadata {
-        private_key_bare_file_name: private_key_path_struct.get_bare_file_name().to_string(),
+        private_key_file_name: private_key_path_struct.get_file_name().to_string(),
         plain_seed_string,
         plain_encrypted_text: encrypted_string,
         access_token_expiration: Some(access_token_expiration),
@@ -327,7 +327,7 @@ fn encrypt_and_save_file(
 /// This signature will be used as the true passcode for symmetrical decryption.  
 fn decrypt_text_with_metadata(encrypted_text_with_metadata: ende::EncryptedTextWithMetadata) -> anyhow::Result<SecretBox<SecretResponseAccessToken>> {
     // the private key file is written inside the file
-    let private_key_path_struct = ende::PathStruct::new_private_key_file_path(encrypted_text_with_metadata.private_key_bare_file_name.clone())?;
+    let private_key_path_struct = ende::PathStructInSshFolder::new(encrypted_text_with_metadata.private_key_file_name.clone())?;
     if !camino::Utf8Path::new(private_key_path_struct.get_full_file_path()).exists() {
         anyhow::bail!("{RED}Error: File {private_key_path_struct} does not exist! {RESET}");
     }

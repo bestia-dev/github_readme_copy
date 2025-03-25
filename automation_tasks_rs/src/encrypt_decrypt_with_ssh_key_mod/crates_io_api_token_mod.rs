@@ -47,7 +47,7 @@ use super::{BLUE, GREEN, RED, RESET, YELLOW};
 
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct CratesIoConfig {
-    pub crates_io_private_key_bare_file_name: String,
+    pub crates_io_private_key_file_name: String,
 }
 
 /// Application state is initialized in the main() function.
@@ -59,7 +59,7 @@ pub static CRATES_IO_CONFIG: std::sync::OnceLock<CratesIoConfig> = std::sync::On
 ///
 /// If exists, decrypt it from file.  
 /// Else ask user to input the token and encrypt it into a file.  
-pub(crate) fn get_crates_io_secret_token(private_key_bare_file_name: &str) -> anyhow::Result<SecretString> {
+pub(crate) fn get_crates_io_secret_token(private_key_file_name: &str) -> anyhow::Result<SecretString> {
     // check if the plain-text file from `cargo login` exists and warn the user
     // because it is a security vulnerability.
     println!("  {YELLOW}Check if credentials.toml from 'cargo login' exists.{RESET}");
@@ -72,7 +72,7 @@ pub(crate) fn get_crates_io_secret_token(private_key_bare_file_name: &str) -> an
     }
 
     println!("  {YELLOW}Check if the ssh private key exists.{RESET}");
-    let private_key_path_struct = ende::PathStruct::new_private_key_file_path(private_key_bare_file_name.to_string())?;
+    let private_key_path_struct = ende::PathStructInSshFolder::new(private_key_file_name.to_string())?;
     if !std::fs::exists(private_key_path_struct.get_full_file_path())? {
         eprintln!("{RED}Error: Private key {private_key_path_struct} does not exist.{RESET}");
         println!("  {YELLOW}Create the private key in bash terminal:{RESET}");
@@ -81,7 +81,7 @@ pub(crate) fn get_crates_io_secret_token(private_key_bare_file_name: &str) -> an
     }
 
     println!("  {YELLOW}Check if the encrypted file exists.{RESET}");
-    let encrypted_path_struct = ende::PathStruct::new_encrypted_file_path(private_key_bare_file_name.to_string())?;
+    let encrypted_path_struct = ende::PathStructInSshFolder::new(format!("{private_key_file_name}.enc"))?;
     if !std::fs::exists(encrypted_path_struct.get_full_file_path())? {
         println!("  {YELLOW}Encrypted file {encrypted_path_struct} does not exist.{RESET}");
         println!("  {YELLOW}Get your secret token from: https://crates.io/settings/tokens {RESET}");
@@ -105,7 +105,7 @@ pub(crate) fn get_crates_io_secret_token(private_key_bare_file_name: &str) -> an
 
         // prepare a struct to save as encoded string
         let encrypted_text_with_metadata = ende::EncryptedTextWithMetadata {
-            private_key_bare_file_name: private_key_path_struct.get_bare_file_name().to_string(),
+            private_key_file_name: private_key_path_struct.get_file_name().to_string(),
             plain_seed_string,
             plain_encrypted_text,
             access_token_expiration: None,
@@ -133,7 +133,7 @@ pub(crate) fn get_crates_io_secret_token(private_key_bare_file_name: &str) -> an
     let encrypted_text_with_metadata: ende::EncryptedTextWithMetadata = serde_json::from_str(&encrypted_text_with_metadata)?;
     println!("  {YELLOW}Decrypt the file with ssh-agent or private key.{RESET}");
     // the private key file is written inside the file
-    let private_key_path_struct = ende::PathStruct::new_private_key_file_path(encrypted_text_with_metadata.private_key_bare_file_name.clone())?;
+    let private_key_path_struct = ende::PathStructInSshFolder::new(encrypted_text_with_metadata.private_key_file_name.clone())?;
     if !camino::Utf8Path::new(private_key_path_struct.get_full_file_path()).exists() {
         anyhow::bail!("{RED}Error: File {private_key_path_struct} does not exist! {RESET}");
     }
@@ -155,7 +155,7 @@ pub fn publish_to_crates_io() -> anyhow::Result<()> {
         crates_io_secret_token_key: String,
     }
 
-    let secret_access_token = get_crates_io_secret_token(&CRATES_IO_CONFIG.get().unwrap().crates_io_private_key_bare_file_name)?;
+    let secret_access_token = get_crates_io_secret_token(&CRATES_IO_CONFIG.get().unwrap().crates_io_private_key_file_name)?;
     // the secret_token is redacted when print on screen
     cargo_auto_lib::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"cargo publish --token "{secret_token}" "#)
         .unwrap_or_else(|e| panic!("{e}"))
