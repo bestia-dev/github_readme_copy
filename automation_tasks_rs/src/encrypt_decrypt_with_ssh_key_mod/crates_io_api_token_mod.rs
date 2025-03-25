@@ -43,7 +43,7 @@ use cargo_auto_lib::ShellCommandLimitedDoubleQuotesSanitizerTrait;
 use secrecy::{SecretBox, SecretString};
 
 use super::encrypt_decrypt_mod as ende;
-use super::{BLUE, GREEN, RED, RESET, YELLOW};
+use crate::{BLUE, GREEN, RED, RESET, YELLOW};
 
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct CratesIoConfig {

@@ -4,7 +4,7 @@
 //!
 //! Functions to encrypt decrypt a secret string.
 
-use super::{BLUE, GREEN, RED, RESET, YELLOW};
+use crate::{BLUE, GREEN, RED, RESET, YELLOW};
 use secrecy::{ExposeSecret, ExposeSecretMut, SecretBox, SecretString};
 
 pub struct PathStructInSshFolder {
