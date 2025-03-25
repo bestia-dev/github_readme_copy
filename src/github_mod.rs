@@ -12,16 +12,43 @@ use secrecy::ExposeSecret;
 pub fn download_readme(secret_token: &secrecy::SecretString) {
     let dest_folder = std::path::Path::new("github_readme");
     if !dest_folder.exists() {
-        panic!("Error: Folder {} does not exist.", dest_folder.to_string_lossy())
+        panic!(
+            "Error: Folder {} does not exist.",
+            dest_folder.to_string_lossy()
+        )
     }
     // copy directory structure from template
-    std::fs::copy("template_for_github_readme/bestia_icon.png", "github_readme/bestia_icon.png").unwrap();
-    std::fs::copy("template_for_github_readme/README.md", "github_readme/README.md").unwrap();
+    std::fs::copy(
+        "template_for_github_readme/bestia_icon.png",
+        "github_readme/bestia_icon.png",
+    )
+    .unwrap();
+    std::fs::copy(
+        "template_for_github_readme/README.md",
+        "github_readme/README.md",
+    )
+    .unwrap();
     std::fs::create_dir_all("github_readme/css").unwrap();
-    std::fs::copy("template_for_github_readme/css/bestia01.css", "github_readme/css/bestia01.css").unwrap();
-    std::fs::copy("template_for_github_readme/css/bestia01.css", "github_readme/css/bestia01.css").unwrap();
-    std::fs::copy("template_for_github_readme/css/normalize.css", "github_readme/css/normalize.css").unwrap();
-    std::fs::copy("template_for_github_readme/css/Roboto-Medium.woff2", "github_readme/css/Roboto-Medium.woff2").unwrap();
+    std::fs::copy(
+        "template_for_github_readme/css/bestia01.css",
+        "github_readme/css/bestia01.css",
+    )
+    .unwrap();
+    std::fs::copy(
+        "template_for_github_readme/css/bestia01.css",
+        "github_readme/css/bestia01.css",
+    )
+    .unwrap();
+    std::fs::copy(
+        "template_for_github_readme/css/normalize.css",
+        "github_readme/css/normalize.css",
+    )
+    .unwrap();
+    std::fs::copy(
+        "template_for_github_readme/css/Roboto-Medium.woff2",
+        "github_readme/css/Roboto-Medium.woff2",
+    )
+    .unwrap();
 
     // create a future and then run it in the tokio runtime
     let rt1 = tokio::runtime::Runtime::new().unwrap();
@@ -29,7 +56,10 @@ pub fn download_readme(secret_token: &secrecy::SecretString) {
     let vec_of_repo = rt1.block_on(future1);
 
     // 12 threads to download in parallel
-    let pool = rayon::ThreadPoolBuilder::new().num_threads(12).build().unwrap();
+    let pool = rayon::ThreadPoolBuilder::new()
+        .num_threads(12)
+        .build()
+        .unwrap();
     pool.scope(|scoped| {
         for repo in &vec_of_repo {
             let repo_name = &repo.name;
@@ -44,7 +74,8 @@ pub fn download_readme(secret_token: &secrecy::SecretString) {
                 //let measure_instant = std::time::Instant::now();
                 let article = get_article(&body);
                 //println!( "Elapsed time get_article: {} ms", measure_instant.elapsed().as_millis() );
-                let mut new_html = std::fs::read_to_string("template_for_github_readme/0_template.txt").unwrap();
+                let mut new_html =
+                    std::fs::read_to_string("template_for_github_readme/0_template.txt").unwrap();
 
                 insert_title(&mut new_html, &title);
                 insert_url(&mut new_html, repo.html_url.as_ref().unwrap().as_ref());
@@ -72,7 +103,10 @@ pub fn download_readme(secret_token: &secrecy::SecretString) {
 }
 
 // rename obsolete html
-fn rename_obsolete_html(dest_folder: &std::path::Path, vec_of_repo: &Vec<octocrab::models::Repository>) {
+fn rename_obsolete_html(
+    dest_folder: &std::path::Path,
+    vec_of_repo: &Vec<octocrab::models::Repository>,
+) {
     for entry in dest_folder.read_dir().unwrap().flatten() {
         if entry.file_name().to_string_lossy().ends_with(".html") {
             let mut repo_exists = false;
@@ -92,27 +126,40 @@ fn rename_obsolete_html(dest_folder: &std::path::Path, vec_of_repo: &Vec<octocra
 }
 
 fn insert_article(new_html: &mut String, article: &str) {
-    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "\n</body>").unwrap();
+    let pos3 =
+        crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "\n</body>").unwrap();
     new_html.replace_range(pos3..pos3, article);
 }
 
 fn insert_title(new_html: &mut String, title: &str) {
-    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "<title>template</title>").unwrap();
+    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(
+        &*new_html,
+        0,
+        "<title>template</title>",
+    )
+    .unwrap();
     new_html.replace_range(pos3 + 7..pos3 + 15, title);
 }
 fn insert_url(new_html: &mut String, url: &str) {
-    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "canonical_url").unwrap();
+    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "canonical_url")
+        .unwrap();
     new_html.replace_range(pos3..pos3 + 13, url);
 }
 
 fn insert_description(new_html: &mut String, description: &str) {
-    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, r#"content="Learning Rust Wasm/Webassembly programming and having fun""#).unwrap();
+    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(
+        &*new_html,
+        0,
+        r#"content="Learning Rust Wasm/Webassembly programming and having fun""#,
+    )
+    .unwrap();
     new_html.replace_range(pos3 + 9..pos3 + 66, description);
 }
 
 fn get_article(body: &str) -> String {
     let pos1 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "<article ").unwrap();
-    let pos2 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "</article>").unwrap();
+    let pos2 =
+        crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "</article>").unwrap();
     let article = &body[pos1..pos2];
     let article = remove_svg_octicon(article).unwrap();
     // return article
@@ -151,7 +198,9 @@ fn img_src_modify(article: &str) -> Result<String, Box<dyn std::error::Error>> {
     let element_content_handlers = vec![
         // Rewrite insecure hyperlinks
         element!("img[data-canonical-src]", |el| {
-            let canonical = el.get_attribute("data-canonical-src").unwrap_or("".to_string());
+            let canonical = el
+                .get_attribute("data-canonical-src")
+                .unwrap_or("".to_string());
             if !canonical.is_empty() {
                 el.set_attribute("src", &canonical).unwrap();
                 el.remove_attribute("data-canonical-src");
@@ -187,7 +236,8 @@ fn get_github_description<'a>(body: &'a str, title: &str) -> &'a str {
 <p dir="auto"><strong>"#,
     )
     .unwrap_or_else(|| panic!("Not found GitHub description start for {title}"));
-    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "</strong><br>").unwrap_or_else(|| panic!("not found GitHub description end for {title}"));
+    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "</strong><br>")
+        .unwrap_or_else(|| panic!("not found GitHub description end for {title}"));
     // return github_description
     &body[pos1..pos2]
 }
@@ -198,15 +248,27 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String
     let repo_url = repo.html_url.as_ref().unwrap();
     println!("    Reading {}", repo_url);
     // open the html
-    let body = reqwest::get(repo_url.clone()).await.unwrap().text().await.unwrap();
+    let body = reqwest::get(repo_url.clone())
+        .await
+        .unwrap()
+        .text()
+        .await
+        .unwrap();
 
     // get title and description
     // They are already HTML encoded, because they come from a HTML
     // find and parse: <title>GitHub - bestia-dev/github_readme_copy: Copy my public README.md files from Github in HTML format</title>
     let title = get_long_title(&body);
     let mut spl = title.split(": ");
-    let title = spl.next().unwrap().trim_start_matches("GitHub - bestia-dev/").to_string();
-    let description = spl.next().unwrap_or_else(|| panic!("Panic reading description of {}", title)).to_string();
+    let title = spl
+        .next()
+        .unwrap()
+        .trim_start_matches("GitHub - bestia-dev/")
+        .to_string();
+    let description = spl
+        .next()
+        .unwrap_or_else(|| panic!("Panic reading description of {}", title))
+        .to_string();
 
     // check if the description of the project and the GitHub description is the same
     let github_description = get_github_description(&body, &title);
@@ -241,8 +303,13 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String
 }
 
 /// only public repos
-async fn vec_of_public_repos_from_github(secret_token: &secrecy::SecretString) -> Vec<octocrab::models::Repository> {
-    let octocrab = octocrab::Octocrab::builder().personal_token(secret_token.expose_secret()).build().unwrap();
+async fn vec_of_public_repos_from_github(
+    secret_token: &secrecy::SecretString,
+) -> Vec<octocrab::models::Repository> {
+    let octocrab = octocrab::Octocrab::builder()
+        .personal_token(secret_token.expose_secret())
+        .build()
+        .unwrap();
     let page = octocrab
         .current()
         .list_repos_for_authenticated_user()
@@ -253,22 +320,44 @@ async fn vec_of_public_repos_from_github(secret_token: &secrecy::SecretString) -
         .await
         .unwrap();
     // return vec_of_repo
-    octocrab.all_pages::<octocrab::models::Repository>(page).await.unwrap()
+    octocrab
+        .all_pages::<octocrab::models::Repository>(page)
+        .await
+        .unwrap()
 }
 
 /// private and public repos
-async fn vec_of_private_and_public_repos_from_github(secret_token: &secrecy::SecretString) -> Vec<octocrab::models::Repository> {
-    let octocrab = octocrab::Octocrab::builder().personal_token(secret_token.expose_secret()).build().unwrap();
-    let page = octocrab.current().list_repos_for_authenticated_user().sort("full_name").per_page(100).send().await.unwrap();
+async fn vec_of_private_and_public_repos_from_github(
+    secret_token: &secrecy::SecretString,
+) -> Vec<octocrab::models::Repository> {
+    let octocrab = octocrab::Octocrab::builder()
+        .personal_token(secret_token.expose_secret())
+        .build()
+        .unwrap();
+    let page = octocrab
+        .current()
+        .list_repos_for_authenticated_user()
+        .sort("full_name")
+        .per_page(100)
+        .send()
+        .await
+        .unwrap();
     // return vec_of_repo
-    octocrab.all_pages::<octocrab::models::Repository>(page).await.unwrap()
+    octocrab
+        .all_pages::<octocrab::models::Repository>(page)
+        .await
+        .unwrap()
 }
 
 pub fn upload_github_readme(upload_url: &str) {
     let source_folder = std::path::Path::new("github_readme");
     let upload_url = format!("{upload_url}/github_readme");
     // easy upload with rsync over SSH
-    println!("\nUploading from {}/ to server {}...\n", source_folder.to_string_lossy(), &upload_url);
+    println!(
+        "\nUploading from {}/ to server {}...\n",
+        source_folder.to_string_lossy(),
+        &upload_url
+    );
     // the SSh key must be already ssh-add into the ssh-agent
     // rsync -e ssh -avz --delete-after github_readme luciano_bestia@bestia.dev:/var/www/bestia.dev/github_readme
     let mut rsync = std::process::Command::new("rsync");
@@ -290,7 +379,11 @@ pub fn upload_substack_articles(upload_url: &str) {
     let source_folder = std::path::Path::new("substack_articles");
     let upload_url = format!("{upload_url}/substack_articles");
     // easy upload with rsync over SSH
-    println!("\nUploading from {}/ to server {}...\n", source_folder.to_string_lossy(), upload_url);
+    println!(
+        "\nUploading from {}/ to server {}...\n",
+        source_folder.to_string_lossy(),
+        upload_url
+    );
     // the SSh key must be already ssh-add into the ssh-agent
     // rsync -e ssh -avz --delete-after github_readme luciano_bestia@bestia.dev:/var/www/bestia.dev/github_readme
     let mut rsync = std::process::Command::new("rsync");
@@ -312,10 +405,17 @@ pub fn upload_substack_articles(upload_url: &str) {
 pub fn github_backup_bash_scripts(secret_token: &secrecy::SecretString) {
     let dest_folder = std::path::Path::new("bash_script_for_backup");
     if !dest_folder.exists() {
-        panic!("Error: Folder {} does not exist.", dest_folder.to_string_lossy())
+        panic!(
+            "Error: Folder {} does not exist.",
+            dest_folder.to_string_lossy()
+        )
     }
     // copy directory structure from template
-    std::fs::copy("template_for_bash_script_for_backup/README.md", "bash_script_for_backup/README.md").unwrap();
+    std::fs::copy(
+        "template_for_bash_script_for_backup/README.md",
+        "bash_script_for_backup/README.md",
+    )
+    .unwrap();
 
     // create a future and then run it in the tokio runtime
     let rt1 = tokio::runtime::Runtime::new().unwrap();
@@ -369,9 +469,13 @@ cd {path_base}\
 cd {path_base}\
 "#
     ));
-    let path = dest_folder.join("pull_all_for_backup").with_extension("cmd");
+    let path = dest_folder
+        .join("pull_all_for_backup")
+        .with_extension("cmd");
     std::fs::write(&path, pull_script).unwrap();
-    let path = dest_folder.join("push_all_for_backup").with_extension("cmd");
+    let path = dest_folder
+        .join("push_all_for_backup")
+        .with_extension("cmd");
     std::fs::write(&path, push_script).unwrap();
 }
 
