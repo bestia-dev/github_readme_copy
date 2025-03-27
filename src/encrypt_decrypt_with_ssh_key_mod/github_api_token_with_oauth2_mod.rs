@@ -100,6 +100,12 @@ struct SecretResponseAccessToken {
 /// The encrypted file has the same file name with the ".enc" extension.
 /// Returns access_token to use as bearer for api calls
 pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
+    // how to cache the secret (locally), to not processing it every time
+    static GITHUB_SECRET_TOKEN: std::sync::OnceLock<SecretString> = std::sync::OnceLock::new();
+    if GITHUB_SECRET_TOKEN.get().is_some() {
+        return Ok(GITHUB_SECRET_TOKEN.get().unwrap().clone());
+    }
+
     let client_id = GITHUB_API_CONFIG.get().unwrap().client_id.to_string();
     let private_key_file_name = GITHUB_API_CONFIG
         .get()
@@ -159,6 +165,7 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
                 &private_key_path_struct,
                 &encrypted_path_struct,
             )?;
+            let _ = GITHUB_SECRET_TOKEN.set(secret_access_token.clone());
             return Ok(secret_access_token);
         }
         if encrypted_text_with_metadata
@@ -197,6 +204,7 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
                 &encrypted_path_struct,
                 secret_response_access_token,
             )?;
+            let _ = GITHUB_SECRET_TOKEN.set(secret_access_token.clone());
             return Ok(secret_access_token);
         }
         println!("  {YELLOW}Decrypt the file with the private key.{RESET}");
@@ -208,6 +216,7 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
                 .access_token
                 .clone(),
         );
+        let _ = GITHUB_SECRET_TOKEN.set(secret_access_token.clone());
         Ok(secret_access_token)
     }
 }
@@ -451,9 +460,10 @@ fn decrypt_text_with_metadata(
     Ok(secret_response_access_token)
 }
 
+/// Return json and header_link for pagination.
 pub(crate) fn send_to_github_api_with_secret_token(
     req: reqwest::blocking::RequestBuilder,
-) -> anyhow::Result<serde_json::Value> {
+) -> anyhow::Result<(serde_json::Value, Option<String>)> {
     // I must build the request to be able then to inspect it.
     let req = req
         .bearer_auth(get_github_secret_token()?.expose_secret())
@@ -477,7 +487,11 @@ pub(crate) fn send_to_github_api_with_secret_token(
     // endregion: Assert the correct url and https
 
     let reqwest_client = reqwest::blocking::Client::new();
-    let response_text = reqwest_client.execute(req)?.text()?;
+    let response = reqwest_client.execute(req)?;
+    // pagination is in the header 'link'
+    let header_link = response.headers().get("link").unwrap();
+    let header_link = Some(header_link.to_str().unwrap().to_string());
+    let response_text = response.text()?;
 
     let json_value: serde_json::Value = serde_json::from_str(&response_text)?;
 
@@ -489,7 +503,7 @@ pub(crate) fn send_to_github_api_with_secret_token(
     }
 
     // return
-    Ok(json_value)
+    Ok((json_value, header_link))
 }
 
 /// Upload to GitHub
@@ -502,6 +516,7 @@ pub(crate) async fn upload_to_github_with_secret_token(
     req: reqwest::RequestBuilder,
 ) -> anyhow::Result<serde_json::Value> {
     // I must build the request to be able then to inspect it.
+
     let req = req
         .bearer_auth(get_github_secret_token()?.expose_secret())
         .build()?;

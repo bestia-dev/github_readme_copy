@@ -42,7 +42,7 @@ Then I will use an `rsync` command to upload the files to my google cloud virtua
 ## OAuth2 for api token
 
 I will use the crate `octocrab` to get a list of my public repos.  
-It needs the secret api token. I will use OAuth2 to retrieve it.
+It needs the secret api token. I will use OAuth2 to retrieve it and ssh private key to encrypt it and store locally.
 
 ## Workspaces with Primary project
 

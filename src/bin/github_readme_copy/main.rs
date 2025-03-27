@@ -20,9 +20,7 @@ fn main() {
     match std::env::args().nth(1).as_deref() {
         None | Some("--help") | Some("-h") => print_help(),
         Some("download") => {
-            // get the authentication over OAuth2
-            let secret_token = github_readme_copy::get_github_secret_token().unwrap();
-            download_readme(&secret_token);
+            download_readme();
         }
         Some("upload") => match std::env::args().nth(2).as_deref() {
             // second argument
@@ -61,13 +59,13 @@ fn github_api_config_initialize() {
 /// print help
 fn print_help() {
     println!(
-        r#"      
-    {YELLOW}Welcome to github_readme_copy
-    This program will download all your public README.md from GitHub in html format
-    and upload these html files to your web server.
-    This is useful, because SEO works really bad on GitHub READMEs.{RESET}
-    {YELLOW}Before upload over SSH, use ssh-agent and ssh-add 
-    to add the passphrase for the SSH connection to the web server.{RESET}
+        r#"
+  {YELLOW}Welcome to github_readme_copy
+  This program will download all your public README.md from GitHub in html format
+  and upload these html files to your web server.
+  This is useful, because SEO works really bad on GitHub READMEs.{RESET}
+  {YELLOW}Before upload over SSH, use ssh-agent and ssh-add 
+  to add the passphrase for the SSH connection to the web server.{RESET}
 
 {GREEN}github_readme_copy --help{RESET}
 {GREEN}github_readme_copy download{RESET}
@@ -75,14 +73,14 @@ fn print_help() {
 {GREEN}github_readme_copy substack substack_url{RESET}
 {GREEN}github_readme_copy github_backup_bash_scripts{RESET}
 
-    {YELLOW}© 2025 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy{RESET}
+  {YELLOW}© 2025 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy{RESET}
 "#
     );
 }
 
 /// download from GitHub using your personal GitHub token inside the env variable
-fn download_readme(secret_token: &secrecy::SecretString) {
-    github_readme_copy::download_readme(secret_token);
+fn download_readme() {
+    github_readme_copy::download_readme();
 }
 
 /// upload over SSH

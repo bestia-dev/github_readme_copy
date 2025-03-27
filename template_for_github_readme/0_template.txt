@@ -8,8 +8,8 @@
     <meta name="author" content="https://github.com/bestia-dev">
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/bestia01.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/bestia01.css">
     <script>
         /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
         function toggle_responsive_navbar() {

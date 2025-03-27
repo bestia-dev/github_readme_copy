@@ -105,7 +105,7 @@ pub fn substack_download(substack_url: &str) {
 /// list urls from all articles from /api/v1/archive
 async fn vec_of_public_repos_from_github(substack_url: &str) -> Vec<SubstackArticle> {
     let archive_url = format!("https://{}/api/v1/archive", substack_url);
-    println!("    Reading list of articles: {}", &archive_url);
+    println!("  Reading list of articles: {}", &archive_url);
     reqwest::get(archive_url.clone())
         .await
         .unwrap()

@@ -4,12 +4,13 @@
 //!
 //! This doc-comments will be compiled into the `docs`.
 
-// se crate::LibraryError;
-
+use crate::encrypt_decrypt_with_ssh_key_mod as ende;
+#[allow(unused_imports)]
+use crate::{BLUE, GREEN, RED, RESET, YELLOW};
 use secrecy::ExposeSecret;
 
 /// download public readmes
-pub fn download_readme(secret_token: &secrecy::SecretString) {
+pub fn download_readme() {
     let dest_folder = std::path::Path::new("github_readme");
     if !dest_folder.exists() {
         panic!(
@@ -50,27 +51,52 @@ pub fn download_readme(secret_token: &secrecy::SecretString) {
     )
     .unwrap();
 
-    // create a future and then run it in the tokio runtime
-    let rt1 = tokio::runtime::Runtime::new().unwrap();
-    let future1 = async move { vec_of_public_repos_from_github(secret_token).await };
-    let vec_of_repo = rt1.block_on(future1);
+    let mut vec_of_repo: Vec<String> = vec![];
+    // pagination starts at 1
+    let mut next_page = Some(1);
 
-    // 12 threads to download in parallel
+    while next_page.is_some() {
+        let next_page_num = next_page.unwrap();
+        let builder = list_repositories_for_the_authenticated_user();
+        // add pagination
+        let builder = builder.query(&[("page", next_page_num.to_string())]);
+        let (json_value, header_link) =
+            ende::github_api_token_with_oauth2_mod::send_to_github_api_with_secret_token(builder)
+                .unwrap();
+        let ar = json_value.as_array().unwrap();
+        for x in ar.iter() {
+            vec_of_repo.push(x.get("full_name").unwrap().as_str().unwrap().to_string());
+        }
+        // pagination
+        // "<https://api.github.com/user/repos?page=2>; rel=\"next\",
+        // <https://api.github.com/user/repos?page=5>; rel=\"last\"",
+        let header_link = header_link.unwrap();
+        if header_link.contains(r#"rel="next""#) {
+            next_page = Some(next_page_num + 1);
+        } else {
+            next_page = None;
+        }
+    }
+    // vec_of_repo:
+    // "automation-tasks-rs/automation-tasks-rs",
+    // "bestia-dev/backup_for_zeljko",...
+
+    // 4 threads to download in parallel
     let pool = rayon::ThreadPoolBuilder::new()
-        .num_threads(12)
+        .num_threads(4)
         .build()
         .unwrap();
     pool.scope(|scoped| {
-        for repo in &vec_of_repo {
-            let repo_name = &repo.name;
+        for repo_org_and_name in vec_of_repo.iter() {
             scoped.spawn(move |_s| {
                 // create a future and then run it in the tokio runtime
                 //let measure_instant = std::time::Instant::now();
                 let rt2 = tokio::runtime::Runtime::new().unwrap();
                 //println!( "Elapsed time tokio::runtime::Runtime::new(): {} ms", measure_instant.elapsed().as_millis() );
 
-                let future2 = async move { get_readme_body(repo).await };
-                let (body, title, description) = rt2.block_on(future2);
+                let future2 = async move { get_readme_body(repo_org_and_name).await };
+                let (organization, body, title, description) = rt2.block_on(future2);
+
                 //let measure_instant = std::time::Instant::now();
                 let article = get_article(&body);
                 //println!( "Elapsed time get_article: {} ms", measure_instant.elapsed().as_millis() );
@@ -78,13 +104,17 @@ pub fn download_readme(secret_token: &secrecy::SecretString) {
                     std::fs::read_to_string("template_for_github_readme/0_template.txt").unwrap();
 
                 insert_title(&mut new_html, &title);
-                insert_url(&mut new_html, repo.html_url.as_ref().unwrap().as_ref());
+                let repo_html_url = format!("https://github.com/{repo_org_and_name}");
+                insert_url(&mut new_html, &repo_html_url);
                 // this is present 2 times
-                insert_url(&mut new_html, repo.html_url.as_ref().unwrap().as_ref());
+                insert_url(&mut new_html, &repo_html_url);
                 insert_description(&mut new_html, &description);
                 insert_article(&mut new_html, &article);
 
-                let path = dest_folder.join(repo_name).with_extension("html");
+                let org_folder_path = dest_folder.join(organization);
+                std::fs::create_dir_all(&org_folder_path).unwrap();
+
+                let path = org_folder_path.join(title).with_extension("html");
                 if path.exists() {
                     let old_html = std::fs::read_to_string(&path).unwrap();
                     if old_html != new_html {
@@ -103,23 +133,37 @@ pub fn download_readme(secret_token: &secrecy::SecretString) {
 }
 
 // rename obsolete html
-fn rename_obsolete_html(
-    dest_folder: &std::path::Path,
-    vec_of_repo: &Vec<octocrab::models::Repository>,
-) {
-    for entry in dest_folder.read_dir().unwrap().flatten() {
-        if entry.file_name().to_string_lossy().ends_with(".html") {
-            let mut repo_exists = false;
-            for repo in vec_of_repo {
-                if format!("{}.html", &repo.name) == entry.file_name().to_string_lossy() {
-                    repo_exists = true;
-                    break;
+fn rename_obsolete_html(dest_folder: &std::path::Path, vec_of_repo: &Vec<String>) {
+    for organization in dest_folder.read_dir().unwrap().flatten() {
+        if organization.metadata().unwrap().is_dir() {
+            for file_entry in organization.path().read_dir().unwrap().flatten() {
+                if file_entry.file_name().to_string_lossy().ends_with(".html") {
+                    let mut repo_exists = false;
+                    for repo_org_and_name in vec_of_repo {
+                        if format!("{}.html", repo_org_and_name)
+                            == format!(
+                                "{}/{}",
+                                organization.file_name().to_string_lossy(),
+                                file_entry.file_name().to_string_lossy()
+                            )
+                        {
+                            repo_exists = true;
+                            break;
+                        }
+                    }
+                    if !repo_exists {
+                        // rename the file
+                        println!(
+                            "Obsolete renamed: {}",
+                            &file_entry.file_name().to_string_lossy()
+                        );
+                        std::fs::rename(
+                            file_entry.path(),
+                            file_entry.path().with_extension("obsolete"),
+                        )
+                        .unwrap();
+                    }
                 }
-            }
-            if !repo_exists {
-                // rename the file
-                println!("Obsolete renamed: {}", &entry.file_name().to_string_lossy());
-                std::fs::rename(entry.path(), entry.path().with_extension("obsolete")).unwrap();
             }
         }
     }
@@ -223,30 +267,35 @@ fn img_src_modify(article: &str) -> Result<String, Box<dyn std::error::Error>> {
 
 fn get_long_title(body: &str) -> &str {
     let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "<title>").unwrap();
-    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "</title>").unwrap();
+    let pos2 =
+        crate::utils_mod::find_pos_end_data_before_delimiter(&body[pos1..], 0, "</title>").unwrap();
     // return title
-    &body[pos1..pos2]
+    &body[pos1..pos2 + pos1]
 }
 
 fn get_github_description<'a>(body: &'a str, title: &str) -> &'a str {
     let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(
         body,
         0,
-        r#"</h1>
-<p dir="auto"><strong>"#,
+        r#"<p dir="auto"><em><strong>"#,
     )
-    .unwrap_or_else(|| panic!("Not found GitHub description start for {title}"));
-    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "</strong><br>")
+    .unwrap_or_else(|| {
+        crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, r#"<p dir="auto"><strong>"#)
+            .unwrap_or_else(|| panic!("Not found GitHub description start for {title}"))
+    });
+
+    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(&body[pos1..], 0, "</strong>")
         .unwrap_or_else(|| panic!("not found GitHub description end for {title}"));
     // return github_description
-    &body[pos1..pos2]
+    &body[pos1..pos2 + pos1]
 }
 
 /// get the right readme body
 /// if there is a link to >Primary project README.md<, use that instead, for example cargo_crev_reviews_workspace
-async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String, String) {
-    let repo_url = repo.html_url.as_ref().unwrap();
-    println!("    Reading {}", repo_url);
+async fn get_readme_body(repo_org_and_name: &str) -> (String, String, String, String) {
+    let repo_url = format!("https://github.com/{repo_org_and_name}");
+    println!();
+    println!("  Reading {}", repo_url);
     // open the html
     let body = reqwest::get(repo_url.clone())
         .await
@@ -257,35 +306,35 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String
 
     // get title and description
     // They are already HTML encoded, because they come from a HTML
-    // find and parse: <title>GitHub - bestia-dev/github_readme_copy: Copy my public README.md files from Github in HTML format</title>
-    let title = get_long_title(&body);
-    let mut spl = title.split(": ");
-    let title = spl
-        .next()
-        .unwrap()
-        .trim_start_matches("GitHub - bestia-dev/")
+    // find and parse: <title>automation-tasks-rs/cargo-auto: Automation tasks coded in Rust language for the workflow of Rust projects</title>
+    let long_title = get_long_title(&body);
+
+    let pos1 = long_title.find("/").unwrap();
+    let organization = long_title[..pos1]
+        .trim_start_matches("GitHub - ")
         .to_string();
-    let description = spl
-        .next()
-        .unwrap_or_else(|| panic!("Panic reading description of {}", title))
-        .to_string();
+    let pos2 = long_title[pos1..].find(": ").unwrap();
+
+    let title = long_title[pos1 + 1..pos2 + pos1].to_string();
+
+    let description = long_title[pos2 + pos1 + 2..].to_string();
 
     // check if the description of the project and the GitHub description is the same
     let github_description = get_github_description(&body, &title);
     if github_description != description {
         println!();
-        println!("    description different:");
-        println!("    {title}");
-
-        println!("    {description}");
-        println!("    {github_description}");
+        println!("  Description different for {repo_url}");
         println!();
+        println!("  {RED}{description}{RESET}");
+        println!("  {RED}{github_description}{RESET}");
+        println!();
+        // panic!("Description different!");
     }
 
     // find the magic link "Primary project README.md" it must be header2
     let pos1 = body.find(r#"">Primary project README.md</a></h2>"#);
     match pos1 {
-        None => (body, title, description),
+        None => (organization, body, title, description),
         Some(pos1) => {
             // extract the link
             let delim2 = r#"<a href=""#;
@@ -294,36 +343,53 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String
                 .expect("The html {} has the phrase >Primary project README.md<, but before that there is no <a href=");
             let pos3 = pos2 + delim2.len();
             let link_url = &body[pos3..pos1];
-            println!("    Primary project: Reading {}", repo_url);
+            println!("  Primary project: Reading {}", repo_url);
             let body = reqwest::get(link_url).await.unwrap().text().await.unwrap();
 
-            (body, title, description)
+            (organization, body, title, description)
         }
     }
 }
 
-/// only public repos
-async fn vec_of_public_repos_from_github(
-    secret_token: &secrecy::SecretString,
-) -> Vec<octocrab::models::Repository> {
-    let octocrab = octocrab::Octocrab::builder()
-        .personal_token(secret_token.expose_secret())
-        .build()
-        .unwrap();
-    let page = octocrab
-        .current()
-        .list_repos_for_authenticated_user()
-        .type_("public")
-        .sort("full_name")
-        .per_page(100)
-        .send()
-        .await
-        .unwrap();
-    // return vec_of_repo
-    octocrab
-        .all_pages::<octocrab::models::Repository>(page)
-        .await
-        .unwrap()
+/// GitHub api List repositories for the authenticated user
+pub(crate) fn list_repositories_for_the_authenticated_user() -> reqwest::blocking::RequestBuilder {
+    /*
+        https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-the-authenticated-user
+
+        curl -L \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer <YOUR-TOKEN>" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        https://api.github.com/user/repos
+
+        Query parameters
+        visibility: public
+        affiliation: owner
+        per_page: 100
+
+        [{
+        "id": 1296269,
+        "node_id": "MDEwOlJlcG9zaXMjk2MjY5",
+        "name": "Hello-World",
+        "full_name": "my_cat/Hello-World",
+        ...
+        }]
+        "has_pages": false,
+    */
+    let repos_url = "https://api.github.com/user/repos".to_string();
+    let body = serde_json::json!({
+        "visibility": "public",
+        "affiliation": "owner",
+        "per_page":3,
+    });
+    let body = body.to_string();
+    // return
+    reqwest::blocking::Client::new()
+        .get(repos_url.as_str())
+        .header("Accept", "application/vnd.github+json")
+        .header("X-GitHub-Api-Version", "2022-11-28")
+        .header("User-Agent", "cargo_auto_lib")
+        .body(body)
 }
 
 /// private and public repos

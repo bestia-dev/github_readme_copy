@@ -2,23 +2,23 @@
   "vec_file_metadata": [
     {
       "filename": "Cargo.toml",
-      "filehash": "ccba0b64ae755330ab2baa11588dad4aa33ab39967ed8bf9633cd857f5134eaa"
+      "filehash": "99641ab9ee05e947f59fe50e24007c08de4cf022af43cbb4935c0da14edaa4db"
     },
     {
       "filename": "src/encrypt_decrypt_with_ssh_key_mod/encrypt_decrypt_mod.rs",
-      "filehash": "111b2228226fbeeb76231717fb54926195b7b8e58f094c4b32df1581636ade4d"
+      "filehash": "4b3a44a925b7f55e70ce4fc14d0a4c252cc907c85551ca5be014537d272061bd"
     },
     {
       "filename": "src/encrypt_decrypt_with_ssh_key_mod/github_api_token_with_oauth2_mod.rs",
-      "filehash": "b4c2db6215c590e548c6b23248be6e98862f261e28786ba3bdc9afc947523da0"
+      "filehash": "38a0f61dc73d0e43d940e9de94c30ec6b3c8ad36ce58981133c0589f397ecc72"
     },
     {
       "filename": "src/encrypt_decrypt_with_ssh_key_mod/mod.rs",
-      "filehash": "4e02bb0e0cc3e5be582b3331eaf659d8e69885153e037e90863894405c356ec6"
+      "filehash": "2d983f7337870014a5a3e0b8475f1deaa5efbc64b3fbcd1ac0ac724682ffbea1"
     },
     {
       "filename": "src/utils_mod.rs",
-      "filehash": "a6f537399820cc20aaad11307a34e2249d5f08eb6079cbc71d40e6e7fa93067e"
+      "filehash": "ca5d6a9ea91a41761473afa22c7012f9d884c7ad43d617d2683c03602d77aedd"
     },
     {
       "filename": "src/lib.rs",
@@ -26,15 +26,15 @@
     },
     {
       "filename": "src/bin/github_readme_copy/main.rs",
-      "filehash": "4a043bc6716e73f1c868990a7b65a70e15b5d4d30194458268047b1c3e1fc8cf"
+      "filehash": "869777a4f8775163cb8ef386c20986d88246dd9877e72911de680d0e0c287adc"
     },
     {
       "filename": "src/substack_mod.rs",
-      "filehash": "cbb5f03b4a66a02621f7d593a2ecd3fccc16344dc9758c6bb64d4fad361bb565"
+      "filehash": "88296adb03a9473c77ac058919ca91965299a4812113f8dfb759abe0a42e50c6"
     },
     {
       "filename": "src/github_mod.rs",
-      "filehash": "78987cd0742c84351424832544b357fe8a368ff39820bf247a39da5622bf2ab0"
+      "filehash": "110d60bcdd42f044a497d52d0f09d374a686b3fa3bccf6ce7e8e2659da964da9"
     }
   ]
 }
