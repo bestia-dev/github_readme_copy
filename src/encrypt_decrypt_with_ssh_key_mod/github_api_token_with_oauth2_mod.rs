@@ -95,7 +95,8 @@ struct SecretResponseAccessToken {
     token_type: String,
 }
 
-/// Start the github oauth2 device workflow
+/// Start the github oauth2 device workflow.
+///
 /// It will use the private key from the .ssh folder.
 /// The encrypted file has the same file name with the ".enc" extension.
 /// Returns access_token to use as bearer for api calls
@@ -115,7 +116,7 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
 
     println!("  {YELLOW}Check if the ssh private key exists.{RESET}");
     let private_key_path_struct = ende::PathStructInSshFolder::new(private_key_file_name.clone())?;
-    if !std::fs::exists(private_key_path_struct.get_full_file_path())? {
+    if !private_key_path_struct.exists() {
         eprintln!("{RED}Error: Private key {private_key_path_struct} does not exist.{RESET}");
         println!("  {YELLOW}Create the private key in bash terminal:{RESET}");
         println!(
@@ -127,7 +128,7 @@ pub fn get_github_secret_token() -> anyhow::Result<SecretString> {
     println!("  {YELLOW}Check if the encrypted file exists.{RESET}");
     let encrypted_path_struct =
         ende::PathStructInSshFolder::new(format!("{private_key_file_name}.enc"))?;
-    if !std::fs::exists(encrypted_path_struct.get_full_file_path())? {
+    if !encrypted_path_struct.exists() {
         println!("  {YELLOW}Encrypted file {encrypted_path_struct} does not exist.{RESET}");
         println!("  {YELLOW}Continue to authentication with the browser{RESET}");
         let secret_access_token = authenticate_with_browser_and_save_file(
@@ -436,7 +437,7 @@ fn decrypt_text_with_metadata(
     let private_key_path_struct = ende::PathStructInSshFolder::new(
         encrypted_text_with_metadata.private_key_file_name.clone(),
     )?;
-    if !camino::Utf8Path::new(private_key_path_struct.get_full_file_path()).exists() {
+    if !private_key_path_struct.exists() {
         anyhow::bail!("{RED}Error: File {private_key_path_struct} does not exist! {RESET}");
     }
 
