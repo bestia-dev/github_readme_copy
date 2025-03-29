@@ -55,6 +55,20 @@ pub struct CratesIoConfig {
 /// And then is accessible all over the code.
 pub static CRATES_IO_CONFIG: std::sync::OnceLock<CratesIoConfig> = std::sync::OnceLock::new();
 
+/// Application state (static) is initialized only once in the main() function.
+///
+/// And then is accessible all over the code.
+pub fn crates_io_config_initialize() {
+    if CRATES_IO_CONFIG.get().is_some() {
+        return;
+    }
+
+    let crates_io_config_json =
+        std::fs::read_to_string("automation_tasks_rs/crates_io_config.json").unwrap();
+    let crates_io_config: CratesIoConfig = serde_json::from_str(&crates_io_config_json).unwrap();
+    let _ = CRATES_IO_CONFIG.set(crates_io_config);
+}
+
 /// get crates.io secret token
 ///
 /// If exists, decrypt it from file.  

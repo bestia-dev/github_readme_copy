@@ -95,6 +95,20 @@ struct SecretResponseAccessToken {
     token_type: String,
 }
 
+/// Application state (static) is initialized only once in the main() function.
+///
+/// And then is accessible all over the code.
+pub fn github_api_config_initialize() {
+    if GITHUB_API_CONFIG.get().is_some() {
+        return;
+    }
+
+    let github_api_config_json =
+        std::fs::read_to_string("automation_tasks_rs/github_api_config.json").unwrap();
+    let github_api_config: GithubApiConfig = serde_json::from_str(&github_api_config_json).unwrap();
+    let _ = GITHUB_API_CONFIG.set(github_api_config);
+}
+
 /// Start the github oauth2 device workflow
 /// It will use the private key from the .ssh folder.
 /// The encrypted file has the same file name with the ".enc" extension.
