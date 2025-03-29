@@ -6,11 +6,11 @@
     },
     {
       "filename": "automation_tasks_rs/target/debug/automation_tasks_rs",
-      "filehash": "586317aafe4fd29a988aed3f90a085a570a41049c51036b5a76626336ccac3bf"
+      "filehash": "53e5503c6b8dfe2f795ae88129461dbf271893029e16d2393c15aa69c2b9af09"
     },
     {
       "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/crates_io_api_token_mod.rs",
-      "filehash": "f35ce1170248c01c383200dab58657ce456a28a72efab5d7065e22a6364456fe"
+      "filehash": "6243fdb3d30b01357f652761c8181e6a95e7cacd3a56360e380aa5430d073a85"
     },
     {
       "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/encrypt_decrypt_mod.rs",
@@ -18,7 +18,7 @@
     },
     {
       "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/github_api_token_with_oauth2_mod.rs",
-      "filehash": "45e3f868e9605cccec247a9f2597253f13e4f6f5b4d83178bcce85e3ae9adff9"
+      "filehash": "bed19bf2e37b76aa8702ff6d7959612c74b2db6ca6f32ece7afa842b76612cb8"
     },
     {
       "filename": "automation_tasks_rs/src/encrypt_decrypt_with_ssh_key_mod/mod.rs",
@@ -30,7 +30,15 @@
     },
     {
       "filename": "automation_tasks_rs/src/main.rs",
-      "filehash": "d1e84e8753fdb8bc393df9a11be4fd97893f38d0abf18d6e5d299721be542830"
+      "filehash": "95a4e1cfbceb71ac4fefcfeaded8e92dde388eb1761c83e3a3591d51df31aa36"
+    },
+    {
+      "filename": "automation_tasks_rs/src/generic_functions_mod.rs",
+      "filehash": "241636aa61779424522b4e69767137c4926d96fd9ecc80f2cba785cbd9d18ebe"
+    },
+    {
+      "filename": "automation_tasks_rs/src/build_cli_bin_mod.rs",
+      "filehash": "5265a1e121ff8d0f6e25ec9d4024bef1d24c72e975c8aebc6e9ccb4f54b38b32"
     }
   ]
 }
