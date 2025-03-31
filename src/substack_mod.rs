@@ -16,36 +16,36 @@ struct SubstackArticle {
 
 /// download substack articles from <https://bestiadev.substack.com/archive>
 pub fn substack_download(substack_url: &str) {
-    let dest_folder = std::path::Path::new("substack_articles");
+    let dest_folder = std::path::Path::new("tmp/substack_articles");
     if !dest_folder.exists() {
         panic!("Error: Folder {} does not exist.", dest_folder.to_string_lossy())
     }
     // copy directory structure from template
     std::fs::copy(
         "template_for_substack_articles/bestia_icon.png",
-        "substack_articles/bestia_icon.png",
+        "tmp/substack_articles/bestia_icon.png",
     )
     .unwrap();
-    std::fs::copy("template_for_substack_articles/README.md", "substack_articles/README.md").unwrap();
-    std::fs::create_dir_all("substack_articles/css").unwrap();
+    std::fs::copy("template_for_substack_articles/README.md", "tmp/substack_articles/README.md").unwrap();
+    std::fs::create_dir_all("tmp/substack_articles/css").unwrap();
     std::fs::copy(
         "template_for_substack_articles/css/bestia01.css",
-        "substack_articles/css/bestia01.css",
+        "tmp/substack_articles/css/bestia01.css",
     )
     .unwrap();
     std::fs::copy(
         "template_for_substack_articles/css/bestia01.css",
-        "substack_articles/css/bestia01.css",
+        "tmp/substack_articles/css/bestia01.css",
     )
     .unwrap();
     std::fs::copy(
         "template_for_substack_articles/css/normalize.css",
-        "substack_articles/css/normalize.css",
+        "tmp/substack_articles/css/normalize.css",
     )
     .unwrap();
     std::fs::copy(
         "template_for_substack_articles/css/Roboto-Medium.woff2",
-        "substack_articles/css/Roboto-Medium.woff2",
+        "tmp/substack_articles/css/Roboto-Medium.woff2",
     )
     .unwrap();
 

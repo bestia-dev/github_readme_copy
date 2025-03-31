@@ -8,20 +8,20 @@
 
 /// download public readmes
 pub fn download_readme(token: &str) {
-    let dest_folder = std::path::Path::new("github_readme");
+    let dest_folder = std::path::Path::new("tmp/github_readme");
     if !dest_folder.exists() {
         panic!("Error: Folder {} does not exist.", dest_folder.to_string_lossy())
     }
     // copy directory structure from template
-    std::fs::copy("template_for_github_readme/bestia_icon.png", "github_readme/bestia_icon.png").unwrap();
-    std::fs::copy("template_for_github_readme/README.md", "github_readme/README.md").unwrap();
-    std::fs::create_dir_all("github_readme/css").unwrap();
-    std::fs::copy("template_for_github_readme/css/bestia01.css", "github_readme/css/bestia01.css").unwrap();
-    std::fs::copy("template_for_github_readme/css/bestia01.css", "github_readme/css/bestia01.css").unwrap();
-    std::fs::copy("template_for_github_readme/css/normalize.css", "github_readme/css/normalize.css").unwrap();
+    std::fs::copy("template_for_github_readme/bestia_icon.png", "tmp/github_readme/bestia_icon.png").unwrap();
+    std::fs::copy("template_for_github_readme/README.md", "tmp/github_readme/README.md").unwrap();
+    std::fs::create_dir_all("tmp/github_readme/css").unwrap();
+    std::fs::copy("template_for_github_readme/css/bestia01.css", "tmp/github_readme/css/bestia01.css").unwrap();
+    std::fs::copy("template_for_github_readme/css/bestia01.css", "tmp/github_readme/css/bestia01.css").unwrap();
+    std::fs::copy("template_for_github_readme/css/normalize.css", "tmp/github_readme/css/normalize.css").unwrap();
     std::fs::copy(
         "template_for_github_readme/css/Roboto-Medium.woff2",
-        "github_readme/css/Roboto-Medium.woff2",
+        "tmp/github_readme/css/Roboto-Medium.woff2",
     )
     .unwrap();
 
@@ -283,7 +283,7 @@ async fn vec_of_private_and_public_repos_from_github(token: &str) -> Vec<octocra
 }
 
 pub fn upload_github_readme(upload_url: &str) {
-    let source_folder = std::path::Path::new("github_readme");
+    let source_folder = std::path::Path::new("tmp/github_readme");
     let upload_url = format!("{upload_url}/github_readme");
     // easy upload with rsync over SSH
     println!(
@@ -292,7 +292,7 @@ pub fn upload_github_readme(upload_url: &str) {
         &upload_url
     );
     // the SSh key must be already ssh-add into the ssh-agent
-    // rsync -e ssh -avz --delete-after github_readme luciano_bestia@bestia.dev:/var/www/bestia.dev/github_readme
+    // rsync -e ssh -avz --delete-after tmp/github_readme luciano_bestia@bestia.dev:/var/www/bestia.dev/github_readme
     let mut rsync = std::process::Command::new("rsync");
     rsync
         .arg("-avz")
@@ -309,7 +309,7 @@ pub fn upload_github_readme(upload_url: &str) {
 }
 
 pub fn upload_substack_articles(upload_url: &str) {
-    let source_folder = std::path::Path::new("substack_articles");
+    let source_folder = std::path::Path::new("tmp/substack_articles");
     let upload_url = format!("{upload_url}/substack_articles");
     // easy upload with rsync over SSH
     println!(
@@ -336,12 +336,12 @@ pub fn upload_substack_articles(upload_url: &str) {
 
 /// create bash script for backup of all GitHub repositories
 pub fn github_backup_bash_scripts(token: &str) {
-    let dest_folder = std::path::Path::new("bash_script_for_backup");
+    let dest_folder = std::path::Path::new("tmp/bash_script_for_backup");
     if !dest_folder.exists() {
         panic!("Error: Folder {} does not exist.", dest_folder.to_string_lossy())
     }
     // copy directory structure from template
-    std::fs::copy("template_for_bash_script_for_backup/README.md", "bash_script_for_backup/README.md").unwrap();
+    std::fs::copy("template_for_bash_script_for_backup/README.md", "tmp/bash_script_for_backup/README.md").unwrap();
 
     // create a future and then run it in the tokio runtime
     let rt1 = tokio::runtime::Runtime::new().unwrap();
