@@ -1,0 +1,28 @@
+{
+  "vec_file_metadata": [
+    {
+      "filename": "Cargo.toml",
+      "filehash": "ef9b35e61bced5e1c4179a89ee5c0844b6d1e5091f768ca537940af26aa82b90"
+    },
+    {
+      "filename": "src/utils_mod.rs",
+      "filehash": "a6f537399820cc20aaad11307a34e2249d5f08eb6079cbc71d40e6e7fa93067e"
+    },
+    {
+      "filename": "src/lib.rs",
+      "filehash": "9539d0fcf2652639e7a25204f84f269652bdd1e818fdbb4fdd2cfaf7420f76f8"
+    },
+    {
+      "filename": "src/bin/github_readme_copy/main.rs",
+      "filehash": "05c29421bd9d5f476d20f05e44b1cfa8e6eb1f2312dac7c754f8dbee1b1129f6"
+    },
+    {
+      "filename": "src/substack_mod.rs",
+      "filehash": "45f679a7f532caf7adb82da426d91ea8b156047d6ce6ac3afe7911d86eabcc31"
+    },
+    {
+      "filename": "src/github_mod.rs",
+      "filehash": "92714cfd2914947aea536c576a8b9d9df27feddeb0ebe83df9f977c7e0f78006"
+    }
+  ]
+}

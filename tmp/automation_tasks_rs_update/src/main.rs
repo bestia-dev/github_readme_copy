@@ -1,4 +1,4 @@
-// automation_tasks_rs for github_readme_copy
+// automation_tasks_rs for cargo_auto_template_new_cli
 
 // region: library and modules with basic automation tasks
 
@@ -58,6 +58,8 @@ fn match_arguments_and_call_tasks(mut args: std::env::Args) {
                 } else if &task == "commit_and_push" {
                     let arg_2 = args.next();
                     task_commit_and_push(arg_2);
+                } else if &task == "publish_to_crates_io" {
+                    task_publish_to_crates_io();
                 } else if &task == "github_new_release" {
                     task_github_new_release();
                 } else {
@@ -81,11 +83,16 @@ fn print_help() {
 {GREEN}cargo auto release{RESET} - {YELLOW}builds the crate in release mode, fmt, increment version{RESET}
 {GREEN}cargo auto doc{RESET} - {YELLOW}builds the docs, copy to docs directory{RESET}
 {GREEN}cargo auto test{RESET} - {YELLOW}runs all the tests{RESET}
-{GREEN}cargo auto commit_and_push "message"{RESET} - {YELLOW}commits with message and push with mandatory message
+{GREEN}cargo auto commit_and_push "message"{RESET} - {YELLOW}commits with message and push with mandatory message{RESET}
   {YELLOW}It is preferred to use SSH for git push to GitHub.{RESET}
   {YELLOW}<https://github.com/CRUSTDE-ContainerizedRustDevEnv/crustde_cnt_img_pod/blob/main/ssh_easy.md>{YELLOW}
   {YELLOW}On the very first commit, this task will initialize a new local git repository and create a remote GitHub repo.{RESET}
   {YELLOW}For the GitHub API the task needs the Access secret token from OAuth2 device workflow.{RESET}
+  {YELLOW}The secret token will be stored in a file encrypted with your SSH private key.{RESET}
+  {YELLOW}You can type the passphrase of the private key for every usee. This is pretty secure.{RESET}
+  {YELLOW}Somewhat less secure (but more comfortable) way is to store the private key in ssh-agent.{RESET}
+{GREEN}cargo auto publish_to_crates_io{RESET} - {YELLOW}publish to crates.io, git tag{RESET}
+  {YELLOW}You need the API secret_token for publishing. Get the secret_token on <https://crates.io/settings/tokens>.{RESET}
   {YELLOW}The secret token will be stored in a file encrypted with your SSH private key.{RESET}
   {YELLOW}You can type the passphrase of the private key for every usee. This is pretty secure.{RESET}
   {YELLOW}Somewhat less secure (but more comfortable) way is to store the private key in ssh-agent.{RESET}
@@ -128,6 +135,7 @@ fn completion() {
             "doc",
             "test",
             "commit_and_push",
+            "publish_to_crates_io",
             "github_new_release",
             "update_automation_tasks_rs"
         ];
@@ -150,14 +158,14 @@ fn completion() {
 fn task_build() {
     let cargo_toml = crate::build_cli_bin_mod::task_build();
     println!(
-    r#"
-  {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests
-{GREEN}./target/debug/{package_name}{RESET}
-{GREEN}./target/debug/{package_name} download{RESET}
-{GREEN}./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/{RESET}
-{GREEN}./target/debug/{package_name} substack bestiadev.substack.com{RESET}
-{GREEN}./target/debug/{package_name} github_backup_bash_scripts{RESET}
-  {YELLOW}If ok then run{RESET}
+        r#"
+  {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests{RESET}
+{GREEN}./target/debug/{package_name} print world{RESET}
+  {YELLOW}If ok then{RESET}
+{GREEN}./target/debug/{package_name} upper world{RESET}
+  {YELLOW}If ok then{RESET}
+{GREEN}./target/debug/{package_name} upper WORLD{RESET}
+  {YELLOW}if ok then{RESET}
 {GREEN}cargo auto release{RESET}
 "#,
         package_name = cargo_toml.package_name(),
@@ -172,12 +180,12 @@ fn task_release() {
     println!(
         r#"
   {YELLOW}After `cargo auto release`, run the compiled binary, examples and/or tests{RESET}
-{GREEN}./target/release/{package_name}{RESET}
-{GREEN}./target/release/{package_name} download{RESET}
-{GREEN}./target/release/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev{RESET}
-{GREEN}./target/release/{package_name} substack bestiadev.substack.com{RESET}
-{GREEN}./target/release/{package_name} github_backup_bash_scripts{RESET}
-  {YELLOW}If ok then run{RESET}
+{GREEN}./target/release/{package_name} print world{RESET}
+  {YELLOW}If ok then{RESET}
+{GREEN}./target/release/{package_name} upper world{RESET}
+  {YELLOW}If ok then{RESET}
+{GREEN}./target/release/{package_name} upper WORLD{RESET}
+  {YELLOW}if ok then{RESET}
 {GREEN}cargo auto doc{RESET}
 "#,
         package_name = cargo_toml.package_name(),
@@ -215,6 +223,19 @@ fn task_commit_and_push(arg_2: Option<String>) {
     println!(
         r#"
   {YELLOW}After `cargo auto commit_and_push "message"`{RESET}
+{GREEN}cargo auto publish_to_crates_io{RESET}
+"#
+    );
+}
+
+/// publish to crates.io and git tag
+fn task_publish_to_crates_io() {
+    let tag_name_version = crate::build_cli_bin_mod::task_publish_to_crates_io();
+
+    println!(
+        r#"
+  {YELLOW}Now, write the content of the release in the RELEASES.md in the `## Unreleased` section, then{RESET}
+  {YELLOW}Next, create the GitHub Release {tag_name_version}.{RESET}
 {GREEN}cargo auto github_new_release{RESET}
 "#
     );

@@ -23,11 +23,11 @@ fn main() {
             // read from env variable
             match std::env::var("GITHUB_TOKEN") {
                 Err(_err) => println!(
-                        "{RED}Error: env variable GITHUB_TOKEN not found. 
+                    "{RED}Error: env variable GITHUB_TOKEN not found. 
 Get your personal GitHub token from https://github.com/settings/tokens.
 Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
  export GITHUB_TOKEN=*****{RESET}"
-                    ),
+                ),
                 Ok(token) => download_readme(&token),
             }
         }
@@ -46,11 +46,11 @@ Before run, store it in local session env variable (put a space before the comma
             // read from env variable
             match std::env::var("GITHUB_TOKEN") {
                 Err(_err) => println!(
-                        "{RED}Error: env variable GITHUB_TOKEN not found. 
+                    "{RED}Error: env variable GITHUB_TOKEN not found. 
 Get your personal GitHub token from https://github.com/settings/tokens.
 Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
  export GITHUB_TOKEN=*****{RESET}"
-                    ),
+                ),
                 Ok(token) => github_backup_bash_scripts(&token),
             }
         }
