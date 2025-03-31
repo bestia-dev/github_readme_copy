@@ -77,7 +77,7 @@ fn print_help() {
 {GREEN}github_readme_copy substack substack_url{RESET}
 {GREEN}github_readme_copy github_backup_bash_scripts{RESET}
 
-    {YELLOW}© 2022 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy{RESET}
+    {YELLOW}© 2025 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy{RESET}
 "#
     );
 }
