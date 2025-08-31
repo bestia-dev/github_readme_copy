@@ -69,9 +69,9 @@ dependencies = [
 
 [[package]]
 name = "anyhow"
-version = "1.0.97"
+version = "1.0.99"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dcfed56ad506cb2c684a14971b8861fdc3baaaae314b9e5f9bb532cbe3ba7a4f"
+checksum = "b0674a1ddeecb70197781e945de4b3b8ffb61fa939a5597bcf48503737663100"
 
 [[package]]
 name = "arrayref"
@@ -2136,9 +2136,9 @@ dependencies = [
 
 [[package]]
 name = "ssh-agent-client-rs"
-version = "1.0.0"
+version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4faec13f010828b7a72871d0c1959a1d37c8ec2017842b3f77e923216c2ec41b"
+checksum = "bc3c4dd567de6556169a17ce106042cac86a5f5fe7ec9c89c924b57c47707b73"
 dependencies = [
  "bytes",
  "interprocess",
@@ -2201,9 +2201,9 @@ dependencies = [
 
 [[package]]
 name = "ssh_agent_client_rs_git_bash"
-version = "0.0.11"
+version = "0.0.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "482021fe3bebeb8ecb1d8b7ac81e753d9185e169a35fd612501903773375f5a7"
+checksum = "6f1ebe75c7ac477669e22e3330518371cb5562cbaf5d4abb57fa929b0ec739e4"
 dependencies = [
  "anyhow",
  "ssh-agent-client-rs",

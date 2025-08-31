@@ -1,6 +1,6 @@
 [package]
 name = "github_readme_copy"
-version = "1.0.149"
+version = "1.0.196"
 description = "Copy my public README.md files from GitHub in HTML format"
 authors = ["bestia.dev"]
 homepage = "https://bestia.dev"
@@ -19,12 +19,26 @@ log = "0.4"
 pretty_env_logger="0.4.0"
 thiserror = "1.0.30"
 anyhow="1.0.56"
-octocrab="0.16.0"
+octocrab="0.44.0"
 unwrap="1.2.1"
 futures = "0.3.21"
 tokio = { version = "1.18.2", features = ["rt", "rt-multi-thread" ]}
-reqwest={version="0.11.10", features=["blocking"]}
 rayon = "1.5.1"
 lol_html = "0.4.0"
-serde="1.0.163"
-serde_json="1.0.96"
+
+# for github encrypt decrypt
+# reqwest 0.12.12 is tha last that builds in win-git-bash
+reqwest={version="=0.12.12", features=["json","stream", "blocking"]}
+secrecy = "0.10.3"
+aes-gcm = "0.10.3"
+base64ct = {version = "1.7.3", features = ["alloc"] }
+serde ={ version= "1.0.219", features=["std","derive"]}
+serde_json = "1.0.140"
+ssh-key = { version = "0.6.7", features = [ "rsa", "encryption","ed25519"] }
+ssh_agent_client_rs_git_bash = "0.0.19"
+camino = "1.1.9"
+zeroize = {version="1.8.1", features=["derive"]}
+chrono ={version="0.4.40", default-features=false, features=["now"]}
+inquire="0.7.5"
+rsa = { version = "0.9.8", features = ["sha2","pem"] }
+home="0.5.11"

@@ -9,7 +9,9 @@
 // The `main.rs` uses the `anyhow` error library.
 // The `lib.rs` uses the `thiserror` library.
 
+use github_readme_copy::encrypt_decrypt_with_ssh_key_mod as ende;
 use github_readme_copy::{GREEN, RED, RESET, YELLOW};
+use secrecy::ExposeSecret;
 
 /// entry point into the bin-executable
 fn main() {
@@ -20,16 +22,10 @@ fn main() {
     match std::env::args().nth(1).as_deref() {
         None | Some("--help") | Some("-h") => print_help(),
         Some("download") => {
-            // read from env variable
-            match std::env::var("GITHUB_TOKEN") {
-                Err(_err) => println!(
-                    "{RED}Error: env variable GITHUB_TOKEN not found. 
-Get your personal GitHub token from https://github.com/settings/tokens.
-Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
- export GITHUB_TOKEN=*****{RESET}"
-                ),
-                Ok(token) => download_readme(&token),
-            }
+            // read from ssh encrypted token
+            ende::github_api_token_with_oauth2_mod::github_api_config_initialize();
+            let secret_token = ende::github_api_token_with_oauth2_mod::get_github_secret_token().unwrap();
+            download_readme(secret_token.expose_secret());
         }
         Some("upload") => match std::env::args().nth(2).as_deref() {
             // second argument

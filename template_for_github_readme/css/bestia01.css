@@ -12,8 +12,8 @@
     /* background color */
     --b_color_html: #111111;
     --b_color_body: #161b22;
-    --b_color_header: #444;
-    --b_color_header_hover: #333;
+    --b_color_header: #0f1016;
+    --b_color_header_hover: #DA5929;
     --b_color_button: #8BC24A;
     --b_color_button_disabled: #555;
     --b_color_button_hover: #333;
@@ -87,139 +87,49 @@ img {
 
 
 /* navbar Segments starts with h1, it needs 10px because of the fixed header */
-
-
-/* endregion: fixed header */
-
-
-/* region: navigation bar*/
-
-
-/* here is the basic style for displays over 600px wide. All in one row.*/
-
-
-/* Add a dark background color to the navigation bar */
-
-#navbar {
+h1 {
+    padding-top: 35px;
+}
+/* fixed header, nest styles inside header to isolate from others */
+header {
     background-color: var(--b_color_header);
-    overflow: hidden;
-    text-align: center;
-    top: 0px;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    padding: 0px 0px;
     width: 100%;
-    justify-content: center;
+    height: 35px;
+    font-family: Poppins, Segoe UI, Tahoma, sans-serif;
+    font-weight: 700;
+
+    & nav {
+        justify-self: center;
+        max-width: 800px;
+        height: 35px;
     display: flex;
-    font-size: 20px;
-    line-height: 1.6;
-}
+        justify-content: flex-end;
+        align-items: center;
+    }
 
-
-/* Style the links of navigation bar */
-
-#navbar>#navbar_topics {
-    background-color: var(--b_color_header);
-}
-
-#navbar>#navbar_topics>a {
-    background-color: var(--b_color_header);
-    display: inline;
-    color: var(--f_color_header);
-    text-align: center;
-    padding: 2px 10px;
-    padding-bottom: 5px;
+    & nav a {
+        height: 100%;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
     text-decoration: none;
+        color: var(--f_color_body);
 }
 
-#navbar>#navbar_topics>a:hover {
+    & nav a:hover {
     background-color: var(--b_color_header_hover);
 }
 
+    & nav svg {
+        fill: var(--f_color_body);
+    }
 
-/* brand logo and title*/
 
-#navbar>#navbar_brand {
-    text-decoration: none;
 }
-
-#navbar>#navbar_brand>img {
-    padding-top: 1px;
-    max-height: 32px;
-    padding-bottom: 2px;
-}
-
-#navbar>#navbar_brand>#navbar_title {
-    display: none;
-    color: var(--f_color_header);
-    text-align: center;
-    padding: 2px 10px;
-}
-
-
-/* Hide the hamburger */
-
-#navbar>#navbar_hamburger {
-    color: var(--f_color_header);
-    display: none;
-    text-align: center;
-    padding: 2px 10px;
-    text-decoration: none;
-}
-
-
-/* When the screen is less than 600 pixels wide, hide all links, 
-Show only the brand and hamburger. 
-*/
-
-@media screen and (max-width: 600px) {
-    .fixed_header {
-        height: 45px;
-    }
-
-    #navbar {
-        justify-content: space-between;
-        display: inline;
-        font-size: 30px;
-        line-height: 1.4;
-    }
-    #navbar>#navbar_topics>a {
-        display: none;
-    }
-    #navbar>#navbar_brand {
-        float: left;
-        display: inline;
-        padding-left: 5px;
-        padding-top: 0px;
-        padding-bottom: 5px;
-    }
-    #navbar>#navbar_brand>#navbar_title {
-        float: none;
-        display: inline;
-        padding-right: 20px;
-        padding-top: 0px;
-    }
-    #navbar>#navbar_hamburger {
-        float: right;
-        display: inline;
-        padding-top: 0px;
-    }
-    /*
-The "responsive" class is added to the navbar with JavaScript when the user clicks on the hamburger. 
-This class makes the navbar look good on small screens (display the links vertically instead of horizontally)
-*/
-    #navbar.responsive>#navbar_topics {
-        position: fixed;
-        top: 47px;
-        padding-left: 44px;
-    }
-    #navbar.responsive>#navbar_topics>a {
-        float: none;
-        display: block;
-        text-align: left;
-        padding-right: 60px;
-    }
-}
-
-
-/* endregion: navigation bar*/
 
 .footer {
     background-color: var(--b_color_header);

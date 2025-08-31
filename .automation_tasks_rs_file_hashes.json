@@ -2,27 +2,39 @@
   "vec_file_metadata": [
     {
       "filename": "Cargo.toml",
-      "filehash": "ef9b35e61bced5e1c4179a89ee5c0844b6d1e5091f768ca537940af26aa82b90"
+      "filehash": "896241cd13510fdfff115e6b80b7123e8cf21f9b8f8eaa23236288819bfd859b"
+    },
+    {
+      "filename": "src/encrypt_decrypt_with_ssh_key_mod/github_api_token_with_oauth2_mod.rs",
+      "filehash": "95ff24c25c979573c4e94b66b5ee25c13073f2c7b9ba631759f2a69d5dd4b98d"
+    },
+    {
+      "filename": "src/encrypt_decrypt_with_ssh_key_mod/encrypt_decrypt_mod.rs",
+      "filehash": "a94df449dc12cf72e6c740a9c2063b730128c3eb53c6b36e205ad132cc26b6a9"
+    },
+    {
+      "filename": "src/encrypt_decrypt_with_ssh_key_mod/mod.rs",
+      "filehash": "2282e4fdc273e0283ee427ca65aa47faef846a83b156963eada86475a2825a6e"
+    },
+    {
+      "filename": "src/lib.rs",
+      "filehash": "a7e25aad9b0e79420923eaaa8088f5f4b986c32942563d18223365802c58941b"
+    },
+    {
+      "filename": "src/bin/github_readme_copy/main.rs",
+      "filehash": "baa16617b9602badea205cde50acb80ef7bfefa540be6bbf873cb09d085de462"
+    },
+    {
+      "filename": "src/github_mod.rs",
+      "filehash": "e68880d65d6da3b77a46019f142107f820a1a1bdbd5cde9cf552e1396e247476"
+    },
+    {
+      "filename": "src/substack_mod.rs",
+      "filehash": "8101223c3c8f94a157dc7145450a820c283bb29fbff3eae15b4bbcd0412dba1b"
     },
     {
       "filename": "src/utils_mod.rs",
       "filehash": "a6f537399820cc20aaad11307a34e2249d5f08eb6079cbc71d40e6e7fa93067e"
-    },
-    {
-      "filename": "src/lib.rs",
-      "filehash": "9539d0fcf2652639e7a25204f84f269652bdd1e818fdbb4fdd2cfaf7420f76f8"
-    },
-    {
-      "filename": "src/bin/github_readme_copy/main.rs",
-      "filehash": "05c29421bd9d5f476d20f05e44b1cfa8e6eb1f2312dac7c754f8dbee1b1129f6"
-    },
-    {
-      "filename": "src/substack_mod.rs",
-      "filehash": "45f679a7f532caf7adb82da426d91ea8b156047d6ce6ac3afe7911d86eabcc31"
-    },
-    {
-      "filename": "src/github_mod.rs",
-      "filehash": "92714cfd2914947aea536c576a8b9d9df27feddeb0ebe83df9f977c7e0f78006"
     }
   ]
 }

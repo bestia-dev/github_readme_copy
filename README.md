@@ -66,6 +66,10 @@ I want to copy also the articles from substack to my domain web page. If anythin
 github_readme_copy substack bestiadev
 ```
 
+## TODO
+
+Use github encoded oauth2 instead of env variable
+
 ## Open-source and free as a beer
 
 My open-source projects are free as a beer (MIT license).  

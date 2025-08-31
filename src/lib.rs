@@ -12,6 +12,7 @@
 // and it has some global stuff like the Error enum.
 
 // access to modules
+pub mod encrypt_decrypt_with_ssh_key_mod;
 mod github_mod;
 mod substack_mod;
 mod utils_mod;
@@ -44,5 +45,7 @@ pub const RED: &str = "\x1b[31m";
 pub const YELLOW: &str = "\x1b[33m";
 #[allow(dead_code)]
 pub const GREEN: &str = "\x1b[32m";
+#[allow(dead_code)]
+pub const BLUE: &str = "\x1b[44m";
 #[allow(dead_code)]
 pub const RESET: &str = "\x1b[0m";

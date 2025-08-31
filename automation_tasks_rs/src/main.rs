@@ -7,12 +7,14 @@ mod build_lib_mod;
 mod cargo_auto_github_api_mod;
 mod encrypt_decrypt_with_ssh_key_mod;
 mod generic_functions_mod;
+mod tasks_mod;
 
 pub use cargo_auto_lib as cl;
 
 use crate::cargo_auto_github_api_mod as cgl;
 use crate::encrypt_decrypt_with_ssh_key_mod as ende;
 use crate::generic_functions_mod as gn;
+use crate::tasks_mod as ts;
 
 pub use cl::{BLUE, GREEN, RED, RESET, YELLOW};
 
@@ -81,7 +83,7 @@ fn print_help() {
 {GREEN}cargo auto release{RESET} - {YELLOW}builds the crate in release mode, fmt, increment version{RESET}
 {GREEN}cargo auto doc{RESET} - {YELLOW}builds the docs, copy to docs directory{RESET}
 {GREEN}cargo auto test{RESET} - {YELLOW}runs all the tests{RESET}
-{GREEN}cargo auto commit_and_push "message"{RESET} - {YELLOW}commits with message and push with mandatory message
+{GREEN}cargo auto commit_and_push "message"{RESET} - {YELLOW}commits with message and push with mandatory message{RESET}
   {YELLOW}It is preferred to use SSH for git push to GitHub.{RESET}
   {YELLOW}<https://github.com/CRUSTDE-ContainerizedRustDevEnv/crustde_cnt_img_pod/blob/main/ssh_easy.md>{YELLOW}
   {YELLOW}On the very first commit, this task will initialize a new local git repository and create a remote GitHub repo.{RESET}
@@ -129,7 +131,7 @@ fn completion() {
             "test",
             "commit_and_push",
             "github_new_release",
-            "update_automation_tasks_rs"
+            "update_automation_tasks_rs",
         ];
         cl::completion_return_one_or_more_sub_commands(sub_commands, word_being_completed);
     }
@@ -151,12 +153,13 @@ fn task_build() {
     let cargo_toml = crate::build_cli_bin_mod::task_build();
     println!(
     r#"
-  {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests
-{GREEN}./target/debug/{package_name}{RESET}
-{GREEN}./target/debug/{package_name} download{RESET}
-{GREEN}./target/debug/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/{RESET}
-{GREEN}./target/debug/{package_name} substack bestiadev.substack.com{RESET}
-{GREEN}./target/debug/{package_name} github_backup_bash_scripts{RESET}
+  {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests{RESET}
+  {GREEN}alias {package_name}=target/debug/{package_name}{RESET}
+{GREEN}{package_name}{RESET}
+{GREEN}{package_name} download{RESET}
+{GREEN}{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/{RESET}
+{GREEN}{package_name} substack bestiadev.substack.com{RESET}
+{GREEN}{package_name} github_backup_bash_scripts{RESET}
   {YELLOW}If ok then run{RESET}
 {GREEN}cargo auto release{RESET}
 "#,
@@ -172,11 +175,13 @@ fn task_release() {
     println!(
         r#"
   {YELLOW}After `cargo auto release`, run the compiled binary, examples and/or tests{RESET}
-{GREEN}./target/release/{package_name}{RESET}
-{GREEN}./target/release/{package_name} download{RESET}
-{GREEN}./target/release/{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev{RESET}
-{GREEN}./target/release/{package_name} substack bestiadev.substack.com{RESET}
-{GREEN}./target/release/{package_name} github_backup_bash_scripts{RESET}
+  {GREEN}alias {package_name}=target/release/{package_name}{RESET}
+
+{GREEN}{package_name}{RESET}
+{GREEN}{package_name} download{RESET}
+{GREEN}{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev{RESET}
+{GREEN}{package_name} substack bestiadev.substack.com{RESET}
+{GREEN}{package_name} github_backup_bash_scripts{RESET}
   {YELLOW}If ok then run{RESET}
 {GREEN}cargo auto doc{RESET}
 "#,
@@ -187,11 +192,15 @@ fn task_release() {
 
 /// cargo doc, then copies to /docs/ folder, because this is a GitHub standard folder
 fn task_doc() {
-    gn::task_doc();
+    ts::task_doc();
     // message to help user with next move
     println!(
         r#"
-  {YELLOW}If ok then run the tests in code and the documentation code examples.{RESET}
+  {YELLOW}After `cargo auto doc`, ctrl-click on `docs/index.html`. 
+    It will show the index.html in VSCode Explorer, then right-click and choose "Show Preview".
+    This works inside the CRUSTDE container, because of the extension "Live Preview" 
+    <https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server>
+    If ok then run the tests in code and the documentation code examples.{RESET}
 {GREEN}cargo auto test{RESET}
 "#
     );
@@ -211,7 +220,7 @@ fn task_test() {
 
 /// commit and push
 fn task_commit_and_push(arg_2: Option<String>) {
-    gn::task_commit_and_push(arg_2);
+    ts::task_commit_and_push(arg_2);
     println!(
         r#"
   {YELLOW}After `cargo auto commit_and_push "message"`{RESET}
@@ -220,9 +229,13 @@ fn task_commit_and_push(arg_2: Option<String>) {
     );
 }
 
-/// create a new release on github
+/// create a new release on github and uploads binary executables
 fn task_github_new_release() {
-    gn::task_github_new_release();
-    println!(r#"  {YELLOW}No more automation tasks. {RESET}"#);
+    ts::task_github_new_release();
+    println!(
+        r#"
+  {YELLOW}No more automation tasks. {RESET}
+"#
+    );
 }
 // endregion: tasks

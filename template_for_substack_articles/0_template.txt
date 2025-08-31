@@ -8,41 +8,21 @@
     <meta name="author" content="https://github.com/bestia-dev">
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/bestia01.css">
-    <script>
-        /* Toggle between adding and removing the "responsive" class to navbar when the user clicks on the hamburger */
-        function toggle_responsive_navbar() {
-            var x = document.getElementById("navbar");
-            if (x.className.includes(" responsive")) {
-                x.className = x.className.replace(" responsive", "");
-            } else {
-                x.className += " responsive";
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/bestia01.css">
 </head>
 
 <body>
-    <div class="fixed_header">
-        <div id="navbar">
-            <a id="navbar_brand" href="https://bestia.dev">
-                <img src="bestia_icon.png" alt="Bestia development" title="bestia.dev" />
-                <span id="navbar_title"> Bestia dev</span>
-            </a>
-            <a id="navbar_hamburger" href="javascript:void(0);" onclick="toggle_responsive_navbar()">☰ </a>
-            <div id="navbar_topics">
-                <a href="/index.html#home" onclick="toggle_responsive_navbar()">Home </a>
-                <a href="/index.html#tutorials" onclick="toggle_responsive_navbar()">Tutorials</a>
-                <a href="/index.html#games" onclick="toggle_responsive_navbar()">Games</a>
-                <a href="/index.html#productivity" onclick="toggle_responsive_navbar()">Productivity</a>
-                <a href="/index.html#contact" onclick="toggle_responsive_navbar()">Contact</a>
-            </div>
-        </div>        
-    </div>
+    <header>
+        <nav>
+            <a href="https://bestia.dev/index.html">bestia.dev</a>
+        </nav>
+    </header>
     <div>&nbsp;</div> 
-    <div class="small">This is a copy of the Substack article.<br/>
-    Find the original on <a href="canonical_url">canonical_url</a><br/>
+    
+    <div class="small"><a id="navbar_brand" href="https://bestia.dev" style="justify-content: center;">
+                <img src="https://bestia.dev/images/bestia_icon.png" alt="bestia.dev" title="bestia.dev" />
+            </a>This is a copy of the Substack article. Find the original on <a href="canonical_url">canonical_url</a><br/>
     post_date</div>
 
 

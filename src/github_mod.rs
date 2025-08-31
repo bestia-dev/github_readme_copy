@@ -5,12 +5,14 @@
 //! This doc-comments will be compiled into the `docs`.
 
 // se crate::LibraryError;
+#[allow(unused_imports)]
+use crate::{BLUE, GREEN, RED, RESET, YELLOW};
 
 /// download public readmes
 pub fn download_readme(token: &str) {
     let dest_folder = std::path::Path::new("tmp/github_readme");
     if !dest_folder.exists() {
-        panic!("Error: Folder {} does not exist.", dest_folder.to_string_lossy())
+        std::fs::create_dir_all(dest_folder).unwrap();
     }
     // copy directory structure from template
     std::fs::copy("template_for_github_readme/bestia_icon.png", "tmp/github_readme/bestia_icon.png").unwrap();
@@ -18,7 +20,11 @@ pub fn download_readme(token: &str) {
     std::fs::create_dir_all("tmp/github_readme/css").unwrap();
     std::fs::copy("template_for_github_readme/css/bestia01.css", "tmp/github_readme/css/bestia01.css").unwrap();
     std::fs::copy("template_for_github_readme/css/bestia01.css", "tmp/github_readme/css/bestia01.css").unwrap();
-    std::fs::copy("template_for_github_readme/css/normalize.css", "tmp/github_readme/css/normalize.css").unwrap();
+    std::fs::copy(
+        "template_for_github_readme/css/normalize.css",
+        "tmp/github_readme/css/normalize.css",
+    )
+    .unwrap();
     std::fs::copy(
         "template_for_github_readme/css/Roboto-Medium.woff2",
         "tmp/github_readme/css/Roboto-Medium.woff2",
@@ -30,45 +36,52 @@ pub fn download_readme(token: &str) {
     let future1 = async move { vec_of_public_repos_from_github(token).await };
     let vec_of_repo = rt1.block_on(future1);
 
+    // debug what is going on
+
     // 12 threads to download in parallel
-    let pool = rayon::ThreadPoolBuilder::new().num_threads(12).build().unwrap();
-    pool.scope(|scoped| {
-        for repo in &vec_of_repo {
-            let repo_name = &repo.name;
-            scoped.spawn(move |_s| {
-                // create a future and then run it in the tokio runtime
-                //let measure_instant = std::time::Instant::now();
-                let rt2 = tokio::runtime::Runtime::new().unwrap();
-                //println!( "Elapsed time tokio::runtime::Runtime::new(): {} ms", measure_instant.elapsed().as_millis() );
+    // let pool = rayon::ThreadPoolBuilder::new().num_threads(12).build().unwrap();
+    // pool.scope(|scoped| {
+    for repo in &vec_of_repo {
+        let repo_name = &repo.name;
+        // scoped.spawn(move |_s| {
+        // create a future and then run it in the tokio runtime
+        //let measure_instant = std::time::Instant::now();
+        let rt2 = tokio::runtime::Runtime::new().unwrap();
+        //println!( "Elapsed time tokio::runtime::Runtime::new(): {} ms", measure_instant.elapsed().as_millis() );
 
-                let future2 = async move { get_readme_body(repo).await };
-                let (body, title, description) = rt2.block_on(future2);
-                //let measure_instant = std::time::Instant::now();
-                let article = get_article(&body);
-                //println!( "Elapsed time get_article: {} ms", measure_instant.elapsed().as_millis() );
-                let mut new_html = std::fs::read_to_string("template_for_github_readme/0_template.txt").unwrap();
+        let future2 = async move { get_readme_body(repo).await };
+        let (body, title, description, organization) = rt2.block_on(future2);
+        //let measure_instant = std::time::Instant::now();
+        let article = get_article(&body);
+        //println!( "Elapsed time get_article: {} ms", measure_instant.elapsed().as_millis() );
+        let mut new_html = std::fs::read_to_string("template_for_github_readme/0_template.txt").unwrap();
 
-                insert_title(&mut new_html, &title);
-                insert_url(&mut new_html, repo.html_url.as_ref().unwrap().as_ref());
-                // this is present 2 times
-                insert_url(&mut new_html, repo.html_url.as_ref().unwrap().as_ref());
-                insert_description(&mut new_html, &description);
-                insert_article(&mut new_html, &article);
+        insert_title(&mut new_html, &title);
+        insert_url(&mut new_html, repo.html_url.as_ref().unwrap().as_ref());
+        // this is present 2 times
+        insert_url(&mut new_html, repo.html_url.as_ref().unwrap().as_ref());
+        insert_description(&mut new_html, &description);
+        insert_article(&mut new_html, &article);
 
-                let path = dest_folder.join(repo_name).with_extension("html");
-                if path.exists() {
-                    let old_html = std::fs::read_to_string(&path).unwrap();
-                    if old_html != new_html {
-                        println!("Writing {}", path.to_string_lossy());
-                        std::fs::write(&path, new_html).unwrap();
-                    }
-                } else {
-                    println!("Writing {}", path.to_string_lossy());
-                    std::fs::write(&path, new_html).unwrap();
-                }
-            });
+        let path = dest_folder.join(&organization);
+        if !path.exists() {
+            std::fs::create_dir(path).unwrap();
         }
-    });
+        let path = dest_folder.join(organization).join(repo_name).with_extension("html");
+        if path.exists() {
+            let old_html = std::fs::read_to_string(&path).unwrap();
+            if old_html != new_html {
+                println!("Writing {}", path.to_string_lossy());
+                std::fs::write(&path, new_html).unwrap();
+            }
+        } else {
+            println!("Writing {}", path.to_string_lossy());
+            std::fs::write(&path, new_html).unwrap();
+        }
+
+        //});
+    }
+    //});
     // check if there is some obsolete html
     rename_obsolete_html(dest_folder, &vec_of_repo);
 }
@@ -118,10 +131,29 @@ fn insert_description(new_html: &mut String, description: &str) {
 }
 
 fn get_article(body: &str) -> String {
-    let pos1 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "<article ").unwrap();
-    let pos2 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "</article>").unwrap();
-    let article = &body[pos1..pos2];
-    let article = remove_svg_octicon(article).unwrap();
+    // for debug only -
+    std::fs::write("body_1.html", body).unwrap();
+    let mut article: String;
+    if let Some(pos1) = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "<article ") {
+        let pos2 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "</article>").unwrap();
+        article = body[pos1..pos2].to_string();
+        article = remove_svg_octicon(&article).unwrap().to_string();
+    } else {
+        // crazy story: the first README.md comes as a complete HTML with the article tag.
+        // but other README.md like https://github.com/bestia-dev-archived/cargo_crev_reviews_workspace/blob/main/cargo_crev_reviews/README.md
+        // comes with a stupid "richText" that will be expanded in javascript. Stupid react or some other framework.
+        let pos1 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, r#""richText":""#).unwrap();
+        let pos2 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, r#"","renderedFileInfo"#).unwrap();
+        article = body[pos1 + 12..pos2 - 19].to_string();
+        article = article
+            .replace(r#"\u003c"#, "<")
+            .replace(r#"\u003e"#, ">")
+            .replace(r#"\""#, r#"""#)
+            .replace(r#"\n"#, "\n")
+            .replace(r#"\\"#, r#"\"#);
+        // now it should look like the original HTML
+        article = remove_svg_octicon(&article).unwrap().to_string();
+    }
     // return article
     img_src_modify(&article).unwrap()
 }
@@ -180,61 +212,75 @@ fn img_src_modify(article: &str) -> Result<String, Box<dyn std::error::Error>> {
 }
 
 fn get_long_title(body: &str) -> &str {
+    // examples: <title>GitHub - automation-tasks-rs/.github: Automation tasks coded in Rust language for the workflow of Rust projects</title>
     let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "<title>").unwrap();
-    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "</title>").unwrap();
+    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, pos1, "</title>").unwrap();
+    // println!("get_long_title: {}", &body[pos1..pos2]);
     // return title
     &body[pos1..pos2]
 }
 
 fn get_github_description<'a>(body: &'a str, title: &str) -> &'a str {
-    let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(
-        body,
-        0,
-        r#"</h1>
-<p dir="auto"><strong>"#,
-    )
-    .unwrap_or_else(|| panic!("not found GitHub description start for {title}"));
-    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "</strong><br>")
+    // examples:  <meta name="description" content="Automation tasks coded in Rust language for the workflow of Rust projects - automation-tasks-rs/.github">
+
+    // for debug only - std::fs::write("body_1.html", body).unwrap();
+    let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, r#"<meta name="description" content=""#)
+        .unwrap_or_else(|| panic!("not found GitHub description start for {title}"));
+    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, pos1, r#"">"#)
         .unwrap_or_else(|| panic!("not found GitHub description end for {title}"));
+    //println!("get_github_description: {}", &body[pos1..pos2]);
     // return github_description
     &body[pos1..pos2]
 }
 
 /// get the right readme body
 /// if there is a link to >Primary project README.md<, use that instead, for example cargo_crev_reviews_workspace
-async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String, String) {
+async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String, String, String) {
     let repo_url = repo.html_url.as_ref().unwrap();
-    println!("    Reading {}", repo_url);
+    println!("\n    Reading {}", repo_url);
     // open the html
     let body = reqwest::get(repo_url.clone()).await.unwrap().text().await.unwrap();
 
     // get title and description
     // They are already HTML encoded, because they come from a HTML
     // find and parse: <title>GitHub - bestia-dev/github_readme_copy: Copy my public README.md files from Github in HTML format</title>
-    let title = get_long_title(&body);
-    let mut spl = title.split(": ");
-    let title = spl.next().unwrap().trim_start_matches("GitHub - bestia-dev/").to_string();
-    let description = spl
-        .next()
-        .unwrap_or_else(|| panic!("Panic reading description of {}", title))
-        .to_string();
-
+    let long_title = get_long_title(&body);
+    let pos1 = long_title.find(" - ").unwrap();
+    let pos2 = long_title.find("/").unwrap();
+    let organization = long_title[pos1 + 3..pos2].to_string();
+    //println!("organization: {organization}");
+    let pos3 = long_title.find(": ").unwrap();
+    let title = long_title[pos2 + 1..pos3].to_string();
+    //println!("title: {title}");
+    let description = long_title[pos3 + 2..].to_string();
+    //println!("description: {description}");
     // check if the description of the project and the GitHub description is the same
-    let github_description = get_github_description(&body, &title);
+    let mut github_description = get_github_description(&body, &title).to_string();
+    // examples:  <meta name="description" content="Automation tasks coded in Rust language for the workflow of Rust projects - automation-tasks-rs/.github">
+    if let Some(pos1) = github_description.find(&format!(" - {organization}")) {
+        github_description = github_description[..pos1].to_string();
+    }
+    // example: <meta name="description" content="OBSOLETE: Library to encrypt/decrypt secrets. Contribute to automation-tasks-rs/cargo_auto_encrypt_secret_lib development by creating an account on GitHub.">
+    if let Some(pos1) = github_description.find(". Contribute to ") {
+        github_description = github_description[..pos1].to_string();
+    }
+    // example: <meta name="description" content="How to setup a development environment for rust in Win10 + WSL2 + VSCode for Longan nano GD32 Risc-V development board  - bestia-dev-archived/longan_nano_rust_wsl2_platformio_setup: How to setup a development environment for rust in Win10 + WSL2 + VSCode for Longan nano GD32 Risc-V development board">
+    println!("github_description: {github_description}");
     if github_description != description {
         println!();
-        println!("    description different:");
-        println!("    {title}");
-
-        println!("    {description}");
-        println!("    {github_description}");
+        println!("{RED}    Description different:{RESET}");
+        println!("{RED}    {title}{RESET}");
+        println!("{RED}    {description}{RESET}");
+        println!("{RED}    {github_description}{RESET}");
         println!();
     }
 
     // find the magic link "Primary project README.md" it must be header2
+    // <h2 tabindex="-1" class="heading-element" dir="auto"><a href="https://github.com/bestia-dev/cargo_crev_reviews_workspace/tree/main/cargo_crev_reviews/README.md">Primary project README.md</a></h2>
+    // https://github.com/bestia-dev-archived/cargo_crev_reviews_workspace/blob/main/cargo_crev_reviews/README.md
     let pos1 = body.find(r#"">Primary project README.md</a></h2>"#);
     match pos1 {
-        None => (body, title, description),
+        None => (body, title, description, organization),
         Some(pos1) => {
             // extract the link
             let delim2 = r#"<a href=""#;
@@ -243,10 +289,13 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String
                 .expect("The html {} has the phrase >Primary project README.md<, but before that there is no <a href=");
             let pos3 = pos2 + delim2.len();
             let link_url = &body[pos3..pos1];
-            println!("    Primary project: Reading {}", repo_url);
+            println!("    Primary project: Reading {}", link_url);
+            // is there a redirect inside some javascript code??? Stupid.
+            // I  can download RAW, but then I have to transform into html.
             let body = reqwest::get(link_url).await.unwrap().text().await.unwrap();
+            // for debug only - std::fs::write("body_1.html", &body).unwrap();
 
-            (body, title, description)
+            (body, title, description, organization)
         }
     }
 }
@@ -341,7 +390,11 @@ pub fn github_backup_bash_scripts(token: &str) {
         panic!("Error: Folder {} does not exist.", dest_folder.to_string_lossy())
     }
     // copy directory structure from template
-    std::fs::copy("template_for_bash_script_for_backup/README.md", "tmp/bash_script_for_backup/README.md").unwrap();
+    std::fs::copy(
+        "template_for_bash_script_for_backup/README.md",
+        "tmp/bash_script_for_backup/README.md",
+    )
+    .unwrap();
 
     // create a future and then run it in the tokio runtime
     let rt1 = tokio::runtime::Runtime::new().unwrap();
