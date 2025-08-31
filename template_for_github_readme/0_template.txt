@@ -21,7 +21,7 @@
     <div>&nbsp;</div> 
     <div class="small"><a id="navbar_brand" href="https://bestia.dev" style="justify-content: center;">
                 <img src="https://bestia.dev/images/bestia_icon.png" alt="bestia.dev" title="bestia.dev" />
-            </a>This is a copy of the Github readme. Find the original on <a href="canonical_url">canonical_url</a></div>
+            </a>This is a copy of the Github readme, only because of SEO. Find the original on <a href="canonical_url">canonical_url</a></div>
 
 
 </body>
