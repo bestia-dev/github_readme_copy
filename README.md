@@ -9,11 +9,10 @@
 ***version: 1.0.149 date: 2025-03-31 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/github_readme_copy)***
 
  ![Rust](https://img.shields.io/badge/Rust-orange)
-
-[//]: # (auto_cargo_toml_to_md end)
-
  ![maintained](https://img.shields.io/badge/maintained-green)
  ![ready_for_use](https://img.shields.io/badge/ready_for_use-green)
+ 
+[//]: # (auto_cargo_toml_to_md end)
 
 [//]: # (auto_lines_of_code start)
 [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-765-green.svg)](https://github.com/bestia-dev/github_readme_copy/)
