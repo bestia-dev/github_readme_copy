@@ -6,69 +6,72 @@
 //! cargo auto update_automation_tasks_rs
 //! If you want to customize it, copy the code into main.rs and modify it there.
 
-use crate::cl;
+use crate::cargo_auto_lib as cl;
 
 #[allow(unused_imports)]
 pub use cl::{BLUE, GREEN, RED, RESET, YELLOW};
 
-/// Initialize tracing to file logs/automation_tasks_rs.log
+/// Initialize tracing to file logs/automation_tasks_rs.log.  \
 ///
-/// The folder logs/ is in .gitignore and will not be committed.
-pub fn tracing_init() {
-    // uncomment this line to enable tracing to file
-    // let file_appender = tracing_appender::rolling::daily("logs", "automation_tasks_rs.log");
-
-    let offset = time::UtcOffset::current_local_offset().expect("should get local offset!");
+/// The folder logs/ is in .gitignore and will not be committed.  
+pub fn tracing_init() -> anyhow::Result<()> {
+    let offset = time::UtcOffset::current_local_offset()?;
     let timer = tracing_subscriber::fmt::time::OffsetTime::new(
         offset,
         time::macros::format_description!("[hour]:[minute]:[second].[subsecond digits:6]"),
     );
 
-    // Filter out logs from: hyper_util, reqwest
     // A filter consists of one or more comma-separated directives
     // target[span{field=value}]=level
-    // examples: tokio::net=info
-    // directives can be added with the RUST_LOG environment variable:
-    // export RUST_LOG=automation_tasks_rs=trace
-    // Unset the environment variable RUST_LOG
-    // unset RUST_LOG
-    let filter = tracing_subscriber::EnvFilter::from_default_env()
-        .add_directive("hyper_util=error".parse().unwrap_or_else(|e| panic!("{e}")))
-        .add_directive("reqwest=error".parse().unwrap_or_else(|e| panic!("{e}")));
+    // Levels order: 1. ERROR, 2. WARN, 3. INFO, 4. DEBUG, 5. TRACE
+    // ERROR level is always logged.
+    // Add filters to AUTOMATION_TASKS_RS_LOG environment variable for a single execution:
+    // ```bash
+    // AUTOMATION_TASKS_RS_LOG="debug,hyper_util=info,reqwest=info" ./{package_name}
+    // ```
+    let filter = tracing_subscriber::EnvFilter::from_env("AUTOMATION_TASKS_RS_LOG");
 
-    tracing_subscriber::fmt()
-        .with_file(true)
-        .with_max_level(tracing::Level::DEBUG)
+    let builder = tracing_subscriber::fmt()
         .with_timer(timer)
-        .with_line_number(true)
         .with_ansi(false)
-        //.with_writer(file_appender)
-        .with_env_filter(filter)
-        .init();
+        .with_target(false)
+        .with_env_filter(filter);
+    if std::env::var("AUTOMATION_TASKS_RS_LOG").is_ok() {
+        // if AUTOMATION_TASKS_RS_LOG exists than enable tracing to file
+        let file_appender = tracing_appender::rolling::RollingFileAppender::builder()
+            .rotation(tracing_appender::rolling::Rotation::DAILY)
+            .filename_prefix("automation_tasks_rs")
+            .filename_suffix("log")
+            .build("logs")
+            .expect("initializing rolling file appender failed");
+        builder.with_writer(file_appender).init();
+    } else {
+        builder.init();
+    };
+
+    Ok(())
 }
 
-/// The original Rust report of the panic is ugly for the end user
+/// macro to get source code position to log errors before propagation
 ///
-/// I use panics extensively to stop the execution. I am lazy to implement a super complicated error handling.
-/// I just need to stop the execution on every little bit of error. This utility is for developers. They will understand me.
-/// For errors I print the location. If the message contains "Exiting..." than it is a "not-error exit" and  the location is not important.
-pub fn panic_set_hook(panic_info: &std::panic::PanicHookInfo) {
-    let mut string_message = "".to_string();
-    if let Some(message) = panic_info.payload().downcast_ref::<String>() {
-        string_message = message.to_owned();
-    }
-    if let Some(message) = panic_info.payload().downcast_ref::<&str>() {
-        string_message.push_str(message);
-    }
+/// example:  read_to_string("x").log(pos!())?;
+macro_rules! pos {
+    // `()` indicates that the macro takes no argument.
+    () => {
+        // The macro will expand into the contents of this block.
+        &format!("{}:{}:{}:", file!(), line!(), column!())
+    };
+}
+pub(crate) use pos;
 
-    tracing::debug!("{string_message}");
-    eprintln!("{string_message}");
+/// Trait to log the error from Result before propagation with ?.
+pub trait ResultLogError<T, E>: Sized {
+    fn log(self, file_line_column: &str) -> Self;
+}
 
-    if !string_message.contains("Exiting...") {
-        let file = panic_info.location().unwrap().file();
-        let line = panic_info.location().unwrap().line();
-        let column = panic_info.location().unwrap().column();
-        tracing::debug!("Location: {file}:{line}:{column}");
-        eprintln!("Location: {file}:{line}:{column}");
+/// Implements LogError for anyhow::Result.
+impl<T, E: std::fmt::Debug> ResultLogError<T, E> for core::result::Result<T, E> {
+    fn log(self, file_line_column: &str) -> Self {
+        self.inspect_err(|err| tracing::error!("automation_tasks_rs/{} {:?}", file_line_column, err))
     }
 }

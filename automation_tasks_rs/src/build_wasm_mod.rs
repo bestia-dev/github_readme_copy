@@ -1,6 +1,6 @@
-// build_cli_bin_mod.rs
+// build_wasm_mod.rs
 
-//! Functions to build a CLI binary executable.
+//! Functions to build a WASM library.
 //!
 //! Don't change this code, so it can be updated regularly with
 //! cargo auto update_automation_tasks_rs
@@ -16,18 +16,26 @@ use crate::generic_functions_mod::ResultLogError;
 use cl::{BLUE, GREEN, RED, RESET, YELLOW};
 
 #[allow(dead_code)]
-/// cargo build
+/// wasm-pack build --profiling
 pub fn task_build() -> anyhow::Result<cl::CargoToml> {
     let cargo_toml = cl::CargoToml::read().log(pos!())?;
     cl::auto_version_increment_semver_or_date().log(pos!())?;
     cl::run_shell_command_static("cargo fmt").log(pos!())?;
     cl::run_shell_command_static("cargo clippy --no-deps").log(pos!())?;
-    cl::run_shell_command_static("cargo build").log(pos!())?;
+    cl::run_shell_command_static("wasm-pack build --target web --profiling").log(pos!())?;
+
+    cl::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"rsync -a --delete-after pkg/ "web_server_folder/{package_name}/pkg/" "#)
+        .log(pos!())?
+        .arg("{package_name}", &cargo_toml.package_name())
+        .log(pos!())?
+        .run()
+        .log(pos!())?;
+
     Ok(cargo_toml)
 }
 
 #[allow(dead_code)]
-/// cargo build --release
+/// wasm-pack build --release
 pub fn task_release() -> anyhow::Result<cl::CargoToml> {
     let cargo_toml = cl::CargoToml::read().log(pos!())?;
     cl::auto_version_increment_semver_or_date().log(pos!())?;
@@ -36,17 +44,14 @@ pub fn task_release() -> anyhow::Result<cl::CargoToml> {
 
     cl::run_shell_command_static("cargo fmt").log(pos!())?;
     cl::run_shell_command_static("cargo clippy --no-deps").log(pos!())?;
-    cl::run_shell_command_static("cargo build --release").log(pos!())?;
+    cl::run_shell_command_static("wasm-pack build --target web --release").log(pos!())?;
 
-    // strip only for binary executables
-    #[cfg(target_family = "unix")]
-    if std::fs::exists("target/release/{package_name}").log(pos!())? {
-        cl::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"strip "target/release/{package_name}" "#)
-            .log(pos!())?
-            .arg("{package_name}", &cargo_toml.package_name())
-            .log(pos!())?
-            .run()
-            .log(pos!())?;
-    }
+    cl::ShellCommandLimitedDoubleQuotesSanitizer::new(r#"rsync -a --delete-after pkg/ "web_server_folder/{package_name}/pkg/" "#)
+        .log(pos!())?
+        .arg("{package_name}", &cargo_toml.package_name())
+        .log(pos!())?
+        .run()
+        .log(pos!())?;
+
     Ok(cargo_toml)
 }

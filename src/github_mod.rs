@@ -4,91 +4,109 @@
 //!
 //! This doc-comments will be compiled into the `docs`.
 
+use crate::{pos, ResultLogError};
 // se crate::LibraryError;
 #[allow(unused_imports)]
 use crate::{BLUE, GREEN, RED, RESET, YELLOW};
 
 /// download public readmes
-pub fn download_readme(token: &str) {
+pub fn download_readme(token: &str) -> anyhow::Result<()> {
     let dest_folder = std::path::Path::new("tmp/github_readme");
     if !dest_folder.exists() {
-        std::fs::create_dir_all(dest_folder).unwrap();
+        std::fs::create_dir_all(dest_folder).log(pos!())?;
     }
     // copy directory structure from template
-    std::fs::copy("template_for_github_readme/bestia_icon.png", "tmp/github_readme/bestia_icon.png").unwrap();
-    std::fs::copy("template_for_github_readme/README.md", "tmp/github_readme/README.md").unwrap();
-    std::fs::create_dir_all("tmp/github_readme/css").unwrap();
-    std::fs::copy("template_for_github_readme/css/bestia01.css", "tmp/github_readme/css/bestia01.css").unwrap();
-    std::fs::copy("template_for_github_readme/css/bestia01.css", "tmp/github_readme/css/bestia01.css").unwrap();
+    std::fs::copy("template_for_github_readme/bestia_icon.png", "tmp/github_readme/bestia_icon.png").log(pos!())?;
+    std::fs::copy("template_for_github_readme/README.md", "tmp/github_readme/README.md").log(pos!())?;
+    std::fs::create_dir_all("tmp/github_readme/css").log(pos!())?;
+    std::fs::copy("template_for_github_readme/css/bestia01.css", "tmp/github_readme/css/bestia01.css").log(pos!())?;
+    std::fs::copy("template_for_github_readme/css/bestia01.css", "tmp/github_readme/css/bestia01.css").log(pos!())?;
     std::fs::copy(
         "template_for_github_readme/css/normalize.css",
         "tmp/github_readme/css/normalize.css",
     )
-    .unwrap();
+    .log(pos!())?;
     std::fs::copy(
         "template_for_github_readme/css/Roboto-Medium.woff2",
         "tmp/github_readme/css/Roboto-Medium.woff2",
     )
-    .unwrap();
+    .log(pos!())?;
 
     // create a future and then run it in the tokio runtime
-    let rt1 = tokio::runtime::Runtime::new().unwrap();
+    let rt1 = tokio::runtime::Runtime::new().log(pos!())?;
     let future1 = async move { vec_of_public_repos_from_github(token).await };
-    let vec_of_repo = rt1.block_on(future1);
+    let vec_of_repo = rt1.block_on(future1).log(pos!())?;
 
     // debug what is going on
 
     // 12 threads to download in parallel
-    // let pool = rayon::ThreadPoolBuilder::new().num_threads(12).build().unwrap();
+    // let pool = rayon::ThreadPoolBuilder::new().num_threads(12).build().log(pos!())?;
     // pool.scope(|scoped| {
     for repo in &vec_of_repo {
         let repo_name = &repo.name;
         // scoped.spawn(move |_s| {
         // create a future and then run it in the tokio runtime
         //let measure_instant = std::time::Instant::now();
-        let rt2 = tokio::runtime::Runtime::new().unwrap();
+        let rt2 = tokio::runtime::Runtime::new().log(pos!())?;
         //println!( "Elapsed time tokio::runtime::Runtime::new(): {} ms", measure_instant.elapsed().as_millis() );
 
         let future2 = async move { get_readme_body(repo).await };
-        let (body, title, description, organization) = rt2.block_on(future2);
+        let (body, title, description, organization) = rt2.block_on(future2).log(pos!())?;
         //let measure_instant = std::time::Instant::now();
-        let article = get_article(&body);
+        let article = get_article(&body).log(pos!())?;
         //println!( "Elapsed time get_article: {} ms", measure_instant.elapsed().as_millis() );
-        let mut new_html = std::fs::read_to_string("template_for_github_readme/0_template.txt").unwrap();
+        let mut new_html = std::fs::read_to_string("template_for_github_readme/0_template.txt").log(pos!())?;
 
-        insert_title(&mut new_html, &title);
-        insert_url(&mut new_html, repo.html_url.as_ref().unwrap().as_ref());
+        insert_title(&mut new_html, &title).log(pos!())?;
+        insert_url(
+            &mut new_html,
+            repo.html_url
+                .as_ref()
+                .ok_or_else(|| anyhow::anyhow!("repo.html_url is None"))
+                .log(pos!())?
+                .as_ref(),
+        )
+        .log(pos!())?;
         // this is present 2 times
-        insert_url(&mut new_html, repo.html_url.as_ref().unwrap().as_ref());
-        insert_description(&mut new_html, &description);
-        insert_article(&mut new_html, &article);
+        insert_url(
+            &mut new_html,
+            repo.html_url
+                .as_ref()
+                .ok_or_else(|| anyhow::anyhow!("repo.html_url is None"))
+                .log(pos!())?
+                .as_ref(),
+        )
+        .log(pos!())?;
+        insert_description(&mut new_html, &description).log(pos!())?;
+        insert_article(&mut new_html, &article).log(pos!())?;
 
         let path = dest_folder.join(&organization);
         if !path.exists() {
-            std::fs::create_dir(path).unwrap();
+            std::fs::create_dir(path).log(pos!())?;
         }
         let path = dest_folder.join(organization).join(repo_name).with_extension("html");
         if path.exists() {
-            let old_html = std::fs::read_to_string(&path).unwrap();
+            let old_html = std::fs::read_to_string(&path).log(pos!())?;
             if old_html != new_html {
                 println!("Writing {}", path.to_string_lossy());
-                std::fs::write(&path, new_html).unwrap();
+                std::fs::write(&path, new_html).log(pos!())?;
             }
         } else {
             println!("Writing {}", path.to_string_lossy());
-            std::fs::write(&path, new_html).unwrap();
+            std::fs::write(&path, new_html).log(pos!())?;
         }
 
         //});
     }
     //});
     // check if there is some obsolete html
-    rename_obsolete_html(dest_folder, &vec_of_repo);
+    rename_obsolete_html(dest_folder, &vec_of_repo).log(pos!())?;
+    Ok(())
 }
 
 // rename obsolete html
-fn rename_obsolete_html(dest_folder: &std::path::Path, vec_of_repo: &Vec<octocrab::models::Repository>) {
-    for entry in dest_folder.read_dir().unwrap().flatten() {
+fn rename_obsolete_html(dest_folder: &std::path::Path, vec_of_repo: &Vec<octocrab::models::Repository>) -> anyhow::Result<()> {
+    for entry in dest_folder.read_dir().log(pos!())?.flatten() {
         if entry.file_name().to_string_lossy().ends_with(".html") {
             let mut repo_exists = false;
             for repo in vec_of_repo {
@@ -100,50 +118,69 @@ fn rename_obsolete_html(dest_folder: &std::path::Path, vec_of_repo: &Vec<octocra
             if !repo_exists {
                 // rename the file
                 println!("Obsolete renamed: {}", &entry.file_name().to_string_lossy());
-                std::fs::rename(entry.path(), entry.path().with_extension("obsolete")).unwrap();
+                std::fs::rename(entry.path(), entry.path().with_extension("obsolete")).log(pos!())?;
             }
         }
     }
+    Ok(())
 }
 
-fn insert_article(new_html: &mut String, article: &str) {
-    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "\n</body>").unwrap();
+fn insert_article(new_html: &mut String, article: &str) -> anyhow::Result<()> {
+    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "\n</body>")
+        .ok_or_else(|| anyhow::anyhow!("delimiter is None"))
+        .log(pos!())?;
     new_html.replace_range(pos3..pos3, article);
+    Ok(())
 }
 
-fn insert_title(new_html: &mut String, title: &str) {
-    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "<title>template</title>").unwrap();
+fn insert_title(new_html: &mut String, title: &str) -> anyhow::Result<()> {
+    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "<title>template</title>")
+        .ok_or_else(|| anyhow::anyhow!("delimiter is None"))
+        .log(pos!())?;
     new_html.replace_range(pos3 + 7..pos3 + 15, title);
-}
-fn insert_url(new_html: &mut String, url: &str) {
-    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "canonical_url").unwrap();
-    new_html.replace_range(pos3..pos3 + 13, url);
+    Ok(())
 }
 
-fn insert_description(new_html: &mut String, description: &str) {
+fn insert_url(new_html: &mut String, url: &str) -> anyhow::Result<()> {
+    let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(&*new_html, 0, "canonical_url")
+        .ok_or_else(|| anyhow::anyhow!("delimiter is None"))
+        .log(pos!())?;
+    new_html.replace_range(pos3..pos3 + 13, url);
+    Ok(())
+}
+
+fn insert_description(new_html: &mut String, description: &str) -> anyhow::Result<()> {
     let pos3 = crate::utils_mod::find_pos_end_data_before_delimiter(
         &*new_html,
         0,
         r#"content="Learning Rust Wasm/Webassembly programming and having fun""#,
     )
-    .unwrap();
+    .ok_or_else(|| anyhow::anyhow!("delimiter is None"))
+    .log(pos!())?;
     new_html.replace_range(pos3 + 9..pos3 + 66, description);
+    Ok(())
 }
 
-fn get_article(body: &str) -> String {
+fn get_article(body: &str) -> anyhow::Result<String> {
     // for debug only -
-    std::fs::write("body_1.html", body).unwrap();
+    std::fs::write("body_1.html", body).log(pos!())?;
     let mut article: String;
     if let Some(pos1) = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, "<article ") {
-        let pos2 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "</article>").unwrap();
+        let pos2 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "</article>")
+            .ok_or_else(|| anyhow::anyhow!("delimiter is None"))
+            .log(pos!())?;
         article = body[pos1..pos2].to_string();
-        article = remove_svg_octicon(&article).unwrap().to_string();
+        article = remove_svg_octicon(&article).log(pos!())?.to_string();
     } else {
         // crazy story: the first README.md comes as a complete HTML with the article tag.
         // but other README.md like https://github.com/bestia-dev-archived/cargo_crev_reviews_workspace/blob/main/cargo_crev_reviews/README.md
         // comes with a stupid "richText" that will be expanded in javascript. Stupid react or some other framework.
-        let pos1 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, r#""richText":""#).unwrap();
-        let pos2 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, r#"","renderedFileInfo"#).unwrap();
+        let pos1 = crate::utils_mod::find_pos_end_data_before_delimiter(body, 0, r#""richText":""#)
+            .ok_or_else(|| anyhow::anyhow!("delimiter is None"))
+            .log(pos!())?;
+        let pos2 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, r#"","renderedFileInfo"#)
+            .ok_or_else(|| anyhow::anyhow!("delimiter is None"))
+            .log(pos!())?;
         article = body[pos1 + 12..pos2 - 19].to_string();
         article = article
             .replace(r#"\u003c"#, "<")
@@ -152,14 +189,14 @@ fn get_article(body: &str) -> String {
             .replace(r#"\n"#, "\n")
             .replace(r#"\\"#, r#"\"#);
         // now it should look like the original HTML
-        article = remove_svg_octicon(&article).unwrap().to_string();
+        article = remove_svg_octicon(&article).log(pos!())?.to_string();
     }
     // return article
-    img_src_modify(&article).unwrap()
+    img_src_modify(&article).log(pos!())
 }
 
 /// remove element svg class="octicon octicon-link">
-fn remove_svg_octicon(article: &str) -> Result<String, Box<dyn std::error::Error>> {
+fn remove_svg_octicon(article: &str) -> anyhow::Result<String> {
     use lol_html::{element, rewrite_str, RewriteStrSettings};
     let element_content_handlers = vec![
         // Rewrite insecure hyperlinks
@@ -179,20 +216,20 @@ fn remove_svg_octicon(article: &str) -> Result<String, Box<dyn std::error::Error
             ..RewriteStrSettings::default()
         },
     )
-    .unwrap();
+    .log(pos!())?;
 
     Ok(output)
 }
 
 /// if exists data-canonical-src then replace src
-fn img_src_modify(article: &str) -> Result<String, Box<dyn std::error::Error>> {
+fn img_src_modify(article: &str) -> anyhow::Result<String> {
     use lol_html::{element, rewrite_str, RewriteStrSettings};
     let element_content_handlers = vec![
         // Rewrite insecure hyperlinks
         element!("img[data-canonical-src]", |el| {
             let canonical = el.get_attribute("data-canonical-src").unwrap_or("".to_string());
             if !canonical.is_empty() {
-                el.set_attribute("src", &canonical).unwrap();
+                el.set_attribute("src", &canonical).log(pos!())?;
                 el.remove_attribute("data-canonical-src");
             }
             Ok(())
@@ -206,56 +243,73 @@ fn img_src_modify(article: &str) -> Result<String, Box<dyn std::error::Error>> {
             ..RewriteStrSettings::default()
         },
     )
-    .unwrap();
+    .log(pos!())?;
 
     Ok(output)
 }
 
-fn get_long_title(body: &str) -> &str {
+fn get_long_title(body: &str) -> anyhow::Result<&str> {
     // examples: <title>GitHub - automation-tasks-rs/.github: Automation tasks coded in Rust language for the workflow of Rust projects</title>
-    let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "<title>").unwrap();
-    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, pos1, "</title>").unwrap();
+    let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, "<title>")
+        .ok_or_else(|| anyhow::anyhow!("delimiter is None"))
+        .log(pos!())?;
+    let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, pos1, "</title>")
+        .ok_or_else(|| anyhow::anyhow!("delimiter is None"))
+        .log(pos!())?;
     // println!("get_long_title: {}", &body[pos1..pos2]);
     // return title
-    &body[pos1..pos2]
+    Ok(&body[pos1..pos2])
 }
 
-fn get_github_description<'a>(body: &'a str, title: &str) -> &'a str {
+fn get_github_description<'a>(body: &'a str, title: &str) -> anyhow::Result<&'a str> {
     // examples:  <meta name="description" content="Automation tasks coded in Rust language for the workflow of Rust projects - automation-tasks-rs/.github">
 
-    // for debug only - std::fs::write("body_1.html", body).unwrap();
+    // for debug only - std::fs::write("body_1.html", body).log(pos!())?;
     let pos1 = crate::utils_mod::find_pos_start_data_after_delimiter(body, 0, r#"<meta name="description" content=""#)
         .unwrap_or_else(|| panic!("not found GitHub description start for {title}"));
     let pos2 = crate::utils_mod::find_pos_end_data_before_delimiter(body, pos1, r#"">"#)
         .unwrap_or_else(|| panic!("not found GitHub description end for {title}"));
     //println!("get_github_description: {}", &body[pos1..pos2]);
     // return github_description
-    &body[pos1..pos2]
+    Ok(&body[pos1..pos2])
 }
 
 /// get the right readme body
 /// if there is a link to >Primary project README.md<, use that instead, for example cargo_crev_reviews_workspace
-async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String, String, String) {
-    let repo_url = repo.html_url.as_ref().unwrap();
+async fn get_readme_body(repo: &octocrab::models::Repository) -> anyhow::Result<(String, String, String, String)> {
+    let repo_url = repo
+        .html_url
+        .as_ref()
+        .ok_or_else(|| anyhow::anyhow!("repo.html_url is None"))
+        .log(pos!())?;
     println!("\n    Reading {}", repo_url);
     // open the html
-    let body = reqwest::get(repo_url.clone()).await.unwrap().text().await.unwrap();
+    let body = reqwest::get(repo_url.clone()).await.log(pos!())?.text().await.log(pos!())?;
 
     // get title and description
     // They are already HTML encoded, because they come from a HTML
     // find and parse: <title>GitHub - bestia-dev/github_readme_copy: Copy my public README.md files from Github in HTML format</title>
-    let long_title = get_long_title(&body);
-    let pos1 = long_title.find(" - ").unwrap();
-    let pos2 = long_title.find("/").unwrap();
+    let long_title = get_long_title(&body).log(pos!())?;
+    let pos1 = long_title
+        .find(" - ")
+        .ok_or_else(|| anyhow::anyhow!("long_title.find is None"))
+        .log(pos!())?;
+    let pos2 = long_title
+        .find("/")
+        .ok_or_else(|| anyhow::anyhow!("long_title.find is None"))
+        .log(pos!())?;
     let organization = long_title[pos1 + 3..pos2].to_string();
     //println!("organization: {organization}");
-    let pos3 = long_title.find(": ").unwrap();
+    let pos3 = long_title
+        .find(": ")
+        .ok_or_else(|| anyhow::anyhow!("long_title.find is None"))
+        .log(pos!())?;
     let title = long_title[pos2 + 1..pos3].to_string();
     //println!("title: {title}");
     let description = long_title[pos3 + 2..].to_string();
     //println!("description: {description}");
     // check if the description of the project and the GitHub description is the same
-    let mut github_description = get_github_description(&body, &title).to_string();
+    let mut github_description = get_github_description(&body, &title).log(pos!())?.to_string();
     // examples:  <meta name="description" content="Automation tasks coded in Rust language for the workflow of Rust projects - automation-tasks-rs/.github">
     if let Some(pos1) = github_description.find(&format!(" - {organization}")) {
         github_description = github_description[..pos1].to_string();
@@ -280,7 +334,7 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String
     // https://github.com/bestia-dev-archived/cargo_crev_reviews_workspace/blob/main/cargo_crev_reviews/README.md
     let pos1 = body.find(r#"">Primary project README.md</a></h2>"#);
     match pos1 {
-        None => (body, title, description, organization),
+        None => Ok((body, title, description, organization)),
         Some(pos1) => {
             // extract the link
             let delim2 = r#"<a href=""#;
@@ -292,17 +346,20 @@ async fn get_readme_body(repo: &octocrab::models::Repository) -> (String, String
             println!("    Primary project: Reading {}", link_url);
             // is there a redirect inside some javascript code??? Stupid.
             // I  can download RAW, but then I have to transform into html.
-            let body = reqwest::get(link_url).await.unwrap().text().await.unwrap();
-            // for debug only - std::fs::write("body_1.html", &body).unwrap();
+            let body = reqwest::get(link_url).await.log(pos!())?.text().await.log(pos!())?;
+            // for debug only - std::fs::write("body_1.html", &body).log(pos!())?;
 
-            (body, title, description, organization)
+            Ok((body, title, description, organization))
         }
     }
 }
 
 /// only public repos
-async fn vec_of_public_repos_from_github(token: &str) -> Vec<octocrab::models::Repository> {
-    let octocrab = octocrab::Octocrab::builder().personal_token(token.to_string()).build().unwrap();
+async fn vec_of_public_repos_from_github(token: &str) -> anyhow::Result<Vec<octocrab::models::Repository>> {
+    let octocrab = octocrab::Octocrab::builder()
+        .personal_token(token.to_string())
+        .build()
+        .log(pos!())?;
     let page = octocrab
         .current()
         .list_repos_for_authenticated_user()
@@ -311,14 +368,17 @@ async fn vec_of_public_repos_from_github(token: &str) -> Vec<octocrab::models::R
         .per_page(100)
         .send()
         .await
-        .unwrap();
+        .log(pos!())?;
     // return vec_of_repo
-    octocrab.all_pages::<octocrab::models::Repository>(page).await.unwrap()
+    Ok(octocrab.all_pages::<octocrab::models::Repository>(page).await.log(pos!())?)
 }
 
 /// private and public repos
-async fn vec_of_private_and_public_repos_from_github(token: &str) -> Vec<octocrab::models::Repository> {
-    let octocrab = octocrab::Octocrab::builder().personal_token(token.to_string()).build().unwrap();
+async fn vec_of_private_and_public_repos_from_github(token: &str) -> anyhow::Result<Vec<octocrab::models::Repository>> {
+    let octocrab = octocrab::Octocrab::builder()
+        .personal_token(token.to_string())
+        .build()
+        .log(pos!())?;
     let page = octocrab
         .current()
         .list_repos_for_authenticated_user()
@@ -326,9 +386,9 @@ async fn vec_of_private_and_public_repos_from_github(token: &str) -> Vec<octocra
         .per_page(100)
         .send()
         .await
-        .unwrap();
+        .log(pos!())?;
     // return vec_of_repo
-    octocrab.all_pages::<octocrab::models::Repository>(page).await.unwrap()
+    Ok(octocrab.all_pages::<octocrab::models::Repository>(page).await.log(pos!())?)
 }
 
 pub fn upload_github_readme(upload_url: &str) {
@@ -384,7 +444,7 @@ pub fn upload_substack_articles(upload_url: &str) {
 }
 
 /// create bash script for backup of all GitHub repositories
-pub fn github_backup_bash_scripts(token: &str) {
+pub fn github_backup_bash_scripts(token: &str) -> anyhow::Result<()> {
     let dest_folder = std::path::Path::new("tmp/bash_script_for_backup");
     if !dest_folder.exists() {
         panic!("Error: Folder {} does not exist.", dest_folder.to_string_lossy())
@@ -394,12 +454,12 @@ pub fn github_backup_bash_scripts(token: &str) {
         "template_for_bash_script_for_backup/README.md",
         "tmp/bash_script_for_backup/README.md",
     )
-    .unwrap();
+    .log(pos!())?;
 
     // create a future and then run it in the tokio runtime
-    let rt1 = tokio::runtime::Runtime::new().unwrap();
+    let rt1 = tokio::runtime::Runtime::new().log(pos!())?;
     let future1 = async move { vec_of_private_and_public_repos_from_github(token).await };
-    let vec_of_repo = rt1.block_on(future1);
+    let vec_of_repo = rt1.block_on(future1).log(pos!())?;
 
     let _num_of_repo = format!("{}", vec_of_repo.len());
     let path_base = r#"c:\Users\Luciano\Dropbox\BestiaDev\github_backup"#;
@@ -449,9 +509,10 @@ cd {path_base}\
 "#
     ));
     let path = dest_folder.join("pull_all_for_backup").with_extension("cmd");
-    std::fs::write(&path, pull_script).unwrap();
+    std::fs::write(&path, pull_script).log(pos!())?;
     let path = dest_folder.join("push_all_for_backup").with_extension("cmd");
-    std::fs::write(&path, push_script).unwrap();
+    std::fs::write(&path, push_script).log(pos!())?;
+    Ok(())
 }
 
 #[cfg(test)]
@@ -476,7 +537,7 @@ mod test {
 <p>end</p>
 </html>
 "#;
-        let article = remove_svg_octicon(article).unwrap();
+        let article = remove_svg_octicon(article).expect("test");
         assert_eq!(article, expected);
     }
 
@@ -498,7 +559,7 @@ mod test {
 <p>end</p>
 </html>
 "#;
-        let article = img_src_modify(article).unwrap();
+        let article = img_src_modify(article).expect("test");
         assert_eq!(article, expected);
     }
 }

@@ -2,11 +2,11 @@
   "vec_file_metadata": [
     {
       "filename": "Cargo.toml",
-      "filehash": "896241cd13510fdfff115e6b80b7123e8cf21f9b8f8eaa23236288819bfd859b"
+      "filehash": "e8eaa9efb31d79121e6285a6888a1fd93fab66abcba8dfa859d39dd51ab4cef1"
     },
     {
       "filename": "src/encrypt_decrypt_with_ssh_key_mod/github_api_token_with_oauth2_mod.rs",
-      "filehash": "95ff24c25c979573c4e94b66b5ee25c13073f2c7b9ba631759f2a69d5dd4b98d"
+      "filehash": "c791844ae47b0bf8e293367c6cee48d59d64eaef50cf3f442e51fe2665d3b9a6"
     },
     {
       "filename": "src/encrypt_decrypt_with_ssh_key_mod/encrypt_decrypt_mod.rs",
@@ -18,23 +18,23 @@
     },
     {
       "filename": "src/lib.rs",
-      "filehash": "a7e25aad9b0e79420923eaaa8088f5f4b986c32942563d18223365802c58941b"
+      "filehash": "46f8df2b50c8e4c0c54c4ec599adf77115678f2d03250fda87d3f2c75e3ff579"
     },
     {
       "filename": "src/bin/github_readme_copy/main.rs",
-      "filehash": "baa16617b9602badea205cde50acb80ef7bfefa540be6bbf873cb09d085de462"
+      "filehash": "30b4694fd94141717319742d1ff169c8bd38d7b466430d9afb0551a3a5eb8a19"
     },
     {
       "filename": "src/github_mod.rs",
-      "filehash": "e68880d65d6da3b77a46019f142107f820a1a1bdbd5cde9cf552e1396e247476"
+      "filehash": "bccf67954b1d1ba928e2a8770c2609555e1f194cae06aa71928aeb982fdd1d36"
     },
     {
       "filename": "src/substack_mod.rs",
-      "filehash": "8101223c3c8f94a157dc7145450a820c283bb29fbff3eae15b4bbcd0412dba1b"
+      "filehash": "e94a21eb8159b18a524c87d3af468a0d6f20eeef468b7461c6c424965380fa62"
     },
     {
       "filename": "src/utils_mod.rs",
-      "filehash": "a6f537399820cc20aaad11307a34e2249d5f08eb6079cbc71d40e6e7fa93067e"
+      "filehash": "6f1035d14bcf8e78c2d47a0f8bca1f734a253a7ac5b221c8dac06b71ac702140"
     }
   ]
 }

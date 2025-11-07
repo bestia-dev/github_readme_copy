@@ -9,23 +9,34 @@
 // The `main.rs` uses the `anyhow` error library.
 // The `lib.rs` uses the `thiserror` library.
 
-use github_readme_copy::encrypt_decrypt_with_ssh_key_mod as ende;
+use github_readme_copy::{encrypt_decrypt_with_ssh_key_mod as ende, pos, ResultLogError};
 use github_readme_copy::{GREEN, RED, RESET, YELLOW};
 use secrecy::ExposeSecret;
 
-/// entry point into the bin-executable
-fn main() {
-    // logging is essential for every project
-    pretty_env_logger::init();
+/// The main() function returns ExitCode.
+fn main() -> std::process::ExitCode {
+    match main_returns_anyhow_result() {
+        Err(err) => {
+            eprintln!("{}", err);
+            // eprintln!("Exit program with failure exit code 1");
+            std::process::ExitCode::FAILURE
+        }
+        Ok(()) => std::process::ExitCode::SUCCESS,
+    }
+}
+
+/// The main_returns_anyhow_result() function returns anyhow::Result.
+fn main_returns_anyhow_result() -> anyhow::Result<()> {
+    github_readme_copy::tracing_init()?;
 
     // super simple argument parsing. There are crates that can parse more complex arguments.
     match std::env::args().nth(1).as_deref() {
-        None | Some("--help") | Some("-h") => print_help(),
+        None | Some("--help") | Some("-h") => print_help().log(pos!())?,
         Some("download") => {
             // read from ssh encrypted token
             ende::github_api_token_with_oauth2_mod::github_api_config_initialize();
-            let secret_token = ende::github_api_token_with_oauth2_mod::get_github_secret_token().unwrap();
-            download_readme(secret_token.expose_secret());
+            let secret_token = ende::github_api_token_with_oauth2_mod::get_github_secret_token().log(pos!())?;
+            download_readme(secret_token.expose_secret()).log(pos!())?;
         }
         Some("upload") => match std::env::args().nth(2).as_deref() {
             // second argument
@@ -35,7 +46,7 @@ fn main() {
         },
         Some("substack") => match std::env::args().nth(2).as_deref() {
             // second argument
-            Some(substack_url) => substack_download(substack_url),
+            Some(substack_url) => substack_download(substack_url).log(pos!())?,
             None => println!("{RED}Error: Missing arguments `substack_url`.{RESET}"),
         },
         Some("github_backup_bash_scripts") => {
@@ -47,15 +58,16 @@ Get your personal GitHub token from https://github.com/settings/tokens.
 Before run, store it in local session env variable (put a space before the command, to avoid the bash history):
  export GITHUB_TOKEN=*****{RESET}"
                 ),
-                Ok(token) => github_backup_bash_scripts(&token),
+                Ok(token) => github_backup_bash_scripts(&token).log(pos!())?,
             }
         }
         _ => println!("{RED}Error: Unrecognized arguments. Try `github_readme_copy --help`{RESET}"),
     }
+    Ok(())
 }
 
 /// print help
-fn print_help() {
+fn print_help() -> anyhow::Result<()> {
     println!(
         r#"      
     {YELLOW}Welcome to github_readme_copy
@@ -76,11 +88,13 @@ fn print_help() {
     {YELLOW}© 2025 bestia.dev  MIT License github.com/bestia-dev/github_readme_copy{RESET}
 "#
     );
+    Ok(())
 }
 
 /// download from GitHub using your personal GitHub token inside the env variable
-fn download_readme(token: &str) {
-    github_readme_copy::download_readme(token);
+fn download_readme(token: &str) -> anyhow::Result<()> {
+    github_readme_copy::download_readme(token).log(pos!())?;
+    Ok(())
 }
 
 /// upload over SSH
@@ -90,11 +104,13 @@ fn upload_github_readme_and_substack_articles(upload_url: &str) {
 }
 
 /// download from substack
-fn substack_download(substack_url: &str) {
-    github_readme_copy::substack_download(substack_url);
+fn substack_download(substack_url: &str) -> anyhow::Result<()> {
+    github_readme_copy::substack_download(substack_url).log(pos!())?;
+    Ok(())
 }
 
 /// create bash scripts for GitHub backup using your personal GitHub token inside the env variable
-fn github_backup_bash_scripts(token: &str) {
-    github_readme_copy::github_backup_bash_scripts(token);
+fn github_backup_bash_scripts(token: &str) -> anyhow::Result<()> {
+    github_readme_copy::github_backup_bash_scripts(token).log(pos!())?;
+    Ok(())
 }

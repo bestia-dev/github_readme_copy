@@ -6,32 +6,26 @@
 //! cargo auto update_automation_tasks_rs
 //! If you want to customize it, copy the code into main.rs and modify it there.
 
-use crate::cl;
-use crate::ende;
+use crate::cargo_auto_lib as cl;
+use crate::encrypt_decrypt_with_ssh_key_mod as ende;
 
-use cargo_auto_lib::CargoTomlPublicApiMethods;
+use crate::cargo_auto_lib::CargoTomlPublicApiMethods;
+use crate::generic_functions_mod::pos;
+use crate::generic_functions_mod::ResultLogError;
 #[allow(unused_imports)]
 use cl::{BLUE, GREEN, RED, RESET, YELLOW};
 
 #[allow(dead_code)]
 /// publish to crates.io and git tag
-pub fn task_publish_to_crates_io() -> String {
-    let cargo_toml = cl::CargoToml::read();
+pub fn task_publish_to_crates_io() -> anyhow::Result<(String, String, String)> {
+    let cargo_toml = cl::CargoToml::read().log(pos!())?;
     let package_name = cargo_toml.package_name();
     let version = cargo_toml.package_version();
     // take care of tags
-    let tag_name_version = cl::git_tag_sync_check_create_push(&version);
+    let tag_name_version = cl::git_tag_sync_check_create_push(&version).log(pos!())?;
 
     // cargo publish with encrypted secret secret_token
-    ende::crates_io_api_token_mod::publish_to_crates_io().unwrap();
+    ende::crates_io_api_token_mod::publish_to_crates_io().log(pos!())?;
 
-    println!(
-        r#"
-  {YELLOW}After `cargo auto publish_to_crates_io`, check in browser{RESET}
-{GREEN}https://crates.io/crates/{package_name}{RESET}
-  {YELLOW}Add the dependency to your Rust project and check how it works.{RESET}
-{GREEN}{package_name} = "{version}"{RESET}
-"#
-    );
-    tag_name_version
+    Ok((tag_name_version, package_name, version))
 }

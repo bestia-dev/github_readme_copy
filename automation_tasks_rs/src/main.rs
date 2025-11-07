@@ -3,18 +3,29 @@
 // region: library and modules with basic automation tasks
 
 mod build_cli_bin_mod;
+mod build_cli_bin_musl_mod;
+mod build_cli_bin_win_mod;
 mod build_lib_mod;
+mod build_wasm_mod;
 mod cargo_auto_github_api_mod;
+pub mod cargo_auto_lib;
 mod encrypt_decrypt_with_ssh_key_mod;
+#[macro_use]
 mod generic_functions_mod;
 mod tasks_mod;
 
 pub use cargo_auto_lib as cl;
 
-use crate::cargo_auto_github_api_mod as cgl;
+#[allow(unused_imports)]
+use crossplatform_path::CrossPathBuf;
+
+// use crate::cargo_auto_github_api_mod as cgl;
 use crate::encrypt_decrypt_with_ssh_key_mod as ende;
 use crate::generic_functions_mod as gn;
 use crate::tasks_mod as ts;
+
+// Bring trait for Result into scope.
+use crate::generic_functions_mod::ResultLogError;
 
 pub use cl::{BLUE, GREEN, RED, RESET, YELLOW};
 
@@ -23,56 +34,70 @@ use cl::CargoTomlPublicApiMethods;
 
 // region: library with basic automation tasks
 
-fn main() {
-    std::panic::set_hook(Box::new(gn::panic_set_hook));
-    gn::tracing_init();
+/// The main() function returns ExitCode.
+fn main() -> std::process::ExitCode {
+    match main_returns_anyhow_result() {
+        Err(err) => {
+            eprintln!("{}", err);
+            // eprintln!("Exit program with failure exit code 1");
+            std::process::ExitCode::FAILURE
+        }
+        Ok(()) => std::process::ExitCode::SUCCESS,
+    }
+}
+
+/// The main_returns_anyhow_result() function returns anyhow::Result.
+fn main_returns_anyhow_result() -> anyhow::Result<()> {
+    gn::tracing_init()?;
     cl::exit_if_not_run_in_rust_project_root_directory();
-    ende::github_api_token_with_oauth2_mod::github_api_config_initialize();
-    ende::crates_io_api_token_mod::crates_io_config_initialize();
+    ende::github_api_token_with_oauth2_mod::github_api_config_initialize().log(pos!())?;
+    ende::crates_io_api_token_mod::crates_io_config_initialize().log(pos!())?;
     // get CLI arguments
     let mut args = std::env::args();
     // the zero argument is the name of the program
     let _arg_0 = args.next();
-    match_arguments_and_call_tasks(args);
+    match_arguments_and_call_tasks(args).log(pos!())?;
+    Ok(())
 }
 
 // region: match, help and completion
 
-/// match arguments and call tasks functions
-fn match_arguments_and_call_tasks(mut args: std::env::Args) {
+/// Match arguments and call tasks functions.
+fn match_arguments_and_call_tasks(mut args: std::env::Args) -> anyhow::Result<()> {
     // the first argument is the user defined task: (no argument for help), build, release,...
     let arg_1 = args.next();
     match arg_1 {
-        None => print_help(),
+        None => print_help().log(pos!())?,
         Some(task) => {
             if &task == "completion" {
-                completion();
+                completion().log(pos!())?;
             } else {
                 println!("  {YELLOW}Running automation task: {task}{RESET}");
                 if &task == "build" {
-                    task_build();
+                    task_build().log(pos!())?;
                 } else if &task == "release" {
-                    task_release();
+                    task_release().log(pos!())?;
                 } else if &task == "doc" {
-                    task_doc();
+                    task_doc().log(pos!())?;
                 } else if &task == "test" {
-                    task_test();
+                    task_test().log(pos!())?;
                 } else if &task == "commit_and_push" {
                     let arg_2 = args.next();
-                    task_commit_and_push(arg_2);
+                    task_commit_and_push(arg_2).log(pos!())?;
                 } else if &task == "github_new_release" {
-                    task_github_new_release();
+                    task_github_new_release().log(pos!())?;
                 } else {
                     eprintln!("{RED}Error: Task {task} is unknown.{RESET}");
-                    print_help();
+                    print_help().log(pos!())?;
                 }
             }
         }
     }
+    Ok(())
 }
 
-/// write a comprehensible help for user defined tasks
-fn print_help() {
+/// Write a comprehensible help for user defined tasks.
+fn print_help() -> anyhow::Result<()> {
     println!(
         r#"
   {YELLOW}Welcome to cargo-auto !{RESET}
@@ -103,22 +128,23 @@ fn print_help() {
 "#
     );
     print_examples_cmd();
+    Ok(())
 }
 
-/// all example commands in one place
+/// All example commands in one place.
 fn print_examples_cmd() {
     /*
-            println!(
-                r#"
-      {YELLOW}run examples:{RESET}
+        println!(
+            r#"
+    {YELLOW}run examples:{RESET}
     {GREEN}cargo run --example plantuml1{RESET}
-        "#
-            );
-        */
+    "#
+        );
+    */
 }
 
 /// Sub-command for bash auto-completion of `cargo auto` using the crate `dev_bestia_cargo_completion`.
-fn completion() {
+fn completion() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     let word_being_completed = args[2].as_str();
     let last_word = args[3].as_str();
@@ -142,15 +168,16 @@ fn completion() {
        cl::completion_return_one_or_more_sub_commands(sub_commands, word_being_completed);
     }
     */
+    Ok(())
 }
 
 // endregion: match, help and completion
 
 // region: tasks
 
-/// cargo build
-fn task_build() {
-    let cargo_toml = crate::build_cli_bin_mod::task_build();
+/// Run 'cargo build' and appropriate functions.
+fn task_build() -> anyhow::Result<()> {
+    let cargo_toml = crate::build_cli_bin_mod::task_build().log(pos!())?;
     println!(
     r#"
   {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests{RESET}
@@ -166,11 +193,12 @@ fn task_build() {
         package_name = cargo_toml.package_name(),
     );
     print_examples_cmd();
+    Ok(())
 }
 
-/// cargo build --release
-fn task_release() {
-    let cargo_toml = crate::build_cli_bin_mod::task_release();
+/// Run 'cargo build --release' and appropriate functions.
+fn task_release() -> anyhow::Result<()> {
+    let cargo_toml = crate::build_cli_bin_mod::task_release().log(pos!())?;
 
     println!(
         r#"
@@ -188,11 +216,12 @@ fn task_release() {
         package_name = cargo_toml.package_name(),
     );
     print_examples_cmd();
+    Ok(())
 }
 
-/// cargo doc, then copies to /docs/ folder, because this is a GitHub standard folder
-fn task_doc() {
-    ts::task_doc();
+/// Run 'cargo doc', then copy to /docs/ folder, because this is a GitHub standard folder.
+fn task_doc() -> anyhow::Result<()> {
+    ts::task_doc().log(pos!())?;
     // message to help user with next move
     println!(
         r#"
@@ -204,11 +233,12 @@ fn task_doc() {
 {GREEN}cargo auto test{RESET}
 "#
     );
+    Ok(())
 }
 
-/// cargo test
-fn task_test() {
-    cl::run_shell_command_static("cargo test").unwrap_or_else(|e| panic!("{e}"));
+/// Run 'cargo test'.
+fn task_test() -> anyhow::Result<()> {
+    cl::run_shell_command_static("cargo test").log(pos!())?;
     println!(
         r#"
   {YELLOW}After `cargo auto test`. If ok then {RESET}
@@ -216,26 +246,29 @@ fn task_test() {
 {GREEN}cargo auto commit_and_push "message"{RESET}
 "#
     );
+    Ok(())
 }
 
-/// commit and push
-fn task_commit_and_push(arg_2: Option<String>) {
-    ts::task_commit_and_push(arg_2);
+/// Run 'commit' and 'push'. Separate docs and other updates.
+fn task_commit_and_push(arg_2: Option<String>) -> anyhow::Result<()> {
+    ts::task_commit_and_push(arg_2).log(pos!())?;
     println!(
         r#"
   {YELLOW}After `cargo auto commit_and_push "message"`{RESET}
 {GREEN}cargo auto github_new_release{RESET}
 "#
     );
+    Ok(())
 }
 
-/// create a new release on github and uploads binary executables
-fn task_github_new_release() {
-    ts::task_github_new_release();
+/// Create a new release on github and uploads binary executables.
+fn task_github_new_release() -> anyhow::Result<()> {
+    ts::task_github_new_release().log(pos!())?;
     println!(
         r#"
   {YELLOW}No more automation tasks. {RESET}
 "#
     );
+    Ok(())
 }
 // endregion: tasks

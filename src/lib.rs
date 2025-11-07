@@ -49,3 +49,6 @@ pub const GREEN: &str = "\x1b[32m";
 pub const BLUE: &str = "\x1b[44m";
 #[allow(dead_code)]
 pub const RESET: &str = "\x1b[0m";
+
+pub use utils_mod::tracing_init;
+pub use utils_mod::ResultLogError;

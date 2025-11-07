@@ -10,6 +10,8 @@ The TODO section is part of the [README.md](https://github.com/bestia-dev/github
 
 ## Unreleased
 
+- error handling and tracing
+
 ## Version 1.0.149 (2025-03-31)
 
 - clippy

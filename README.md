@@ -6,18 +6,18 @@
 [//]: # (auto_cargo_toml_to_md start)
 
 **Copy my public README.md files from GitHub in HTML format**  
-***version: 1.0.149 date: 2025-03-31 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/github_readme_copy)***
+***version: 1.0.204 date: 2025-11-07 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/github_readme_copy)***
 
  ![Rust](https://img.shields.io/badge/Rust-orange)
  ![maintained](https://img.shields.io/badge/maintained-green)
- ![ready_for_use](https://img.shields.io/badge/ready_for_use-green)
- 
+ ![ready-for-use](https://img.shields.io/badge/ready_for_use-green)
+
 [//]: # (auto_cargo_toml_to_md end)
 
 [//]: # (auto_lines_of_code start)
-[![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-765-green.svg)](https://github.com/bestia-dev/github_readme_copy/)
-[![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-30-blue.svg)](https://github.com/bestia-dev/github_readme_copy/)
-[![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-94-purple.svg)](https://github.com/bestia-dev/github_readme_copy/)
+[![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-1556-green.svg)](https://github.com/bestia-dev/github_readme_copy/)
+[![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-202-blue.svg)](https://github.com/bestia-dev/github_readme_copy/)
+[![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-189-purple.svg)](https://github.com/bestia-dev/github_readme_copy/)
 [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)](https://github.com/bestia-dev/github_readme_copy/)
 [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-50-orange.svg)](https://github.com/bestia-dev/github_readme_copy/)
 
