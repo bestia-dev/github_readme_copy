@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["find_from","find_pos_end_data_before_delimiter","find_pos_start_data_after_delimiter"]};
+window.SIDEBAR_ITEMS = {"fn":["find_from","find_pos_end_data_before_delimiter","find_pos_start_data_after_delimiter","tracing_init"],"trait":["ResultLogError"]};
