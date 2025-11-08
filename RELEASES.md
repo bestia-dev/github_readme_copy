@@ -10,6 +10,8 @@ The TODO section is part of the [README.md](https://github.com/bestia-dev/github
 
 ## Unreleased
 
+- update dependencies
+
 ## Version 1.0.204 (2025-11-07)
 
 - error handling and tracing

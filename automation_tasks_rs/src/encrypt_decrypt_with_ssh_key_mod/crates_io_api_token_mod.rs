@@ -45,7 +45,7 @@
 
 use crate::{
     cargo_auto_lib::ShellCommandLimitedDoubleQuotesSanitizerTrait,
-    generic_functions_mod::{pos, ResultLogError},
+    utils_mod::{pos, ResultLogError},
 };
 use anyhow::Context;
 use crossplatform_path::CrossPathBuf;

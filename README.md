@@ -6,7 +6,7 @@
 [//]: # (auto_cargo_toml_to_md start)
 
 **Copy my public README.md files from GitHub in HTML format**  
-***version: 1.0.204 date: 2025-11-07 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/github_readme_copy)***
+***version: 1.0.205 date: 2025-11-08 author: [bestia.dev](https://bestia.dev) repository: [GitHub](https://github.com/bestia-dev/github_readme_copy)***
 
  ![Rust](https://img.shields.io/badge/Rust-orange)
  ![maintained](https://img.shields.io/badge/maintained-green)

@@ -2,7 +2,7 @@
   "vec_file_metadata": [
     {
       "filename": "Cargo.toml",
-      "filehash": "e8eaa9efb31d79121e6285a6888a1fd93fab66abcba8dfa859d39dd51ab4cef1"
+      "filehash": "92d5f34b7810b35dcf44a2ce24e79a68037caf97bb6b822dfc5561230c26bd37"
     },
     {
       "filename": "src/encrypt_decrypt_with_ssh_key_mod/github_api_token_with_oauth2_mod.rs",

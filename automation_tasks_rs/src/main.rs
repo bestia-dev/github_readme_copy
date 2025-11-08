@@ -11,7 +11,7 @@ mod cargo_auto_github_api_mod;
 pub mod cargo_auto_lib;
 mod encrypt_decrypt_with_ssh_key_mod;
 #[macro_use]
-mod generic_functions_mod;
+mod utils_mod;
 mod tasks_mod;
 
 pub use cargo_auto_lib as cl;
@@ -21,11 +21,11 @@ use crossplatform_path::CrossPathBuf;
 
 // use crate::cargo_auto_github_api_mod as cgl;
 use crate::encrypt_decrypt_with_ssh_key_mod as ende;
-use crate::generic_functions_mod as gn;
+use crate::utils_mod as gn;
 use crate::tasks_mod as ts;
 
 // Bring trait for Result into scope.
-use crate::generic_functions_mod::ResultLogError;
+use crate::utils_mod::ResultLogError;
 
 pub use cl::{BLUE, GREEN, RED, RESET, YELLOW};
 
@@ -179,7 +179,7 @@ fn completion() -> anyhow::Result<()> {
 fn task_build() -> anyhow::Result<()> {
     let cargo_toml = crate::build_cli_bin_mod::task_build().log(pos!())?;
     println!(
-    r#"
+        r#"
   {YELLOW}After `cargo auto build`, run the compiled binary, examples and/or tests{RESET}
   {GREEN}alias {package_name}=target/debug/{package_name}{RESET}
 {GREEN}{package_name}{RESET}
@@ -187,7 +187,7 @@ fn task_build() -> anyhow::Result<()> {
 {GREEN}{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev/{RESET}
 {GREEN}{package_name} substack bestiadev.substack.com{RESET}
 {GREEN}{package_name} github_backup_bash_scripts{RESET}
-  {YELLOW}If ok then run{RESET}
+  {YELLOW}If {package_name} ok then{RESET}
 {GREEN}cargo auto release{RESET}
 "#,
         package_name = cargo_toml.package_name(),
@@ -210,7 +210,7 @@ fn task_release() -> anyhow::Result<()> {
 {GREEN}{package_name} upload luciano_bestia@bestia.dev:/var/www/bestia.dev{RESET}
 {GREEN}{package_name} substack bestiadev.substack.com{RESET}
 {GREEN}{package_name} github_backup_bash_scripts{RESET}
-  {YELLOW}If ok then run{RESET}
+  {YELLOW}If {package_name} ok then{RESET}
 {GREEN}cargo auto doc{RESET}
 "#,
         package_name = cargo_toml.package_name(),
