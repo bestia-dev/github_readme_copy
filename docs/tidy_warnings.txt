@@ -131,18 +131,18 @@ line 1 column 5957 - Warning: discarding unexpected </rustdoc-search>
 line 1 column 6400 - Error: <rustdoc-toolbar> is not recognized! Did you mean to enable the custom-tags option?
 line 1 column 6400 - Warning: discarding unexpected <rustdoc-toolbar>
 line 1 column 6417 - Warning: discarding unexpected </rustdoc-toolbar>
-line 9 column 4265 - Warning: <div> isn't allowed in <h4> elements
-line 10 column 163 - Warning: discarding unexpected </div>
-line 10 column 2141 - Warning: <div> isn't allowed in <h4> elements
-line 11 column 148 - Warning: discarding unexpected </div>
-line 11 column 4431 - Warning: <div> isn't allowed in <h3> elements
+line 9 column 4305 - Warning: <div> isn't allowed in <h4> elements
+line 10 column 178 - Warning: discarding unexpected </div>
+line 10 column 2221 - Warning: <div> isn't allowed in <h4> elements
+line 11 column 163 - Warning: discarding unexpected </div>
+line 11 column 4456 - Warning: <div> isn't allowed in <h3> elements
 line 12 column 149 - Warning: discarding unexpected </div>
 line 12 column 1413 - Warning: <div> isn't allowed in <h3> elements
 line 13 column 139 - Warning: discarding unexpected </div>
 line 13 column 1387 - Warning: <div> isn't allowed in <h3> elements
 line 14 column 139 - Warning: discarding unexpected </div>
 line 15 column 248 - Warning: <div> isn't allowed in <h3> elements
-line 16 column 162 - Warning: discarding unexpected </div>
+line 16 column 177 - Warning: discarding unexpected </div>
 line 18 column 728 - Warning: <div> isn't allowed in <h4> elements
 line 20 column 21 - Warning: discarding unexpected </div>
 line 22 column 537 - Warning: <div> isn't allowed in <h3> elements
@@ -163,9 +163,9 @@ line 42 column 2296 - Warning: <div> isn't allowed in <h3> elements
 line 43 column 27 - Warning: discarding unexpected </div>
 line 43 column 831 - Warning: <div> isn't allowed in <h4> elements
 line 44 column 153 - Warning: discarding unexpected </div>
-line 46 column 498 - Warning: <div> isn't allowed in <h3> elements
-line 47 column 173 - Warning: discarding unexpected </div>
-line 47 column 368 - Warning: <div> isn't allowed in <h3> elements
+line 46 column 523 - Warning: <div> isn't allowed in <h3> elements
+line 47 column 188 - Warning: discarding unexpected </div>
+line 47 column 383 - Warning: <div> isn't allowed in <h3> elements
 line 48 column 16 - Warning: discarding unexpected </div>
 line 1 column 2011 - Warning: trimming empty <button>
 This document has errors that must be fixed before
@@ -392,18 +392,18 @@ line 1 column 5596 - Warning: discarding unexpected </rustdoc-search>
 line 1 column 6042 - Error: <rustdoc-toolbar> is not recognized! Did you mean to enable the custom-tags option?
 line 1 column 6042 - Warning: discarding unexpected <rustdoc-toolbar>
 line 1 column 6059 - Warning: discarding unexpected </rustdoc-toolbar>
-line 5 column 2860 - Warning: <div> isn't allowed in <h4> elements
-line 6 column 163 - Warning: discarding unexpected </div>
-line 6 column 2130 - Warning: <div> isn't allowed in <h4> elements
-line 7 column 148 - Warning: discarding unexpected </div>
-line 7 column 4209 - Warning: <div> isn't allowed in <h3> elements
+line 5 column 2900 - Warning: <div> isn't allowed in <h4> elements
+line 6 column 178 - Warning: discarding unexpected </div>
+line 6 column 2210 - Warning: <div> isn't allowed in <h4> elements
+line 7 column 163 - Warning: discarding unexpected </div>
+line 7 column 4234 - Warning: <div> isn't allowed in <h3> elements
 line 8 column 149 - Warning: discarding unexpected </div>
 line 8 column 1413 - Warning: <div> isn't allowed in <h3> elements
 line 9 column 139 - Warning: discarding unexpected </div>
 line 9 column 1387 - Warning: <div> isn't allowed in <h3> elements
 line 10 column 139 - Warning: discarding unexpected </div>
 line 11 column 248 - Warning: <div> isn't allowed in <h3> elements
-line 12 column 162 - Warning: discarding unexpected </div>
+line 12 column 177 - Warning: discarding unexpected </div>
 line 14 column 728 - Warning: <div> isn't allowed in <h4> elements
 line 16 column 21 - Warning: discarding unexpected </div>
 line 18 column 537 - Warning: <div> isn't allowed in <h3> elements
@@ -424,9 +424,9 @@ line 38 column 2296 - Warning: <div> isn't allowed in <h3> elements
 line 39 column 27 - Warning: discarding unexpected </div>
 line 39 column 831 - Warning: <div> isn't allowed in <h4> elements
 line 40 column 153 - Warning: discarding unexpected </div>
-line 42 column 498 - Warning: <div> isn't allowed in <h3> elements
-line 43 column 173 - Warning: discarding unexpected </div>
-line 43 column 368 - Warning: <div> isn't allowed in <h3> elements
+line 42 column 523 - Warning: <div> isn't allowed in <h3> elements
+line 43 column 188 - Warning: discarding unexpected </div>
+line 43 column 383 - Warning: <div> isn't allowed in <h3> elements
 line 44 column 16 - Warning: discarding unexpected </div>
 line 1 column 2037 - Warning: trimming empty <button>
 This document has errors that must be fixed before
@@ -493,10 +493,10 @@ line 1 column 6079 - Warning: discarding unexpected </rustdoc-search>
 line 1 column 6535 - Error: <rustdoc-toolbar> is not recognized! Did you mean to enable the custom-tags option?
 line 1 column 6535 - Warning: discarding unexpected <rustdoc-toolbar>
 line 1 column 6552 - Warning: discarding unexpected </rustdoc-toolbar>
-line 8 column 3676 - Warning: <div> isn't allowed in <h4> elements
-line 9 column 163 - Warning: discarding unexpected </div>
-line 9 column 3626 - Warning: <div> isn't allowed in <h4> elements
-line 10 column 148 - Warning: discarding unexpected </div>
+line 8 column 3716 - Warning: <div> isn't allowed in <h4> elements
+line 9 column 178 - Warning: discarding unexpected </div>
+line 9 column 3706 - Warning: <div> isn't allowed in <h4> elements
+line 10 column 163 - Warning: discarding unexpected </div>
 line 11 column 4214 - Warning: <div> isn't allowed in <h3> elements
 line 12 column 149 - Warning: discarding unexpected </div>
 line 12 column 1413 - Warning: <div> isn't allowed in <h3> elements
@@ -504,7 +504,7 @@ line 13 column 139 - Warning: discarding unexpected </div>
 line 13 column 1387 - Warning: <div> isn't allowed in <h3> elements
 line 14 column 139 - Warning: discarding unexpected </div>
 line 15 column 248 - Warning: <div> isn't allowed in <h3> elements
-line 16 column 162 - Warning: discarding unexpected </div>
+line 16 column 177 - Warning: discarding unexpected </div>
 line 18 column 728 - Warning: <div> isn't allowed in <h4> elements
 line 20 column 21 - Warning: discarding unexpected </div>
 line 22 column 537 - Warning: <div> isn't allowed in <h3> elements
@@ -525,9 +525,9 @@ line 42 column 2296 - Warning: <div> isn't allowed in <h3> elements
 line 43 column 27 - Warning: discarding unexpected </div>
 line 43 column 831 - Warning: <div> isn't allowed in <h4> elements
 line 44 column 153 - Warning: discarding unexpected </div>
-line 46 column 498 - Warning: <div> isn't allowed in <h3> elements
-line 47 column 173 - Warning: discarding unexpected </div>
-line 47 column 368 - Warning: <div> isn't allowed in <h3> elements
+line 46 column 523 - Warning: <div> isn't allowed in <h3> elements
+line 47 column 188 - Warning: discarding unexpected </div>
+line 47 column 383 - Warning: <div> isn't allowed in <h3> elements
 line 48 column 16 - Warning: discarding unexpected </div>
 line 1 column 2057 - Warning: trimming empty <button>
 This document has errors that must be fixed before
@@ -698,16 +698,16 @@ line 1 column 5303 - Warning: discarding unexpected </rustdoc-search>
 line 1 column 5659 - Error: <rustdoc-toolbar> is not recognized! Did you mean to enable the custom-tags option?
 line 1 column 5659 - Warning: discarding unexpected <rustdoc-toolbar>
 line 1 column 5676 - Warning: discarding unexpected </rustdoc-toolbar>
-line 5 column 4109 - Warning: <div> isn't allowed in <h4> elements
-line 6 column 163 - Warning: discarding unexpected </div>
-line 6 column 3907 - Warning: <div> isn't allowed in <h3> elements
+line 5 column 4149 - Warning: <div> isn't allowed in <h4> elements
+line 6 column 178 - Warning: discarding unexpected </div>
+line 6 column 3932 - Warning: <div> isn't allowed in <h3> elements
 line 7 column 149 - Warning: discarding unexpected </div>
 line 7 column 1413 - Warning: <div> isn't allowed in <h3> elements
 line 8 column 139 - Warning: discarding unexpected </div>
 line 8 column 1387 - Warning: <div> isn't allowed in <h3> elements
 line 9 column 139 - Warning: discarding unexpected </div>
 line 10 column 248 - Warning: <div> isn't allowed in <h3> elements
-line 11 column 162 - Warning: discarding unexpected </div>
+line 11 column 177 - Warning: discarding unexpected </div>
 line 13 column 728 - Warning: <div> isn't allowed in <h4> elements
 line 15 column 21 - Warning: discarding unexpected </div>
 line 17 column 537 - Warning: <div> isn't allowed in <h3> elements
@@ -728,9 +728,9 @@ line 37 column 2296 - Warning: <div> isn't allowed in <h3> elements
 line 38 column 27 - Warning: discarding unexpected </div>
 line 38 column 831 - Warning: <div> isn't allowed in <h4> elements
 line 39 column 153 - Warning: discarding unexpected </div>
-line 41 column 498 - Warning: <div> isn't allowed in <h3> elements
-line 42 column 173 - Warning: discarding unexpected </div>
-line 42 column 368 - Warning: <div> isn't allowed in <h3> elements
+line 41 column 523 - Warning: <div> isn't allowed in <h3> elements
+line 42 column 188 - Warning: discarding unexpected </div>
+line 42 column 383 - Warning: <div> isn't allowed in <h3> elements
 line 43 column 16 - Warning: discarding unexpected </div>
 line 1 column 1953 - Warning: trimming empty <button>
 This document has errors that must be fixed before
